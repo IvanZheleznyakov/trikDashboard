@@ -4,7 +4,8 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    Daemon daemon;
+    QString configPath = "config.xml";
+    Daemon daemon(a.thread(), configPath);
 
     return a.exec();
 }

@@ -4,6 +4,9 @@
 #
 #-------------------------------------------------
 
+TRIKCONTROL_BINDIR = ../../trikRuntime/bin/x86-debug/
+TRIKCONTROL_DIR = ../../trikRuntime/trikControl
+
 QT       += core
 QT       += network
 QT       -= gui
@@ -14,11 +17,20 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+INCLUDEPATH = \
+        $$TRIKCONTROL_DIR/include \
+
+LIBS += -L$$TRIKCONTROL_BINDIR -ltrikControl-x86-d
+
+!macx {
+        QMAKE_LFLAGS += -Wl,-O1,-rpath,.
+}
 
 SOURCES += main.cpp \
     daemon.cpp \
-    tcpcommunicator.cpp
-
+    tcpcommunicator.cpp \
+    observer.cpp
 HEADERS += \
     daemon.h \
-    tcpcommunicator.h
+    tcpcommunicator.h \
+    observer.h

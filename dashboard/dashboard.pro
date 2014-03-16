@@ -15,7 +15,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         dashboard.cpp \
-    tcpcommunicator.cpp
+    tcpcommunicator.cpp \
+    controlpanel.cpp
 
 HEADERS  += dashboard.h \
-    tcpcommunicator.h
+    tcpcommunicator.h \
+    controlpanel.h

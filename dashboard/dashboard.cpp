@@ -1,7 +1,6 @@
 #include "dashboard.h"
 
-Dashboard::Dashboard(QWidget *parent)
-    : QWidget(parent)
+Dashboard::Dashboard()
 {
     connect(&tcpCommunicator, SIGNAL(recieveMessage(QString)), this, SLOT(parseMessage(QString)));
     tcpCommunicator.setIP("192.168.1.37");
@@ -11,6 +10,8 @@ Dashboard::Dashboard(QWidget *parent)
     tcpCommunicator.send("Daemon");
     tcpCommunicator.send("from Dashboard");
 
+    panel.show();
+    connect(&panel, SIGNAL(readyCommand(QString)), this, SLOT(sendCommand(QString)));
 }
 
 Dashboard::~Dashboard()
@@ -20,5 +21,10 @@ Dashboard::~Dashboard()
 
 void Dashboard::parseMessage(QString message)
 {
-    qDebug()<<message;
+    qDebug() << message;
+}
+
+void Dashboard::sendCommand(QString command)
+{
+    tcpCommunicator.send(command);
 }

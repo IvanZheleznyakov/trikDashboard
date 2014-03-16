@@ -1,19 +1,21 @@
 #pragma once
 
-#include <QWidget>
+#include <QObject>
 #include "tcpcommunicator.h"
+#include "controlpanel.h"
 
-class Dashboard : public QWidget
+class Dashboard : public QObject
 {
     Q_OBJECT
 
 public:
-    Dashboard(QWidget *parent = 0);
+    Dashboard();
     ~Dashboard();
 private slots:
     void parseMessage(QString message);
+    void sendCommand(QString command);
 
 private:
     TcpCommunicator tcpCommunicator;
-
+    ControlPanel panel;
 };

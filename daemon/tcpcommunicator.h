@@ -13,6 +13,7 @@ public:
 
 signals:
     void newConnection();
+    void lostConnection();
     void recieveMessage(QString);
 
 public slots:
@@ -20,6 +21,7 @@ public slots:
 
 private slots:
     void setConnection();
+    void abortConnection();
     void read();
 
 private:

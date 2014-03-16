@@ -25,11 +25,19 @@ void TcpCommunicator::setPort(int numPort)
 void TcpCommunicator::setConnection()
 {
     socket = server->nextPendingConnection();
+    //TODO Low Delay
 
     blockSize = 0;
     connect(socket, SIGNAL(readyRead()), this, SLOT(read()));
-    connect(socket, SIGNAL(disconnected()), socket, SLOT(deleteLater()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(abortConnection()));
     emit newConnection();
+}
+
+void TcpCommunicator::abortConnection()
+{
+    socket->disconnectFromHost();
+    delete(socket);
+    emit lostConnection();
 }
 
 void TcpCommunicator::send(QString message)
