@@ -16,3 +16,8 @@ void ControlPanel::pushCommandButton()
     emit readyCommand(lineEdit.text());
     lineEdit.setText("");
 }
+
+void ControlPanel::setLabelText(QString text)
+{
+    labelMessage.setText(text);
+}

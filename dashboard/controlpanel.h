@@ -11,6 +11,7 @@ class ControlPanel : public QWidget
     Q_OBJECT
 public:
     explicit ControlPanel();
+    void setLabelText(QString text);
 
 signals:
     void readyCommand(QString);

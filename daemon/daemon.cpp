@@ -3,6 +3,7 @@
 
 Daemon::Daemon(QThread *guiThread, QString configPath)/* :
     brick(*guiThread, configPath)*/
+
 {
     updatePeriod = 1000;
 
@@ -12,17 +13,16 @@ Daemon::Daemon(QThread *guiThread, QString configPath)/* :
     connect(&tcpCommunicator, SIGNAL(recieveMessage(QString)), this, SLOT(parseMessage(QString)));
     connect(&tcpCommunicator, SIGNAL(lostConnection()), this, SLOT(closeTelemetry()));
 
-    GyroObserver gyroObserver(gyroName,/*&brick, */this);
-    AccelObserver accelObserver(accelName,/*&brick, */this);
+    gyroObserver = new GyroObserver(gyroName,/*&brick, */this);
+    accelObserver = new AccelObserver(accelName,/*&brick, */this);
 
     for (int i = 0; i < observers.size(); i++)
         qDebug() << observers[i]->getName();
-
-    notify();
 }
 
 void Daemon::closeTelemetry()
 {
+    qDebug() << "TELEMETRY CLOSED";
     timer.stop();
     disconnect(&timer, SIGNAL(timeout()), this, SLOT(zipPackage()));
     for (int i = 0; i < observers.size(); i++)
@@ -42,43 +42,43 @@ void Daemon::attach(Observer *obs)
 
 void Daemon::startTelemetry()
 {
-//    tcpCommunicator.send("Hi,");
-//    tcpCommunicator.send("Dashboard");
-//    tcpCommunicator.send("from Daemon");
+    tcpCommunicator.send("Hi,Dashboard,from Daemon");
 
     timer.stop();
     connect(&timer, SIGNAL(timeout()), this, SLOT(zipPackage()));
     timer.start(updatePeriod);
+
 }
 
 void Daemon::zipPackage()
 {
-//    QString package;
-//    qDebug() << "zipping";
-//    notify();
-/*
+    QString package;
+    notify();
+
     for (int i = 0; i < observers.size(); i++)
     {
-        if (observers[i]->subsribed())
+        if (observers[i]->subscribed())
         {
             QVector<int> data = observers[i]->getValue();
             QString dataString;
             for (int j = 0; j < data.size() - 1; j++)
-                dataString += QString(data[j]) + ",";
-            dataString += QString(data[data.size() - 1]) + ";";
+                dataString += QString::number(data[j]) + ",";
+            dataString += QString::number(data[data.size() - 1]) + ";";
             QString obsMessage = observers[i]->getName() + ":" + dataString;
-            qDebug() << obsMessage;
             package += obsMessage;
         }
     }
     if (package.size() > 0)
-        qDebug() << package;
-*/
+    {
+        qDebug() << package ;
+        tcpCommunicator.send(package);
+    }
+
 }
 
 void Daemon::parseMessage(QString message)
 {
-//    qDebug() << message;
+    qDebug() << message;
     QStringList list = message.split(":", QString::SkipEmptyParts);
 //    qDebug() << list.at(0).trimmed();
 //    qDebug() << list.at(1).trimmed();

@@ -13,6 +13,8 @@ QString const gyroName = "gyroscope";
 //using namespace trikControl;
 
 class Observer;
+class GyroObserver;
+class AccelObserver;
 
 class Daemon : public QObject
 {
@@ -36,6 +38,10 @@ private:
 //    Brick brick;
     TcpCommunicator tcpCommunicator;
     QVector<Observer *> observers;
+    GyroObserver *gyroObserver;
+    AccelObserver *accelObserver;
+
     QTimer timer;
+
     int updatePeriod;
 };

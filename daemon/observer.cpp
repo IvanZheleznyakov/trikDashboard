@@ -10,27 +10,23 @@ Observer::Observer(QString devName, Daemon* daemon)
 
 void GyroObserver::update()
 {
-    qDebug() << "gyro update";
-/*
     if (!canRead)
     {
-        qDebug() << "gyro unsubscribed";
         return;
     }
-    qDebug() << "GYRO UPDATE";
-*/
+    QVector<int> temp;
+    temp << qrand() << qrand() << qrand();
+    value = temp;
 }
 
 void AccelObserver::update()
 {
-    qDebug() << "accel update";
-/*
     if (!canRead)
     {
-        qDebug() << "accel unsubscribed";
         return;
     }
-    qDebug() << "ACCEL UPDATE";
-*/
+    QVector<int> temp;
+    temp << qrand() << qrand() << qrand();
+    value = temp;
 }
 

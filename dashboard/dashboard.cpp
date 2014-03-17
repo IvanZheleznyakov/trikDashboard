@@ -6,9 +6,7 @@ Dashboard::Dashboard()
     tcpCommunicator.setIP("192.168.1.37");
     tcpCommunicator.setPort(1221);
     tcpCommunicator.connectToHost();
-    tcpCommunicator.send("Hi,");
-    tcpCommunicator.send("Daemon");
-    tcpCommunicator.send("from Dashboard");
+    tcpCommunicator.send("Hi,Daemon, from Dashboard");
 
     panel.show();
     connect(&panel, SIGNAL(readyCommand(QString)), this, SLOT(sendCommand(QString)));
@@ -21,7 +19,8 @@ Dashboard::~Dashboard()
 
 void Dashboard::parseMessage(QString message)
 {
-    qDebug() << message;
+//    qDebug() << message;
+    panel.setLabelText(message);
 }
 
 void Dashboard::sendCommand(QString command)
