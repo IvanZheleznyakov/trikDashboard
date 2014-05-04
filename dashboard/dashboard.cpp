@@ -3,27 +3,37 @@
 Dashboard::Dashboard()
 {
     connect(&tcpCommunicator, SIGNAL(recieveMessage(QString)), this, SLOT(parseMessage(QString)));
-    tcpCommunicator.setIP("192.168.1.37");
-    tcpCommunicator.setPort(1221);
-    tcpCommunicator.connectToHost();
-    tcpCommunicator.send("Hi,Daemon, from Dashboard");
-
+    connect(&panel, SIGNAL(setConnection(QString,int)), this, SLOT( connectToTRIK(QString,int)) );
+    panel.resize(800, 600);
     panel.show();
-    connect(&panel, SIGNAL(readyCommand(QString)), this, SLOT(sendCommand(QString)));
+
+    //connect(&panel, SIGNAL(readyCommand(QString)), this, SLOT(sendCommand(QString)));
 }
 
-Dashboard::~Dashboard()
+void Dashboard::connectToTRIK(QString ip, int port)
 {
+    tcpCommunicator.setIP(ip.toLatin1());
+    tcpCommunicator.setPort(port);
+    tcpCommunicator.connectToHost();
+    if (tcpCommunicator.connectedState()!= QTcpSocket::ConnectedState)
+    {
+        panel.setStatusBarText("Connected to TRIK");
+        tcpCommunicator.send("Hi,Daemon, from Dashboard");
+    } else
+    {
+        panel.setStatusBarText("Try to connect again");
+    }
 
 }
 
 void Dashboard::parseMessage(QString message)
 {
 //    qDebug() << message;
-    panel.setLabelText(message);
+    //panel.setLabelText(message);
 }
 
 void Dashboard::sendCommand(QString command)
 {
     tcpCommunicator.send(command);
 }
+

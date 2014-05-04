@@ -20,6 +20,11 @@ void TcpCommunicator::setPort(int numPort)
     port = numPort;
 }
 
+int TcpCommunicator::connectedState()
+{
+    return socket->ConnectedState;
+}
+
 void TcpCommunicator::connectToHost()
 {
     blockSize = 0;

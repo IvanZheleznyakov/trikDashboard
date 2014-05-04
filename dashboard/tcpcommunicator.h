@@ -10,6 +10,7 @@ public:
     void setPort(int port);
     void setIP(QString ip);
     void connectToHost();
+    int connectedState();
 
 signals:
     void recieveMessage(QString);

@@ -10,8 +10,9 @@ class Dashboard : public QObject
 
 public:
     Dashboard();
-    ~Dashboard();
+
 private slots:
+    void connectToTRIK(QString ip, int port);
     void parseMessage(QString message);
     void sendCommand(QString command);
 
