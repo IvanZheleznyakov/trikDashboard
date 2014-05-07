@@ -1,23 +1,67 @@
 #include "controlpanel.h"
+#include "toolbar.h"
 
-ControlPanel::ControlPanel()
+#include <QAction>
+#include <QMenu>
+#include <QStatusBar>
+#include <QApplication>
+#include <qdebug.h>
+#include <QTextEdit>
+
+Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
+
+ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
+    : QMainWindow(parent, flags)
 {
-    layout.addWidget(&labelMessage, 0, 0);
-    layout.addWidget(&lineEdit, 1, 0);
-    layout.addWidget(&sendButton, 1, 1);
-    setLayout(&layout);
+    setObjectName("MainWindow");
+    setWindowTitle("TRIK Telemetry Dashboard");
+    toolBar = new ToolBar("Tool Bar", this);
+    connect(toolBar, SIGNAL(setConnection(QString,int)), this, SIGNAL(setConnection(QString, int)));
+    addToolBar(Qt::LeftToolBarArea, toolBar);
 
-    sendButton.setText("command");
-    connect(&sendButton, SIGNAL(clicked()), this, SLOT(pushCommandButton()));
+    setStatusBarText("Ready");
+
+    DockOptions opts;
+    opts |= AllowNestedDocks;
+    opts |= AnimatedDocks;
+    QMainWindow::setDockOptions(opts);
+
+    connect(toolBar->accelAction, SIGNAL(triggered()), this, SLOT(createDockWidget()));
+
 }
 
-void ControlPanel::pushCommandButton()
+void ControlPanel::setStatusBarText(const QString text)
 {
-    emit readyCommand(lineEdit.text());
-    lineEdit.setText("");
+    statusBar()->showMessage(text.trimmed().toLatin1());
 }
 
-void ControlPanel::setLabelText(QString text)
+void ControlPanel::showEvent(QShowEvent *event)
 {
-    labelMessage.setText(text);
+    QMainWindow::showEvent(event);
+}
+
+void ControlPanel::createDockWidget()
+{
+    QDockWidget *dw = new QDockWidget();
+    QAction* action = (QAction*)sender();
+    dw->setObjectName(action->text());
+    dw->setFeatures(dw->features() | QDockWidget::DockWidgetClosable);
+    dw->setFeatures(dw->features() | QDockWidget::DockWidgetMovable);
+    dw->setFeatures(dw->features() | QDockWidget::DockWidgetFloatable);
+    dw->setAllowedAreas(Qt::AllDockWidgetAreas);
+    dw->setWindowTitle(action->text());
+    dw->setWidget(new QTextEdit);
+
+    addDockWidget(Qt::TopDockWidgetArea, dw);
+    //connect(dw->closeEvent(), SIGNAL(triggered(bool)) , this, SLOT(destroyDockWidget()));
+    widgets.append(dw);
+}
+
+void ControlPanel::destroyDockWidget()
+{
+ //   int index = destroyDockWidgetMenu->actions().indexOf(action);
+  //  delete widgets.takeAt(index);
+    //QDockWidget *dw = (QDockWidget*) sender();
+    //action->deleteLater();
+    qDebug()<<"delete";
 }

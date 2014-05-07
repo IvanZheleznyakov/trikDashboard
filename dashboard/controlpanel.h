@@ -1,27 +1,30 @@
 #pragma once
 
-#include <QWidget>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QGridLayout>
-#include <QLabel>
+#include <QMainWindow>
+#include <QDockWidget>
 
-class ControlPanel : public QWidget
+class ToolBar;
+class ControlPanel : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit ControlPanel();
-    void setLabelText(QString text);
+    ControlPanel(QWidget *parent = 0, Qt::WindowFlags flags = 0);
 
 signals:
-    void readyCommand(QString);
+    void setConnection(QString ip, int port);
 
-private slots:
-    void pushCommandButton();
+public slots:
+    void setStatusBarText(const QString text);
+
+protected:
+    void showEvent(QShowEvent *event);
+
+public slots:
+    void createDockWidget();
+    void destroyDockWidget();
 
 private:
-    QLabel labelMessage;
-    QLineEdit lineEdit;
-    QPushButton sendButton;
-    QGridLayout layout;
+    ToolBar *toolBar;
+    QList<QDockWidget*> widgets;
+
 };
