@@ -4,13 +4,24 @@
 #
 #-------------------------------------------------
 
+
+WIDGETSLIB_BINDIR = ../widgetsLib/debug/
+WIDGETSLIB_DIR = ../widgetsLib/
+
+
 QT       += core gui
 QT       += network
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = dashboard
 TEMPLATE = app
+
+INCLUDEPATH = \
+        $$WIDGETSLIB_DIR \
+
+LIBS += -L$$TRIKCONTROL_BINDIR -lwidgetsLib
 
 
 SOURCES += main.cpp\

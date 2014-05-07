@@ -15,6 +15,7 @@ void Dashboard::connectToTRIK(QString ip, int port)
     tcpCommunicator.setIP(ip.toLatin1());
     tcpCommunicator.setPort(port);
     tcpCommunicator.connectToHost();
+
     if (tcpCommunicator.connectedState()!= QTcpSocket::ConnectedState)
     {
         panel.setStatusBarText("Connected to TRIK");

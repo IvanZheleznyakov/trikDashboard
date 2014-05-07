@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 #include <QDockWidget>
+#include <dashboardwidget.h>
+#include <customplotwidget.h>
 
 class ToolBar;
 class ControlPanel : public QMainWindow

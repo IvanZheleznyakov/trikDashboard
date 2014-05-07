@@ -51,6 +51,7 @@ void ControlPanel::createDockWidget()
     dw->setAllowedAreas(Qt::AllDockWidgetAreas);
     dw->setWindowTitle(action->text());
     dw->setWidget(new QTextEdit);
+    //dw->setWidget(new CustomPlotWidget(3, action->text()));
 
     addDockWidget(Qt::TopDockWidgetArea, dw);
     //connect(dw->closeEvent(), SIGNAL(triggered(bool)) , this, SLOT(destroyDockWidget()));
