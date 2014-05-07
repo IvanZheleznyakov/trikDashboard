@@ -3,6 +3,7 @@
 Dashboard::Dashboard()
 {
     connect(&tcpCommunicator, SIGNAL(recieveMessage(QString)), this, SLOT(parseMessage(QString)));
+
     connect(&panel, SIGNAL(setConnection(QString,int)), this, SLOT( connectToTRIK(QString,int)) );
     panel.resize(800, 600);
     panel.show();

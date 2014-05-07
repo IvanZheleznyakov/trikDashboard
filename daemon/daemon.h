@@ -3,14 +3,14 @@
 #include <QObject>
 #include <QVector>
 #include <QTimer>
-//#include <trikControl/brick.h>
+#include <trikControl/brick.h>
 #include "observer.h"
 #include "tcpcommunicator.h"
 
 QString const accelName = "accelerometer";
 QString const gyroName = "gyroscope";
 
-//using namespace trikControl;
+using namespace trikControl;
 
 class Observer;
 class GyroObserver;
@@ -35,7 +35,7 @@ private slots:
     void parseMessage(QString message);
 
 private:
-//    Brick brick;
+    Brick brick;
     TcpCommunicator tcpCommunicator;
     QVector<Observer *> observers;
     GyroObserver *gyroObserver;
