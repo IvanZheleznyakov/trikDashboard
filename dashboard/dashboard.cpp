@@ -3,7 +3,7 @@
 Dashboard::Dashboard()
 {
     connect(&tcpCommunicator, SIGNAL(recieveMessage(QString)), this, SLOT(parseMessage(QString)));
-    tcpCommunicator.setIP("192.168.1.37");
+    tcpCommunicator.setIP("192.168.1.36");
     tcpCommunicator.setPort(1221);
     tcpCommunicator.connectToHost();
     tcpCommunicator.send("Hi,Daemon, from Dashboard");

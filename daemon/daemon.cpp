@@ -1,11 +1,12 @@
 #include "daemon.h"
 #include <QDebug>
+#include <QStringList>
 
-Daemon::Daemon(QThread *guiThread, QString configPath)/* :
-    brick(*guiThread, configPath)*/
+Daemon::Daemon(QThread *guiThread, QString configPath) :
+    brick(*guiThread, configPath)
 
 {
-    updatePeriod = 1000;
+    updatePeriod = 10;
 
     tcpCommunicator.setPort(1221);
     tcpCommunicator.listen();
@@ -13,8 +14,8 @@ Daemon::Daemon(QThread *guiThread, QString configPath)/* :
     connect(&tcpCommunicator, SIGNAL(recieveMessage(QString)), this, SLOT(parseMessage(QString)));
     connect(&tcpCommunicator, SIGNAL(lostConnection()), this, SLOT(closeTelemetry()));
 
-    gyroObserver = new GyroObserver(gyroName,/*&brick, */this);
-    accelObserver = new AccelObserver(accelName,/*&brick, */this);
+    gyroObserver = new GyroObserver(gyroName, &brick, this);
+    accelObserver = new AccelObserver(accelName, &brick, this);
 
     for (int i = 0; i < observers.size(); i++)
         qDebug() << observers[i]->getName();
@@ -80,8 +81,6 @@ void Daemon::parseMessage(QString message)
 {
     qDebug() << message;
     QStringList list = message.split(":", QString::SkipEmptyParts);
-//    qDebug() << list.at(0).trimmed();
-//    qDebug() << list.at(1).trimmed();
 
     if (list.at(0).trimmed() == "subscribe")
     {

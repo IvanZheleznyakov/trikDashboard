@@ -1,9 +1,9 @@
 #pragma once
 #include <QObject>
-//#include <trikControl/brick.h>
+#include <trikControl/brick.h>
 #include "daemon.h"
 
-//using namespace trikControl;
+using namespace trikControl;
 
 class Daemon;
 
@@ -12,7 +12,7 @@ class Observer : public QObject
     Q_OBJECT
 
 public:
-    explicit Observer(QString devName, /*Brick *brick,*/ Daemon* daemon);
+    explicit Observer(QString devName, Brick *brick, Daemon* daemon);
     virtual void update() = 0;
 
     QVector<int> const &getValue() const { return value; }
@@ -25,14 +25,14 @@ protected:
     QString name;
     QVector<int> value;
     bool canRead;
-    //Brick *brick;
+    Brick *brickbase;
 };
 
 class GyroObserver: public Observer
 {
 public:
-    explicit GyroObserver(QString devName, /*Brick *brick,*/ Daemon* daemon):
-        Observer(devName, /*brick,*/ daemon)
+    explicit GyroObserver(QString devName, Brick *brick, Daemon* daemon):
+        Observer(devName, brick, daemon)
     {
         value << 0 << 0 << 0;
     }
@@ -42,8 +42,8 @@ public:
 class AccelObserver: public Observer
 {
 public:
-    explicit AccelObserver(QString devName, /*Brick *brick,*/ Daemon* daemon):
-        Observer(devName, /*brick,*/ daemon)
+    explicit AccelObserver(QString devName, Brick *brick, Daemon* daemon):
+        Observer(devName, brick, daemon)
     {
         value << 0 << 0 << 0;
     }

@@ -4,12 +4,12 @@
 #
 #-------------------------------------------------
 
-TRIKCONTROL_BINDIR = ../../trikRuntime/bin/x86-debug/
+TRIKCONTROL_BINDIR = ../../trikRuntime/bin/arm-release
 TRIKCONTROL_DIR = ../../trikRuntime/trikControl
 
 QT       += core
 QT       += network
-QT       -= gui
+QT       += gui
 
 TARGET = daemon
 CONFIG   += console
@@ -20,7 +20,7 @@ TEMPLATE = app
 INCLUDEPATH = \
         $$TRIKCONTROL_DIR/include \
 
-LIBS += -L$$TRIKCONTROL_BINDIR -ltrikControl-x86-d
+LIBS += -L$$TRIKCONTROL_BINDIR -ltrikControl
 
 !macx {
         QMAKE_LFLAGS += -Wl,-O1,-rpath,.
