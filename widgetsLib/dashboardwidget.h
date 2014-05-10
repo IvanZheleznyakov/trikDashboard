@@ -1,6 +1,7 @@
 #pragma once
 
 #include "widgetslib_global.h"
+#include <QWidget>
 #include <QVector>
 #include <QTimer>
 #include <QGridLayout>
@@ -14,10 +15,12 @@ public:
     explicit DashboardWidget(int axis, QString title, QWidget *parent = 0);
 
 public slots:
+    void startPaint();
+    void stopPaint();
     void updateData(QVector <double> updates);
+    void setInterval(int interval);
     virtual void paint() = 0;
     virtual void init() = 0;
-    void setInterval(int interval);
 
 protected:
     QVector<QColor> colors;

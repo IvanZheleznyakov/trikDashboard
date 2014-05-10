@@ -7,14 +7,24 @@ DashboardWidget::DashboardWidget(int axis, QString title, QWidget *parent) :
     axis(axis),
     timerInterval(17)
 {
+    this->setFont(QColor("white"));
     data.fill(0.0);
     colors << QColor("red") << QColor("blue") << QColor("green");
     layout = new QGridLayout;
     titleLabel = new QLabel(title);
     titleLabel->setAlignment(Qt::AlignCenter);
 
-    connect(&paintTimer, SIGNAL(timeout()),this,SLOT(paint()));
     paintTimer.setInterval(timerInterval);
+}
+
+void DashboardWidget::startPaint()
+{
+    paintTimer.start(timerInterval);
+}
+
+void DashboardWidget::stopPaint()
+{
+    paintTimer.stop();
 }
 
 void DashboardWidget::setInterval(int interval)

@@ -11,6 +11,8 @@ class Dashboard : public QObject
 public:
     Dashboard();
 
+signals:
+
 private slots:
     void connectToTRIK(QString ip, int port);
     void parseMessage(QString message);

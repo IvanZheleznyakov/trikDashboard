@@ -10,9 +10,11 @@
 #include <QGroupBox>
 #include <stdlib.h>
 
-ToolBar::ToolBar(const QString &title, QWidget *parent)
-    : QToolBar(parent)
+ToolBar::ToolBar(const QString &title, ControlPanel* panel)
+    : QToolBar(),
+      panel(panel)
 {
+
     setWindowTitle(title);
     setObjectName(title);
     setIconSize(QSize(32, 32));
@@ -52,6 +54,10 @@ void ToolBar::insertToolBox()
     menuBox->addItem(connectToTRIK, "Connection");
     connect(connectButton,SIGNAL(clicked()),this,SLOT(connectButtonPressed()));
 
+}
+
+void ToolBar::insertTelemetry()
+{
     QGroupBox *settings = new QGroupBox();
     QVBoxLayout *settingsLayout = new QVBoxLayout;
     QCheckBox* logging = new QCheckBox("Logging", this);
@@ -68,21 +74,9 @@ void ToolBar::insertToolBox()
 
     QGroupBox* sensors3D = new QGroupBox();
     QVBoxLayout* sensors3DLayout = new QVBoxLayout;
-    QPushButton* accel=new QPushButton("Accelerometer",this);
-    accel->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
-                         "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
-    accelAction = new QAction(tr("Accelerometer"), this);
-    connect(accel, SIGNAL(clicked()), accelAction, SIGNAL(triggered()));
 
-    QPushButton* gyro=new QPushButton("Gyroscope",this);
-    gyro->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
-                        "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
-    gyroAction = new QAction(tr("Gyroscope"), this);
-    gyroAction->setCheckable(true);
-    connect(gyro, SIGNAL(clicked(bool)), gyroAction, SIGNAL(toggled(bool)));
-
-    sensors3DLayout->addWidget(accel);
-    sensors3DLayout->addWidget(gyro);
+    sensors3DLayout->addWidget(panel->accelerometer->button());
+    sensors3DLayout->addWidget(panel->gyroscope->button());
     sensors3DLayout->addStretch(0);
     sensors3D->setLayout(sensors3DLayout);
     telemetry->addItem(sensors3D,"3D sensors");
@@ -123,6 +117,7 @@ void ToolBar::insertToolBox()
     telemetry->addItem(battery,"Battery");
 
     this->addWidget(menuBox);
+
 }
 
 void ToolBar::enterEvent(QEvent*)

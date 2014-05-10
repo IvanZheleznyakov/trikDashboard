@@ -2,6 +2,7 @@
 
 #include <QToolBar>
 #include <QLineEdit>
+#include <controlpanel.h>
 
 QT_FORWARD_DECLARE_CLASS(QAction)
 QT_FORWARD_DECLARE_CLASS(QToolBox)
@@ -11,10 +12,11 @@ class ToolBar : public QToolBar
     Q_OBJECT
 
 public:
-    ToolBar(const QString &title, QWidget *parent);
+    ToolBar(const QString &title, ControlPanel* panel);
     QToolBox* menuBox;
     QAction* accelAction;
     QAction* gyroAction;
+    void insertTelemetry();
 
 signals:
     void setConnection(QString ip, int port);
@@ -30,5 +32,6 @@ private:
     void insertToolBox();
     QLineEdit* portTextEdit;
     QLineEdit* ipTextEdit;
+    ControlPanel* panel;
 
 };

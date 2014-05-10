@@ -3,11 +3,14 @@
 CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
     DashboardWidget(axis, title)
 {
+    connect(&paintTimer, SIGNAL(timeout()), this, SLOT(paint()));
+
     labelNumders = new QLabel("");
     labelNumders->setAlignment(Qt::AlignCenter);
 
-    plot.setWindowTitle(title);
-    layout->addWidget(&plot);
+    layout->addWidget(titleLabel);
+    //plot.setWindowTitle(title);
+    //layout->addWidget(&plot);
     layout->addWidget(labelNumders);
 
     setLayout(layout);
@@ -17,12 +20,14 @@ CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
 
 void CustomPlotWidget::addGraph(int n, QColor color)
 {
+    /*
     plot.addGraph();
     plot.graph(2*n)->setPen(QPen(color));
     plot.addGraph();
     plot.graph(2*n+1)->setPen(QPen(color));
     plot.graph(2*n+1)->setLineStyle(QCPGraph::lsNone);
     plot.graph(2*n+1)->setScatterStyle(QCP::ssDisc);
+    */
 }
 
 void CustomPlotWidget::init()
@@ -36,6 +41,7 @@ void CustomPlotWidget::init()
     ui->customPlot->yAxis->setTickLabelFont(font);
     ui->customPlot->legend->setFont(font);
     */
+    /*
     plot.xAxis->setTickLabelType(QCPAxis::ltDateTime);
     plot.xAxis->setDateTimeFormat("mm:ss");
     plot.xAxis->setAutoTickStep(false);
@@ -51,12 +57,15 @@ void CustomPlotWidget::init()
     {
         addGraph(i, colors[i]);
     }
+    */
 }
 
 void CustomPlotWidget::paint()
 {
-    //QString buf = QString(data);
-    //labelNumders->setText(buf);
+    QString buf;
+    buf.sprintf("%g %g %g", data[0], data[1], data[2]);
+    labelNumders->setText(buf);
+    /*
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     for (int n = 0; n < axis; n++)
     {
@@ -68,4 +77,5 @@ void CustomPlotWidget::paint()
         plot.xAxis->setRange(key + 0.2, 5, Qt::AlignRight);
         plot.replot();
     }
+    */
 }

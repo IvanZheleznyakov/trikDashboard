@@ -2,7 +2,6 @@
 #define WIDGETSLIB_GLOBAL_H
 
 #include <QtCore/qglobal.h>
-#include <QWidget>
 
 #if defined(WIDGETSLIB_LIBRARY)
 #  define WIDGETSLIBSHARED_EXPORT Q_DECL_EXPORT

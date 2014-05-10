@@ -8,7 +8,6 @@
 WIDGETSLIB_BINDIR = ../widgetsLib/debug/
 WIDGETSLIB_DIR = ../widgetsLib/
 
-
 QT       += core gui
 QT       += network
 QT       += printsupport
@@ -21,16 +20,18 @@ TEMPLATE = app
 INCLUDEPATH = \
         $$WIDGETSLIB_DIR \
 
-LIBS += -L$$TRIKCONTROL_BINDIR -lwidgetsLib
+LIBS += -L$$WIDGETSLIB_BINDIR -lwidgetsLib
 
 
 SOURCES += main.cpp\
         dashboard.cpp \
     tcpcommunicator.cpp \
     controlpanel.cpp \
-    toolbar.cpp
+    toolbar.cpp \
+    sensor.cpp
 
 HEADERS  += dashboard.h \
     tcpcommunicator.h \
     controlpanel.h \
-    toolbar.h
+    toolbar.h \
+    sensor.h
