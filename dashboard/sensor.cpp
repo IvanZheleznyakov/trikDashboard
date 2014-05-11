@@ -15,12 +15,12 @@ Sensor::Sensor(QString name, QObject *parent) :
 
 void Sensor::createDashboardWidget()
 {
-    if (name == "Accelerometer" || name == "Gyroscope")
+    if (name == "accelerometer" || name == "gyroscope")
     {
-        pWidget = new EmptyWidget(name);
+        pWidget = new CustomPlotWidget(3, name);
     } else
     {
-        //pWidget = new QTextEdit(); Template!!!
+        pWidget = new EmptyWidget(name);
     }
 }
 
@@ -44,6 +44,7 @@ void Sensor::setActive()
     createDashboardWidget();
 
     dockWidget = new QDockWidget();
+//    dockWidget->setStyleSheet("background-color: white");
     dockWidget->setObjectName(name);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
@@ -52,15 +53,16 @@ void Sensor::setActive()
     dockWidget->setWindowTitle(name);
     dockWidget->setWidget(pWidget);
 
-    //start widget;
     emit newDockWidget(dockWidget);
 
+    pWidget->startPaint();
 }
 
 void Sensor::setInactive()
 {
     QString buf = "unsubscribe:"+name;
     emit command(buf);
+    pWidget->stopPaint();
     dockWidget->deleteLater();
     pWidget->deleteLater();
 }

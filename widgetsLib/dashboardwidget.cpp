@@ -7,7 +7,7 @@ DashboardWidget::DashboardWidget(int axis, QString title, QWidget *parent) :
     axis(axis),
     timerInterval(17)
 {
-    this->setStyleSheet("background-color: yellow");
+    this->setStyleSheet("background-color: white");
     data.fill(0.0);
     colors << QColor("red") << QColor("blue") << QColor("green");
     layout = new QGridLayout;

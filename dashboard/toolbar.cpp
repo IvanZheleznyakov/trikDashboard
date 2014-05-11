@@ -38,7 +38,7 @@ void ToolBar::insertToolBox()
     QGroupBox *connectToTRIK = new QGroupBox();
     QVBoxLayout *connectToTRIKLayout = new QVBoxLayout;
     QLabel* ipLabel = new QLabel("Connect to IP:");
-    ipTextEdit = new QLineEdit("192.168.0.0");
+    ipTextEdit = new QLineEdit("192.168.1.36");
     QLabel* portLabel = new QLabel("Port:");
     portTextEdit = new QLineEdit("1221");
     QPushButton* connectButton = new QPushButton("Connect");

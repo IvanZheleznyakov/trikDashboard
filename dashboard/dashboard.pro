@@ -24,7 +24,7 @@ LIBS += -L$$WIDGETSLIB_BINDIR -lwidgetsLib
 
 
 SOURCES += main.cpp\
-        dashboard.cpp \
+    dashboard.cpp \
     tcpcommunicator.cpp \
     controlpanel.cpp \
     toolbar.cpp \

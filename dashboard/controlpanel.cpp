@@ -12,10 +12,10 @@ Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
-    accelerometer = new Sensor("Accelerometer");
+    accelerometer = new Sensor("accelerometer");
     connect(accelerometer, SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
-    gyroscope = new Sensor("Gyroscope");
-    connect(gyroscope,SIGNAL(newDockWidget(QDockWidget*)),this,SLOT(createDockWidget(QDockWidget*)));
+    gyroscope = new Sensor("gyroscope");
+    connect(gyroscope,SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
 
     setObjectName("MainWindow");
     setWindowTitle("TRIK Telemetry Dashboard");

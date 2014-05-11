@@ -3,7 +3,7 @@
 CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
     DashboardWidget(axis, title)
 {
-    connect(&paintTimer, SIGNAL(timeout()), this, SLOT(paint()));
+    connect(&paintTimer, SIGNAL(timeout()), this, SLOT(paint());
 
     labelNumders = new QLabel("");
     labelNumders->setAlignment(Qt::AlignCenter);

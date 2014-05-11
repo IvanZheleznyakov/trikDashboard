@@ -21,4 +21,5 @@ private slots:
 private:
     TcpCommunicator tcpCommunicator;
     ControlPanel panel;
+    bool hi;
 };
