@@ -17,7 +17,7 @@ void Sensor::createDashboardWidget()
 {
     if (name == "Accelerometer" || name == "Gyroscope")
     {
-        pWidget = new CustomPlotWidget(3, name);
+        pWidget = new EmptyWidget(name);
     } else
     {
         //pWidget = new QTextEdit(); Template!!!

@@ -8,6 +8,18 @@ TcpCommunicator::TcpCommunicator(QObject *parent) :
 {
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(readyRead()), this, SLOT(read()));
+    connect(socket, SIGNAL(connected()), this, SLOT(setConnection()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(abortConnection()));
+}
+
+void TcpCommunicator::setConnection()
+{
+    emit newConnection();
+}
+
+void TcpCommunicator::abortConnection()
+{
+    emit lostConnection();
 }
 
 void TcpCommunicator::setIP(QString ipString)

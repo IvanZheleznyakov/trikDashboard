@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <dashboardwidget.h>
 #include <customplotwidget.h>
+#include <emptywidget.h>
 
 class Sensor : public QObject
 {

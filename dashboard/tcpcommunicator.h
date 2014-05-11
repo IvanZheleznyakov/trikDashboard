@@ -13,10 +13,14 @@ public:
     int connectedState();
 
 signals:
+    void newConnection();
+    void lostConnection();
     void recieveMessage(QString);
 
 public slots:
     void send(QString);
+    void setConnection();
+    void abortConnection();
 
 private slots:
     void read();

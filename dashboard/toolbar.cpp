@@ -54,6 +54,7 @@ void ToolBar::insertToolBox()
     menuBox->addItem(connectToTRIK, "Connection");
     connect(connectButton,SIGNAL(clicked()),this,SLOT(connectButtonPressed()));
 
+    this->addWidget(menuBox);
 }
 
 void ToolBar::insertTelemetry()
@@ -116,8 +117,12 @@ void ToolBar::insertTelemetry()
     QMenu* battery=new QMenu();
     telemetry->addItem(battery,"Battery");
 
-    this->addWidget(menuBox);
+}
 
+void ToolBar::deleteTelemetry()
+{
+    delete menuBox;
+    insertToolBox();
 }
 
 void ToolBar::enterEvent(QEvent*)

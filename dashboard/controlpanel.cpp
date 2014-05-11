@@ -6,7 +6,6 @@
 #include <QStatusBar>
 #include <QApplication>
 #include <qdebug.h>
-#include <QTextEdit>
 
 Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 
@@ -22,6 +21,8 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     setWindowTitle("TRIK Telemetry Dashboard");
     toolBar = new ToolBar("Tool Bar", this);
     connect(toolBar, SIGNAL(setConnection(QString,int)), this, SIGNAL(setConnection(QString, int)));
+    connect(this,SIGNAL(newConnection()),toolBar,SLOT(insertTelemetry()));
+    connect(this,SIGNAL(lostConnection()),toolBar,SLOT(deleteTelemetry()));
     addToolBar(Qt::LeftToolBarArea, toolBar);
 
     setStatusBarText("Ready");
