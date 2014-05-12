@@ -1,4 +1,5 @@
 #pragma once
+#include "dashboard_const.h"
 
 #include <QObject>
 #include "tcpcommunicator.h"

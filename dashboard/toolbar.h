@@ -1,4 +1,5 @@
 #pragma once
+#include "dashboard_const.h"
 
 #include <QToolBar>
 #include <QLineEdit>
@@ -10,7 +11,7 @@ class ToolBar : public QToolBar
     Q_OBJECT
 
 public:
-    ToolBar(const QString &title, ControlPanel* panel);
+    ToolBar(ControlPanel* panel);
     QToolBox* menuBox;
 
 signals:

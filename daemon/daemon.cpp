@@ -43,7 +43,7 @@ void Daemon::attach(Observer *obs)
 
 void Daemon::startTelemetry()
 {
-    tcpCommunicator.send("Hi,Dashboard,from Daemon");
+    tcpCommunicator.send("TRIK connected");
 
     timer.stop();
     connect(&timer, SIGNAL(timeout()), this, SLOT(zipPackage()));

@@ -34,4 +34,5 @@ HEADERS  += dashboard.h \
     tcpcommunicator.h \
     controlpanel.h \
     toolbar.h \
-    sensor.h
+    sensor.h \
+    dashboard_const.h

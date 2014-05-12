@@ -12,20 +12,19 @@ Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
-    accelerometer = new Sensor("accelerometer");
+    accelerometer = new Sensor(ACCELEROMETER_NAME);
     connect(accelerometer, SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
-    gyroscope = new Sensor("gyroscope");
+    gyroscope = new Sensor(GYROSCOPE_NAME);
     connect(gyroscope,SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
 
-    setObjectName("MainWindow");
     setWindowTitle("TRIK Telemetry Dashboard");
-    toolBar = new ToolBar("Tool Bar", this);
+    toolBar = new ToolBar(this);
     connect(toolBar, SIGNAL(setConnection(QString,int)), this, SIGNAL(setConnection(QString, int)));
     connect(this,SIGNAL(newConnection()),toolBar,SLOT(insertTelemetry()));
     connect(this,SIGNAL(lostConnection()),toolBar,SLOT(deleteTelemetry()));
     addToolBar(Qt::LeftToolBarArea, toolBar);
 
-    setStatusBarText("hide/show menu: Ctrl+Q");
+    setStatusBarText(SHOW_HIDE_TEXT);
 
     DockOptions opts;
     opts |= AllowNestedDocks;
@@ -33,10 +32,8 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     QMainWindow::setDockOptions(opts);
 
     QAction *viewAction = toolBar->toggleViewAction();
-    viewAction->setShortcut(Qt::CTRL|Qt::Key_Q);
-    viewAction->setText("Hide/Show: Ctrl+Q");
+    viewAction->setShortcut(SHOW_HIDE_SHORTCUT);
     addAction(viewAction);
-
 }
 
 void ControlPanel::setStatusBarText(const QString text)

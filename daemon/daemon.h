@@ -7,8 +7,8 @@
 #include "observer.h"
 #include "tcpcommunicator.h"
 
-QString const accelName = "accelerometer";
-QString const gyroName = "gyroscope";
+QString const accelName = "Accelerometer";
+QString const gyroName = "Gyroscope";
 
 using namespace trikControl;
 

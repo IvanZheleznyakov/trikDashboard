@@ -1,4 +1,5 @@
 #include "dashboard.h"
+#include <QThread>
 
 Dashboard::Dashboard():
     hi(false)
@@ -8,11 +9,9 @@ Dashboard::Dashboard():
     connect(&tcpCommunicator, SIGNAL(newConnection()), &panel, SIGNAL(newConnection()));
     connect(&tcpCommunicator, SIGNAL(lostConnection()), &panel, SIGNAL(lostConnection()));
 
-    panel.resize(800, 600);
+    panel.resize(PANEL_START_SIZE);
+    panel.setMinimumSize(PANEL_MIN_SIZE);
     panel.show();
-    panel.setMinimumSize(640, 480);
-
-    //connect на сенсоры с данными с платы
 }
 
 void Dashboard::connectToTRIK(QString ip, int port)
@@ -21,18 +20,17 @@ void Dashboard::connectToTRIK(QString ip, int port)
     tcpCommunicator.setPort(port);
     tcpCommunicator.connectToHost();
 
+    panel.setStatusBarText(WAITING_RESPONSE_MESSAGE);
+    tcpCommunicator.send(SEND_MESSAGE);
+
+    QThread::msleep(WAITING_RESPONSE_TIME);
+
     if (tcpCommunicator.connectedState() == QTcpSocket::ConnectedState)
     {
-        panel.setStatusBarText("Connected to TRIK");
-
         connect(panel.accelerometer, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
         connect(panel.gyroscope, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
-
-
-        tcpCommunicator.send("Hi,Daemon, from Dashboard");
-    } else
-    {
-        panel.setStatusBarText("No connection: Try to connect again");
+    } else {
+        panel.setStatusBarText(NOCONNECTION_MESSAGE);
     }
 }
 
@@ -50,9 +48,6 @@ void Dashboard::parseMessage(QString message)
     foreach (QString device, devices)
     {
         QStringList info = device.split(":", QString::SkipEmptyParts);
-        qDebug() << info.at(0);
-        qDebug() << info.at(1);
-
         QVector<double> values;
         QStringList data = info.at(1).split(",", QString::SkipEmptyParts);
         foreach (QString val, data)
@@ -61,14 +56,12 @@ void Dashboard::parseMessage(QString message)
             values << x;
         }
 
-        if (info.at(0) == "accelerometer" && panel.accelerometer->active())
+        if (info.at(0) == ACCELEROMETER_NAME && panel.accelerometer->active())
         {
-            qDebug() << values;
             panel.accelerometer->widget()->updateData(values);
         } else
-        if (info.at(0) == "gyroscope" && panel.accelerometer->active())
+        if (info.at(0) == GYROSCOPE_NAME && panel.gyroscope->active())
         {
-            qDebug() << values;
             panel.gyroscope->widget()->updateData(values);
         }
     }

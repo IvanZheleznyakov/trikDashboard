@@ -10,25 +10,25 @@
 #include <QGroupBox>
 #include <stdlib.h>
 
-ToolBar::ToolBar(const QString &title, ControlPanel* panel)
+ToolBar::ToolBar(ControlPanel* panel)
     : QToolBar(),
       panel(panel)
 {
 
-    setWindowTitle(title);
-    setObjectName(title);
-    setIconSize(QSize(32, 32));
-
+    //setWindowTitle(title);
+    //setObjectName(title);
+    //setIconSize(QSize(32, 32));
+    menuBox = new QToolBox();
     insertToolBox();
+    insertTelemetry();
 
     setMovable(false);
-    this->setFixedWidth(120);
+    this->setFixedWidth(TOOLBAR_WIDTH);
 
 }
 
 void ToolBar::insertToolBox()
 {
-    menuBox = new QToolBox();
     menuBox->setStyleSheet("QToolBox::tab { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3); border-radius: 3px; color: darkgray; }"
                        "QToolBox::tab:selected { font: italic; color: black;}");
 
@@ -36,9 +36,9 @@ void ToolBar::insertToolBox()
     QGroupBox *connectToTRIK = new QGroupBox();
     QVBoxLayout *connectToTRIKLayout = new QVBoxLayout;
     QLabel* ipLabel = new QLabel("Connect to IP:");
-    ipTextEdit = new QLineEdit("192.168.1.36");
+    ipTextEdit = new QLineEdit(START_IP_STRING);
     QLabel* portLabel = new QLabel("Port:");
-    portTextEdit = new QLineEdit("1221");
+    portTextEdit = new QLineEdit(START_PORT_STRING);
     QPushButton* connectButton = new QPushButton("Connect");
     ipTextEdit->setFixedHeight(24);
     portTextEdit->setFixedHeight(24);
@@ -120,7 +120,9 @@ void ToolBar::insertTelemetry()
 
 void ToolBar::deleteTelemetry()
 {
-    delete menuBox;
+    menuBox->deleteLater();
+
+    menuBox = new QToolBox();
     insertToolBox();
 }
 

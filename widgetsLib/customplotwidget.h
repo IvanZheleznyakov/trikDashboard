@@ -14,7 +14,7 @@ public slots:
 
 private:
     void addGraph(int n, QColor color);
-    //QCustomPlot plot;
+    //QCustomPlot* plot;
     QLabel* labelNumders;
 
 };

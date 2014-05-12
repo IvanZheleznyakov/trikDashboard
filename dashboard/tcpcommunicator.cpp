@@ -2,8 +2,8 @@
 
 TcpCommunicator::TcpCommunicator(QObject *parent) :
     QObject(parent),
-    port(1111),
-    ip("192.254.254.254"),
+    port(START_PORT_INT),
+    ip(START_IP_STRING),
     blockSize(0)
 {
     socket = new QTcpSocket(this);

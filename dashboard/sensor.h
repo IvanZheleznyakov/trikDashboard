@@ -1,4 +1,6 @@
 #pragma once
+#include "dashboard_const.h"
+
 #include <QObject>
 #include <QAction>
 #include <QDockWidget>
