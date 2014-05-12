@@ -1,5 +1,5 @@
 #pragma once
-#include "dashboard_const.h"
+#include "../telemetry_const.h"
 
 #include <QMainWindow>
 #include <QDockWidget>

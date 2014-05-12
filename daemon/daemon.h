@@ -1,4 +1,5 @@
 #pragma once
+#include "../telemetry_const.h"
 
 #include <QObject>
 #include <QVector>
@@ -6,9 +7,6 @@
 #include <trikControl/brick.h>
 #include "observer.h"
 #include "tcpcommunicator.h"
-
-QString const accelName = "Accelerometer";
-QString const gyroName = "Gyroscope";
 
 using namespace trikControl;
 

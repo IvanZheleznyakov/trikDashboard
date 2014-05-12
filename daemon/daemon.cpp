@@ -6,16 +6,16 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     brick(*guiThread, configPath)
 
 {
-    updatePeriod = 10;
+    updatePeriod = SENSORS_DATA_UPDATE_PERIOD;
 
-    tcpCommunicator.setPort(1221);
+    tcpCommunicator.setPort(START_PORT_INT);
     tcpCommunicator.listen();
     connect(&tcpCommunicator, SIGNAL(newConnection()), this, SLOT(startTelemetry()));
     connect(&tcpCommunicator, SIGNAL(recieveMessage(QString)), this, SLOT(parseMessage(QString)));
     connect(&tcpCommunicator, SIGNAL(lostConnection()), this, SLOT(closeTelemetry()));
 
-    gyroObserver = new GyroObserver(gyroName, &brick, this);
-    accelObserver = new AccelObserver(accelName, &brick, this);
+    gyroObserver = new GyroObserver(GYROSCOPE_NAME, &brick, this);
+    accelObserver = new AccelObserver(ACCELEROMETER_NAME, &brick, this);
 
     for (int i = 0; i < observers.size(); i++)
         qDebug() << observers[i]->getName();
@@ -43,7 +43,7 @@ void Daemon::attach(Observer *obs)
 
 void Daemon::startTelemetry()
 {
-    tcpCommunicator.send("TRIK connected");
+    tcpCommunicator.send(SEND_FROM_DAEMON_MESSAGE);
 
     timer.stop();
     connect(&timer, SIGNAL(timeout()), this, SLOT(zipPackage()));

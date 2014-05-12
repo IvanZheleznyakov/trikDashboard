@@ -33,4 +33,5 @@ SOURCES += main.cpp \
 HEADERS += \
     daemon.h \
     tcpcommunicator.h \
-    observer.h
+    observer.h \
+    ../telemetry_const.h

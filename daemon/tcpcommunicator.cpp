@@ -2,7 +2,7 @@
 
 TcpCommunicator::TcpCommunicator(QObject *parent) :
     QObject(parent),
-    port(1111),
+    port(START_PORT_INT),
     blockSize(0)
 {
 }

@@ -35,4 +35,4 @@ HEADERS  += dashboard.h \
     controlpanel.h \
     toolbar.h \
     sensor.h \
-    dashboard_const.h
+    ../telemetry_const.h

@@ -16,7 +16,6 @@ void GyroObserver::update()
         return;
     }
     QVector<int> temp = brickbase->gyroscope()->read();
-    //temp << qrand() << qrand() << qrand();
     value = temp;
 }
 
@@ -27,7 +26,6 @@ void AccelObserver::update()
         return;
     }
     QVector<int> temp = brickbase->accelerometer()->read();
-    //temp << qrand() << qrand() << qrand();
     value = temp;
 }
 
