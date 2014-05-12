@@ -24,8 +24,6 @@ ToolBar::ToolBar(const QString &title, ControlPanel* panel)
     setMovable(false);
     this->setFixedWidth(120);
 
-    this->toggleViewAction()->setShortcut(Qt::CTRL|Qt::Key_Q);
-    addAction(toggleViewAction());
 }
 
 void ToolBar::insertToolBox()
@@ -55,6 +53,7 @@ void ToolBar::insertToolBox()
     connect(connectButton,SIGNAL(clicked()),this,SLOT(connectButtonPressed()));
 
     this->addWidget(menuBox);
+
 }
 
 void ToolBar::insertTelemetry()

@@ -19,7 +19,7 @@ public slots:
     void stopPaint();
     void updateData(QVector <double> updates);
     void setInterval(int interval);
-    virtual void paint() = 0;
+    virtual void paintWidget() = 0;
     virtual void init() = 0;
 
 protected:

@@ -3,7 +3,7 @@
 CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
     DashboardWidget(axis, title)
 {
-    connect(&paintTimer, SIGNAL(timeout()), this, SLOT(paint());
+    connect(&paintTimer, SIGNAL(timeout()), this, SLOT(paintWidget()));
 
     labelNumders = new QLabel("");
     labelNumders->setAlignment(Qt::AlignCenter);
@@ -60,7 +60,7 @@ void CustomPlotWidget::init()
     */
 }
 
-void CustomPlotWidget::paint()
+void CustomPlotWidget::paintWidget()
 {
     QString buf;
     buf.sprintf("%g %g %g", data[0], data[1], data[2]);

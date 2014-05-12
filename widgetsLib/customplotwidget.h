@@ -9,7 +9,7 @@ public:
     CustomPlotWidget(int axis, QString title);
 
 public slots:
-    void paint();
+    void paintWidget();
     void init();
 
 private:

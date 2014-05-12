@@ -25,12 +25,17 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     connect(this,SIGNAL(lostConnection()),toolBar,SLOT(deleteTelemetry()));
     addToolBar(Qt::LeftToolBarArea, toolBar);
 
-    setStatusBarText("Ready");
+    setStatusBarText("hide/show menu: Ctrl+Q");
 
     DockOptions opts;
     opts |= AllowNestedDocks;
     opts |= AnimatedDocks;
     QMainWindow::setDockOptions(opts);
+
+    QAction *viewAction = toolBar->toggleViewAction();
+    viewAction->setShortcut(Qt::CTRL|Qt::Key_Q);
+    viewAction->setText("Hide/Show: Ctrl+Q");
+    addAction(viewAction);
 
 }
 

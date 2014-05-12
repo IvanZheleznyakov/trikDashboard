@@ -10,6 +10,6 @@ public:
     EmptyWidget(QString title);
 
 public slots:
-    void paint();
+    void paintWidget();
     void init();
 };
