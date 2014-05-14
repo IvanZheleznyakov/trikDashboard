@@ -8,7 +8,7 @@ CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
     labelNumders = new QLabel("");
     labelNumders->setAlignment(Qt::AlignCenter);
 
-    layout->addWidget(titleLabel);
+//    layout->addWidget(titleLabel);
 
     plot = new QCustomPlot();
     plot->setWindowTitle(title);

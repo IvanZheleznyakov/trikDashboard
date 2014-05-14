@@ -19,6 +19,7 @@ TEMPLATE = app
 
 INCLUDEPATH = \
         $$TRIKCONTROL_DIR/include \
+        ../telemetry/ \
 
 LIBS += -L$$TRIKCONTROL_BINDIR -ltrikControl
 
@@ -34,4 +35,4 @@ HEADERS += \
     daemon.h \
     tcpcommunicator.h \
     observer.h \
-    ../telemetry_const.h
+    ../telemetry/telemetry_const.h

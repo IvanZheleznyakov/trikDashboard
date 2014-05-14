@@ -1,5 +1,5 @@
 #pragma once
-#include "../telemetry_const.h"
+#include "telemetry_const.h"
 
 #include <QObject>
 #include <trikControl/brick.h>
