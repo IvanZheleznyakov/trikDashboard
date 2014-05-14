@@ -4,7 +4,8 @@
 EmptyWidget::EmptyWidget(QString title) :
     DashboardWidget(1, title)
 {
-    connect(&paintTimer, SIGNAL(timeout()), this, SLOT(paintWidget()));
+    connect(paintTimer, &QTimer::timeout, this, &EmptyWidget::paintWidget);
+
     layout->addWidget(new QTextEdit());
     setLayout(layout);
 }

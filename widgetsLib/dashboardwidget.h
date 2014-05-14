@@ -28,7 +28,7 @@ protected:
     QGridLayout *layout;
     QLabel* titleLabel;
     QMenu* widgetMenu;
-    QTimer paintTimer;
+    QTimer* paintTimer;
     QString title;
     int axis;
     int timerInterval;

@@ -20,7 +20,6 @@ ToolBar::ToolBar(ControlPanel* panel)
     //setIconSize(QSize(32, 32));
     menuBox = new QToolBox();
     insertToolBox();
-    insertTelemetry();
 
     setMovable(false);
     this->setFixedWidth(TOOLBAR_WIDTH);

@@ -10,21 +10,22 @@ DashboardWidget::DashboardWidget(int axis, QString title, QWidget *parent) :
     this->setStyleSheet("background-color: white");
     data.fill(0.0);
     colors << QColor("red") << QColor("blue") << QColor("green");
+    paintTimer = new QTimer(this);
     layout = new QGridLayout;
     titleLabel = new QLabel(title);
     titleLabel->setAlignment(Qt::AlignCenter);
 
-    paintTimer.setInterval(timerInterval);
+    paintTimer->setInterval(timerInterval);
 }
 
 void DashboardWidget::startPaint()
 {
-    paintTimer.start(timerInterval);
+    paintTimer->start(timerInterval);
 }
 
 void DashboardWidget::stopPaint()
 {
-    paintTimer.stop();
+    paintTimer->stop();
 }
 
 void DashboardWidget::setInterval(int interval)

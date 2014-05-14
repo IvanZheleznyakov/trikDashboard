@@ -12,9 +12,11 @@ public slots:
     void paintWidget();
     void init();
 
-private:
+private slots:
     void addGraph(int n, QColor color);
-    //QCustomPlot* plot;
+
+private:
+    QCustomPlot* plot;
     QLabel* labelNumders;
 
 };
