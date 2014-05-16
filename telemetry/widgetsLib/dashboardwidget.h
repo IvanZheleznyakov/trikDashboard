@@ -17,14 +17,14 @@ public:
 public slots:
     void startPaint();
     void stopPaint();
-    void updateData(QVector <double> updates);
+    void updateData(QVector <float> updates);
     void setInterval(int interval);
     virtual void paintWidget() = 0;
     virtual void init() = 0;
 
 protected:
     QVector<QColor> colors;
-    QVector<double> data;
+    QVector<float> data;
     QGridLayout *layout;
     QLabel* titleLabel;
     QMenu* widgetMenu;

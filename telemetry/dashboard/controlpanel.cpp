@@ -13,9 +13,11 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
     accelerometer = new Sensor(ACCELEROMETER_NAME);
-    connect(accelerometer, SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
+    connect(accelerometer, SIGNAL(newDockWidget(DockWidget*)), this, SLOT(createDockWidget(DockWidget*)));
     gyroscope = new Sensor(GYROSCOPE_NAME);
-    connect(gyroscope,SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
+    connect(gyroscope,SIGNAL(newDockWidget(DockWidget*)), this, SLOT(createDockWidget(DockWidget*)));
+    battery = new Sensor(BATTERY_NAME);
+    connect(battery,SIGNAL(newDockWidget(DockWidget*)), this, SLOT(createDockWidget(DockWidget*)));
 
     setWindowTitle("TRIK Telemetry Dashboard");
     toolBar = new ToolBar(this);
@@ -46,7 +48,7 @@ void ControlPanel::showEvent(QShowEvent *event)
     QMainWindow::showEvent(event);
 }
 
-void ControlPanel::createDockWidget(QDockWidget* dw)
+void ControlPanel::createDockWidget(DockWidget* dw)
 {
     addDockWidget(Qt::TopDockWidgetArea, dw);
 }

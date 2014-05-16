@@ -15,13 +15,15 @@ DEFINES += WIDGETSLIB_LIBRARY
 SOURCES += dashboardwidget.cpp \
     qcustomplot.cpp \
     customplotwidget.cpp \
-    emptywidget.cpp
+    emptywidget.cpp \
+    lcdnumberwidget.cpp
 
 HEADERS += dashboardwidget.h\
         widgetslib_global.h \
     qcustomplot.h \
     customplotwidget.h \
-    emptywidget.h
+    emptywidget.h \
+    lcdnumberwidget.h
 
 unix {
     target.path = /usr/lib

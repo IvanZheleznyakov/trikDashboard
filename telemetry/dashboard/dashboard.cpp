@@ -29,6 +29,7 @@ void Dashboard::connectToTRIK(QString ip, int port)
     {
         connect(panel.accelerometer, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
         connect(panel.gyroscope, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
+        connect(panel.battery, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
     } else {
         panel.setStatusBarText(NOCONNECTION_MESSAGE);
     }
@@ -42,8 +43,10 @@ void Dashboard::parseMessage(QString message)
         panel.setStatusBarText(message);
         return;
     }
+    /*
     qDebug() << "receive: " << message;
     panel.setStatusBarText(message);
+    */
     QStringList devices = message.split(";", QString::SkipEmptyParts);
     foreach (QString device, devices)
     {
@@ -63,13 +66,17 @@ void Dashboard::parseMessage(QString message)
         if (info.at(0) == GYROSCOPE_NAME && panel.gyroscope->active())
         {
             panel.gyroscope->widget()->updateData(values);
+        } else
+        if (info.at(0) == BATTERY_NAME && panel.battery->active())
+        {
+            panel.battery->widget()->updateData(values);
         }
     }
 }
 
 void Dashboard::sendCommand(QString command)
 {
-    qDebug() <<"send: " << command;
+    //qDebug() <<"send: " << command;
     tcpCommunicator.send(command);
 }
 

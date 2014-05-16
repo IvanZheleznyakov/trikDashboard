@@ -13,6 +13,7 @@ public:
     ControlPanel(QWidget *parent = 0, Qt::WindowFlags flags = 0);
     Sensor* accelerometer;
     Sensor* gyroscope;
+    Sensor* battery;
 
 signals:
     void newConnection();
@@ -26,7 +27,7 @@ protected:
     void showEvent(QShowEvent *event);
 
 public slots:
-    void createDockWidget(QDockWidget* dw);
+    void createDockWidget(DockWidget* dw);
 
 private:
     ToolBar *toolBar;

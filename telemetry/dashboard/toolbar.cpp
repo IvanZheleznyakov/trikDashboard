@@ -112,8 +112,14 @@ void ToolBar::insertTelemetry()
     encoders->setLayout(encodersLayout);
     telemetry->addItem(encoders,"Encoders");
 
-    QMenu* battery=new QMenu();
-    telemetry->addItem(battery,"Battery");
+
+    QGroupBox* batteryGroup = new QGroupBox();
+    QVBoxLayout* batteryLayout = new QVBoxLayout();
+    batteryLayout->addWidget(panel->battery->button());
+    batteryLayout->addStretch(0);
+    batteryGroup->setLayout(batteryLayout);
+    telemetry->addItem(batteryGroup,"Battery");
+
 
 }
 

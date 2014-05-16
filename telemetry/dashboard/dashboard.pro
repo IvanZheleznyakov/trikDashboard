@@ -28,11 +28,13 @@ SOURCES += main.cpp\
     tcpcommunicator.cpp \
     controlpanel.cpp \
     toolbar.cpp \
-    sensor.cpp
+    sensor.cpp \
+    dockwidget.cpp
 
 HEADERS  += dashboard.h \
     tcpcommunicator.h \
     controlpanel.h \
     toolbar.h \
     sensor.h \
-    ../telemetry_const.h
+    ../telemetry_const.h \
+    dockwidget.h

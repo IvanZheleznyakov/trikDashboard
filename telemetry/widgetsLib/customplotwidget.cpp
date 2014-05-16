@@ -35,6 +35,7 @@ void CustomPlotWidget::addGraph(int n, QColor color)
 
 void CustomPlotWidget::init()
 {
+    this->setInterval(100);
 //    include this section to fully disable antialiasing for higher performance:
     /*
     plot->setNotAntialiasedElements(QCP::aeAll);

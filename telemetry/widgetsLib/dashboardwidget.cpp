@@ -5,7 +5,7 @@ DashboardWidget::DashboardWidget(int axis, QString title, QWidget *parent) :
     data(axis),
     title(title),
     axis(axis),
-    timerInterval(17)
+    timerInterval(1000)
 {
     this->setStyleSheet("background-color: white");
     data.fill(0.0);
@@ -33,7 +33,7 @@ void DashboardWidget::setInterval(int interval)
     timerInterval = interval;
 }
 
-void DashboardWidget::updateData(QVector<double> updates)
+void DashboardWidget::updateData(QVector<float> updates)
 {
     int n = updates.size();
     n = n >= axis ? axis : n;

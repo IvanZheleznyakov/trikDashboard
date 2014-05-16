@@ -19,6 +19,10 @@ void Sensor::createDashboardWidget()
     {
         pWidget = new CustomPlotWidget(3, name);
     } else
+    if (name == BATTERY_NAME)
+    {
+        pWidget = new LCDNumberWidget(name);
+    } else
     {
         pWidget = new EmptyWidget(name);
     }
@@ -26,8 +30,7 @@ void Sensor::createDashboardWidget()
 
 void Sensor::actionTriggered()
 {
-    pActive = !pActive;
-    if (pActive)
+    if (!pActive)
     {
         setActive();
     } else
@@ -36,14 +39,16 @@ void Sensor::actionTriggered()
     }
 }
 
+
 void Sensor::setActive()
 {
+    pActive = true;
     QString buf = SUBSCRIBE_STRING + name;
     emit command(buf);
 
     createDashboardWidget();
 
-    dockWidget = new QDockWidget();
+    dockWidget = new DockWidget(this);
     dockWidget->setObjectName(name);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
@@ -59,6 +64,7 @@ void Sensor::setActive()
 
 void Sensor::setInactive()
 {
+    pActive = false;
     QString buf = UNSUBSCRIBE_STRING + name;
     emit command(buf);
     pWidget->stopPaint();
