@@ -50,6 +50,7 @@ void AccelObserver::update()
 
 void BatteryObserver::update()
 {
+    newData = true;
     if (!canRead)
     {
         return;
