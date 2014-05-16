@@ -29,3 +29,13 @@ void AccelObserver::update()
     value = temp;
 }
 
+void BatteryObserver::update()
+{
+    if (!canRead)
+    {
+        return;
+    }
+    QVector<float> temp;
+    temp << brickbase->battery()->readVoltage();
+    value = temp;
+}

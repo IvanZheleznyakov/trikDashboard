@@ -6,6 +6,7 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     brick(*guiThread, configPath)
 
 {
+
     updatePeriod = SENSORS_DATA_UPDATE_PERIOD;
 
     tcpCommunicator.setPort(START_PORT_INT);
@@ -16,9 +17,11 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
 
     gyroObserver = new GyroObserver(GYROSCOPE_NAME, &brick, this);
     accelObserver = new AccelObserver(ACCELEROMETER_NAME, &brick, this);
+    batteryObserver = new BatteryObserver(BATTERY_NAME, &brick, this);
 
     for (int i = 0; i < observers.size(); i++)
         qDebug() << observers[i]->getName();
+
 }
 
 void Daemon::closeTelemetry()
@@ -60,10 +63,10 @@ void Daemon::zipPackage()
     {
         if (observers[i]->subscribed())
         {
-            QVector<int> data = observers[i]->getValue();
+            QVector<float> data = observers[i]->getValue();
             QString dataString;
             for (int j = 0; j < data.size() - 1; j++)
-                dataString += QString::number(data[j]) + ",";
+                dataString += QString::number(data[j]) + "*";
             dataString += QString::number(data[data.size() - 1]) + ";";
             QString obsMessage = observers[i]->getName() + ":" + dataString;
             package += obsMessage;

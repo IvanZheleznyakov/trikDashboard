@@ -38,6 +38,7 @@ private:
     QVector<Observer *> observers;
     GyroObserver *gyroObserver;
     AccelObserver *accelObserver;
+    BatteryObserver *batteryObserver;
 
     QTimer timer;
 

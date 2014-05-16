@@ -48,11 +48,11 @@ void Dashboard::parseMessage(QString message)
     foreach (QString device, devices)
     {
         QStringList info = device.split(":", QString::SkipEmptyParts);
-        QVector<double> values;
-        QStringList data = info.at(1).split(",", QString::SkipEmptyParts);
+        QVector<float> values;
+        QStringList data = info.at(1).split("*", QString::SkipEmptyParts);
         foreach (QString val, data)
         {
-            int x = val.toDouble();
+            float x = val.toFloat();
             values << x;
         }
 

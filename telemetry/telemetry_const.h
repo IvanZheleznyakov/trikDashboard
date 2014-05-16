@@ -6,6 +6,7 @@
 //sensors
 QString const ACCELEROMETER_NAME = "Accelerometer";
 QString const GYROSCOPE_NAME = "Gyroscope";
+QString const BATTERY_NAME = "Battery";
 
 //numbers
 int const SENSORS_DATA_UPDATE_PERIOD = 10;

@@ -17,7 +17,7 @@ public:
     explicit Observer(QString devName, Brick *brick, Daemon* daemon);
     virtual void update() = 0;
 
-    QVector<int> const &getValue() const { return value; }
+    QVector<float> const &getValue() const { return value; }
     QString getName() { return name; }
     void subscribe() { canRead = true; }
     void unsubscribe() { canRead = false; }
@@ -25,7 +25,7 @@ public:
 
 protected:
     QString name;
-    QVector<int> value;
+    QVector<float> value;
     bool canRead;
     Brick *brickbase;
 };
@@ -36,7 +36,7 @@ public:
     explicit GyroObserver(QString devName, Brick *brick, Daemon* daemon):
         Observer(devName, brick, daemon)
     {
-        value << 0 << 0 << 0;
+        value << 0.0 << 0.0 << 0.0;
     }
     void update();
 };
@@ -47,7 +47,18 @@ public:
     explicit AccelObserver(QString devName, Brick *brick, Daemon* daemon):
         Observer(devName, brick, daemon)
     {
-        value << 0 << 0 << 0;
+        value << 0.0 << 0.0 << 0.0;
+    }
+    void update();
+};
+
+class BatteryObserver: public Observer
+{
+public:
+    explicit BatteryObserver(QString devName, Brick *brick, Daemon* daemon):
+        Observer(devName, brick, daemon)
+    {
+        value << 0.0;
     }
     void update();
 };
