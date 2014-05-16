@@ -1,9 +1,10 @@
 #pragma once
 #include "telemetry_const.h"
 
-#include <QObject>
 #include <trikControl/brick.h>
 #include "daemon.h"
+#include <QObject>
+#include <QTimer>
 
 using namespace trikControl;
 
@@ -13,52 +14,85 @@ class Observer : public QObject
 {
     Q_OBJECT
 
-public:
-    explicit Observer(QString devName, Brick *brick, Daemon* daemon);
+public slots:
     virtual void update() = 0;
 
-    QVector<float> const &getValue() const { return value; }
+public:
+    explicit Observer(QString devName, Brick *brick, Daemon* daemon);
+
+    QVector<float> getValue()
+    {
+        newData = false;
+        return value;
+    }
+    void subscribe() {
+        timer->start(updateInterval);
+        canRead = true;
+    }
+    void unsubscribe() {
+        timer->stop();
+        canRead = false;
+    }
+
     QString getName() { return name; }
-    void subscribe() { canRead = true; }
-    void unsubscribe() { canRead = false; }
+    void setUpdateInterval(int interval) { updateInterval = interval; }
     bool subscribed() { return canRead; }
+    bool freshData() { return newData; }
 
 protected:
+    QTimer* timer;
     QString name;
+    int updateInterval;
     QVector<float> value;
     bool canRead;
+    bool newData;
     Brick *brickbase;
 };
 
 class GyroObserver: public Observer
 {
+    Q_OBJECT
+
+public slots:
+    void update();
+
 public:
     explicit GyroObserver(QString devName, Brick *brick, Daemon* daemon):
         Observer(devName, brick, daemon)
     {
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
         value << 0.0 << 0.0 << 0.0;
     }
-    void update();
 };
 
 class AccelObserver: public Observer
 {
+    Q_OBJECT
+
+public slots:
+    void update();
+
 public:
     explicit AccelObserver(QString devName, Brick *brick, Daemon* daemon):
         Observer(devName, brick, daemon)
     {
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
         value << 0.0 << 0.0 << 0.0;
     }
-    void update();
 };
 
 class BatteryObserver: public Observer
 {
+    Q_OBJECT
+
+public slots:
+    void update();
+
 public:
     explicit BatteryObserver(QString devName, Brick *brick, Daemon* daemon):
         Observer(devName, brick, daemon)
     {
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
         value << 0.0;
     }
-    void update();
 };

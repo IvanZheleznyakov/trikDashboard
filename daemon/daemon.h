@@ -13,6 +13,7 @@ using namespace trikControl;
 class Observer;
 class GyroObserver;
 class AccelObserver;
+class BatteryObserver;
 
 class Daemon : public QObject
 {
@@ -38,7 +39,7 @@ private:
     QVector<Observer *> observers;
     GyroObserver *gyroObserver;
     AccelObserver *accelObserver;
-    BatteryObserver *batteryObserver;
+    BatteryObserver* batteryObserver;
 
     QTimer timer;
 

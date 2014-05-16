@@ -6,8 +6,7 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     brick(*guiThread, configPath)
 
 {
-
-    updatePeriod = SENSORS_DATA_UPDATE_PERIOD;
+    updatePeriod = 0;
 
     tcpCommunicator.setPort(START_PORT_INT);
     tcpCommunicator.listen();
@@ -16,8 +15,11 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     connect(&tcpCommunicator, SIGNAL(lostConnection()), this, SLOT(closeTelemetry()));
 
     gyroObserver = new GyroObserver(GYROSCOPE_NAME, &brick, this);
+    gyroObserver->setUpdateInterval(SENSORS3D_DATA_UPDATE_PERIOD);
     accelObserver = new AccelObserver(ACCELEROMETER_NAME, &brick, this);
+    accelObserver->setUpdateInterval(SENSORS3D_DATA_UPDATE_PERIOD);
     batteryObserver = new BatteryObserver(BATTERY_NAME, &brick, this);
+    batteryObserver->setUpdateInterval(BATTERY_DATA_UPDATE_PERIOD);
 
     for (int i = 0; i < observers.size(); i++)
         qDebug() << observers[i]->getName();
@@ -57,11 +59,10 @@ void Daemon::startTelemetry()
 void Daemon::zipPackage()
 {
     QString package;
-    notify();
 
     for (int i = 0; i < observers.size(); i++)
     {
-        if (observers[i]->subscribed())
+        if (observers[i]->subscribed() && observers[i]->freshData())
         {
             QVector<float> data = observers[i]->getValue();
             QString dataString;
