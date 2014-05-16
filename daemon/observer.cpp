@@ -4,33 +4,53 @@
 Observer::Observer(QString devName, Brick *brick, Daemon* daemon)
 {
     name = devName;
+    newData = false;
+    updateInterval = 1000;
     canRead = false;
+    timer = new QTimer(this);
     brickbase = brick;
     daemon->attach(this);
 }
 
 void GyroObserver::update()
 {
+    newData = true;
     if (!canRead)
     {
         return;
     }
     QVector<int> temp = brickbase->gyroscope()->read();
-    value = temp;
+    QVector<float> out;
+    int n = temp.size();
+    for (int i = 0; i < n; i++)
+    {
+        int x = temp.at(i);
+        out << (float)x;
+    }
+    value = out;
 }
 
 void AccelObserver::update()
 {
+    newData = true;
     if (!canRead)
     {
         return;
     }
     QVector<int> temp = brickbase->accelerometer()->read();
-    value = temp;
+    QVector<float> out;
+    int n = temp.size();
+    for (int i = 0; i < n; i++)
+    {
+        int x = temp.at(i);
+        out << (float)x;
+    }
+    value = out;
 }
 
 void BatteryObserver::update()
 {
+    newData = true;
     if (!canRead)
     {
         return;

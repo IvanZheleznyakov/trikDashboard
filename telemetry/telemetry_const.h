@@ -3,13 +3,16 @@
 #include <QKeySequence>
 #include <QSize>
 
-//sensors
+//sensors names
 QString const ACCELEROMETER_NAME = "Accelerometer";
 QString const GYROSCOPE_NAME = "Gyroscope";
 QString const BATTERY_NAME = "Battery";
 
-//numbers
-int const SENSORS_DATA_UPDATE_PERIOD = 10;
+//daemon numbers
+int const SENSORS3D_DATA_UPDATE_PERIOD = 1;
+int const BATTERY_DATA_UPDATE_PERIOD = 1000;
+
+//dashboard numbers
 int const WAITING_RESPONSE_TIME = 5000;
 int const TOOLBAR_WIDTH = 120;
 QSize const PANEL_START_SIZE = QSize(800, 600);
