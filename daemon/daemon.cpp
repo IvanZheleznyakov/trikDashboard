@@ -128,7 +128,7 @@ void Daemon::parseMessage(QString message)
     qDebug() << message;
     QStringList list = message.split(":", QString::SkipEmptyParts);
 
-    if (list.at(0).trimmed() == "subscribe")
+    if (list.at(0).trimmed() == SUBSCRIBE_STRING)
     {
         for (int i = 0; i < observers.size(); i++)
         {
@@ -138,7 +138,7 @@ void Daemon::parseMessage(QString message)
             }
         }
     } else
-    if (list.at(0).trimmed() == "unsubscribe")
+    if (list.at(0).trimmed() == UNSUBSCRIBE_STRING)
     {
         for (int i = 0; i < observers.size(); i++)
         {
