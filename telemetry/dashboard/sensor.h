@@ -18,7 +18,7 @@ class Sensor : public QObject
     Q_OBJECT
 
 public:
-    explicit Sensor(QString name, QObject *parent = 0);
+    explicit Sensor(QString title, QString devName, QObject *parent = 0);
     bool active();
     DashboardWidget* widget();
     QPushButton* button();
@@ -37,7 +37,8 @@ public slots:
 private:
     bool pActive;
     QPushButton* sensorButton;
-    QString name;
+    QString title;
+    QString devName;
     DockWidget* dockWidget;
     DashboardWidget* pWidget;
 

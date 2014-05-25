@@ -52,8 +52,8 @@ int const START_PORT_INT = 1221;
 QKeySequence const SHOW_HIDE_SHORTCUT = Qt::CTRL|Qt::Key_Q;
 
 //commands
-QString const SUBSCRIBE_STRING = "sub:";
-QString const UNSUBSCRIBE_STRING = "unsub:";
+QString const SUBSCRIBE_STRING = "sub";
+QString const UNSUBSCRIBE_STRING = "unsub";
 
 //user messages
 QString const SHOW_HIDE_TEXT = "Use Ctrl+Q for show/hide menu";

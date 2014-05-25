@@ -12,10 +12,10 @@ Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
-    accelerometer = new Sensor(ACCELEROMETER_TITLE);
-    gyroscope = new Sensor(GYROSCOPE_TITLE);
-    battery = new Sensor(BATTERY_TITLE);
-    powerMotor1 = new Sensor(POWER_MOTOR1_TITLE);
+    accelerometer = new Sensor(ACCELEROMETER_TITLE, ACCELEROMETER_NAME);
+    gyroscope = new Sensor(GYROSCOPE_TITLE, GYROSCOPE_NAME);
+    battery = new Sensor(BATTERY_TITLE, BATTERY_NAME);
+    powerMotor1 = new Sensor(POWER_MOTOR1_TITLE, BATTERY_NAME);
 
     sensors << accelerometer << gyroscope << battery << powerMotor1;
     foreach (Sensor* s, sensors) {

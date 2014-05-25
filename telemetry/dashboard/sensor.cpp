@@ -1,12 +1,13 @@
 #include "sensor.h"
 #include <QTextEdit>
 
-Sensor::Sensor(QString name, QObject *parent) :
+Sensor::Sensor(QString title, QString devName, QObject *parent) :
     QObject(parent),
     pActive(false),
-    name(name)
+    title(title),
+    devName(devName)
 {
-    sensorButton = new QPushButton(name);
+    sensorButton = new QPushButton(title);
     sensorButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
                          "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
 
@@ -15,16 +16,16 @@ Sensor::Sensor(QString name, QObject *parent) :
 
 void Sensor::createDashboardWidget()
 {
-    if (name == ACCELEROMETER_TITLE || name == GYROSCOPE_TITLE)
+    if (title == ACCELEROMETER_TITLE || title == GYROSCOPE_TITLE)
     {
-        pWidget = new CustomPlotWidget(3, name);
+        pWidget = new CustomPlotWidget(3, title);
     } else
-    if (name == BATTERY_TITLE || name == POWER_MOTOR1_TITLE)
+    if (title == BATTERY_TITLE || title == POWER_MOTOR1_TITLE)
     {
-        pWidget = new LCDNumberWidget(name);
+        pWidget = new LCDNumberWidget(title);
     } else
     {
-        pWidget = new EmptyWidget(name);
+        pWidget = new EmptyWidget(title);
     }
 }
 
@@ -43,18 +44,18 @@ void Sensor::actionTriggered()
 void Sensor::setActive()
 {
     pActive = true;
-    QString buf = SUBSCRIBE_STRING + name;
+    QString buf = SUBSCRIBE_STRING +":"+ devName;
     emit command(buf);
 
     createDashboardWidget();
 
     dockWidget = new DockWidget(this);
-    dockWidget->setObjectName(name);
+    dockWidget->setObjectName(title);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetFloatable);
     dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
-    dockWidget->setWindowTitle(name);
+    dockWidget->setWindowTitle(title);
     dockWidget->setWidget(pWidget);
 
     emit newDockWidget(dockWidget);
@@ -65,7 +66,7 @@ void Sensor::setActive()
 void Sensor::setInactive()
 {
     pActive = false;
-    QString buf = UNSUBSCRIBE_STRING + name;
+    QString buf = UNSUBSCRIBE_STRING +":"+ devName;
     emit command(buf);
     pWidget->stopPaint();
     dockWidget->deleteLater();
