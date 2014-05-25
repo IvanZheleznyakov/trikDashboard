@@ -16,9 +16,9 @@ ProgressBarWidget::ProgressBarWidget(QString title) :
 
 void ProgressBarWidget::init()
 {
-    this->setInterval(20);
+    this->setInterval(60);
     progressBar->setTextVisible(true);
-    progressBar->setStyleSheet("QProgressBar { border: 2px solid grey; border-radius: 5px; text-align: center; } QProgressBar::chunk { background-color: #05B8CC;width: 20px;}");
+    progressBar->setStyleSheet("QProgressBar { border: 2px solid grey; border-radius: 5px; text-align: center; } QProgressBar::chunk { background-color: #C0C0C0;width: 20px;}");
     progressBar->setOrientation(Qt::Horizontal);
     progressBar->setRange(0,100);
 }

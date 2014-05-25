@@ -39,6 +39,8 @@ void ToolBar::insertToolBox()
     QLabel* portLabel = new QLabel("Port:");
     portTextEdit = new QLineEdit(START_PORT_STRING);
     QPushButton* connectButton = new QPushButton("Connect");
+    connectButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
+                                 "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
     ipTextEdit->setFixedHeight(24);
     portTextEdit->setFixedHeight(24);
     connectToTRIKLayout->addWidget(ipLabel);
@@ -52,7 +54,7 @@ void ToolBar::insertToolBox()
     connect(connectButton,SIGNAL(clicked()),this,SLOT(connectButtonPressed()));
 
     this->addWidget(menuBox);
-
+//    insertTelemetry();
 }
 
 void ToolBar::insertTelemetry()

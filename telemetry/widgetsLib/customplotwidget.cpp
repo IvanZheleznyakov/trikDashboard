@@ -1,4 +1,5 @@
 #include "customplotwidget.h"
+#include <QSizePolicy>
 
 CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
     DashboardWidget(axis, title)
@@ -8,14 +9,17 @@ CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
     labelNumders = new QLabel("");
     labelNumders->setAlignment(Qt::AlignCenter);
 
-//    layout->addWidget(titleLabel);
-
     plot = new QCustomPlot();
+    /*
+    QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    sizePolicy.setHorizontalStretch(0);
+    sizePolicy.setVerticalStretch(0);
+    sizePolicy.setHeightForWidth(plot->sizePolicy().hasHeightForWidth());
+    plot->setSizePolicy(sizePolicy);
+    */
     plot->setWindowTitle(title);
-    layout->addWidget(plot);
-
-    layout->addWidget(labelNumders);
-
+    layout->addWidget(plot, 0,0,10,1);
+    layout->addWidget(labelNumders,10,0,1,1);
     setLayout(layout);
 
     init();
@@ -35,7 +39,7 @@ void CustomPlotWidget::addGraph(int n, QColor color)
 
 void CustomPlotWidget::init()
 {
-    this->setInterval(50);
+    this->setInterval(40); //60HZ = 17msecs, 72Hz = 13msecs
 //    include this section to fully disable antialiasing for higher performance:
     /*
     plot->setNotAntialiasedElements(QCP::aeAll);

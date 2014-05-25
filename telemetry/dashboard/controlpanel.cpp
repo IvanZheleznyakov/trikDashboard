@@ -56,5 +56,5 @@ void ControlPanel::showEvent(QShowEvent *event)
 
 void ControlPanel::createDockWidget(DockWidget* dw)
 {
-    addDockWidget(Qt::TopDockWidgetArea, dw);
+    addDockWidget(Qt::LeftDockWidgetArea, dw);
 }
