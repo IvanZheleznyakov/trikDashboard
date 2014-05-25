@@ -1,10 +1,14 @@
 #include "dashboard.h"
 #include <QApplication>
+#include <QtCore>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+    QTranslator myTranslator;
+    myTranslator.load("dashboard_ru");
+    app.installTranslator(&myTranslator);
     Dashboard w;
 
-    return a.exec();
+    return app.exec();
 }

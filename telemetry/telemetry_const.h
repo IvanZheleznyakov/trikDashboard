@@ -1,21 +1,32 @@
 #pragma once
+#include <QObject>
 #include <QString>
 #include <QKeySequence>
 #include <QSize>
 
-//dashboard names
-QString const ACCELEROMETER_TITLE = "Accelerometer";
-QString const GYROSCOPE_TITLE = "Gyroscope";
-QString const BATTERY_TITLE = "Battery";
-QString const POWER_MOTOR1_TITLE = "Motor 1";
-QString const POWER_MOTOR2_TITLE = "Motor 2";
-QString const POWER_MOTOR3_TITLE = "Motor 3";
-QString const POWER_MOTOR4_TITLE = "Motor 4";
-QString const ENCODER1_TITLE = "Encoder 0";
-QString const ENCODER2_TITLE = "Encoder 1";
-QString const ENCODER3_TITLE = "Encoder 2";
-QString const ENCODER4_TITLE = "Encoder 3";
+class TelemetryConst : public QObject
+{
+    Q_OBJECT
+public:
+    //dashboard names
+    static QString const ACCELEROMETER_TITLE() { return tr("Accelerometer"); }
+    static QString const GYROSCOPE_TITLE() { return tr("Gyroscope"); }
+    static QString const BATTERY_TITLE() { return tr("Battery"); }
+    static QString const POWER_MOTOR1_TITLE() { return tr("Motor 1"); }
+    static QString const POWER_MOTOR2_TITLE() { return tr("Motor 2"); }
+    static QString const POWER_MOTOR3_TITLE() { return tr("Motor 3"); }
+    static QString const POWER_MOTOR4_TITLE() { return ("Motor 4"); }
+    static QString const ENCODER1_TITLE() { return tr("Encoder 0"); }
+    static QString const ENCODER2_TITLE() { return tr("Encoder 1"); }
+    static QString const ENCODER3_TITLE() { return tr("Encoder 2"); }
+    static QString const ENCODER4_TITLE() { return tr("Encoder 3"); }
 
+    //user messages
+    static QString const SHOW_HIDE_TEXT() { return tr("Use Ctrl+Q for show/hide menu"); }
+    static QString const WAITING_RESPONSE_MESSAGE() { return tr("Connection to TRIK: waiting responce..."); }
+    static QString const NOCONNECTION_MESSAGE() { return tr("No connection: try to connect again"); }
+    static QString const SEND_FROM_DAEMON_MESSAGE() { return tr("TRIK connected"); }
+};
 
 //sensors names
 QString const ACCELEROMETER_NAME = "A";
@@ -39,7 +50,7 @@ int const BATTERY_DATA_UPDATE_PERIOD = 1000;
 
 //dashboard numbers
 int const WAITING_RESPONSE_TIME = 5000;
-int const TOOLBAR_WIDTH = 120;
+int const TOOLBAR_WIDTH = 135;
 QSize const PANEL_START_SIZE = QSize(800, 600);
 QSize const PANEL_MIN_SIZE = QSize(640, 480);
 
@@ -54,10 +65,4 @@ QKeySequence const SHOW_HIDE_SHORTCUT = Qt::CTRL|Qt::Key_Q;
 //commands
 QString const SUBSCRIBE_STRING = "sub";
 QString const UNSUBSCRIBE_STRING = "unsub";
-
-//user messages
-QString const SHOW_HIDE_TEXT = "Use Ctrl+Q for show/hide menu";
-QString const WAITING_RESPONSE_MESSAGE = "Connection to TRIK: waiting responce...";
-QString const NOCONNECTION_MESSAGE = "No connection: try to connect again";
 QString const SEND_MESSAGE = "Dashboard connected";
-QString const SEND_FROM_DAEMON_MESSAGE = "TRIK connected";

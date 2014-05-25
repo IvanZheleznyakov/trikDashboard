@@ -34,11 +34,11 @@ void ToolBar::insertToolBox()
     //----------------
     QGroupBox *connectToTRIK = new QGroupBox();
     QVBoxLayout *connectToTRIKLayout = new QVBoxLayout;
-    QLabel* ipLabel = new QLabel("Connect to IP:");
+    QLabel* ipLabel = new QLabel(tr("Connect to IP:"));
     ipTextEdit = new QLineEdit(START_IP_STRING);
-    QLabel* portLabel = new QLabel("Port:");
+    QLabel* portLabel = new QLabel(tr("Port:"));
     portTextEdit = new QLineEdit(START_PORT_STRING);
-    QPushButton* connectButton = new QPushButton("Connect");
+    QPushButton* connectButton = new QPushButton(tr("Connect"));
     connectButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
                                  "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
     ipTextEdit->setFixedHeight(24);
@@ -50,28 +50,28 @@ void ToolBar::insertToolBox()
     connectToTRIKLayout->addWidget(connectButton);
     connectToTRIKLayout->addStretch(0);
     connectToTRIK->setLayout(connectToTRIKLayout);
-    menuBox->addItem(connectToTRIK, "Connection");
+    menuBox->addItem(connectToTRIK, tr("Connection"));
     connect(connectButton,SIGNAL(clicked()),this,SLOT(connectButtonPressed()));
 
     this->addWidget(menuBox);
-//    insertTelemetry();
+    insertTelemetry();
 }
 
 void ToolBar::insertTelemetry()
 {
     QGroupBox *settings = new QGroupBox();
     QVBoxLayout *settingsLayout = new QVBoxLayout;
-    QCheckBox* logging = new QCheckBox("Logging", this);
+    QCheckBox* logging = new QCheckBox(tr("Logging"), this);
     settingsLayout->addWidget(logging);
     settingsLayout->addStretch(0);
     settings->setLayout(settingsLayout);
-    menuBox->addItem(settings, "Settings");
+    menuBox->addItem(settings, tr("Settings"));
     //----------------
 
     QToolBox* telemetry = new QToolBox();
     telemetry->setStyleSheet("QToolBox::tab { background: gray; border-radius: 3px; color: darkgray; }"
                              "QToolBox::tab:selected { font: italic; color: black;}");
-    menuBox->addItem(telemetry, "Telemetry");
+    menuBox->addItem(telemetry, tr("Telemetry"));
 
     QGroupBox* sensors3D = new QGroupBox();
     QVBoxLayout* sensors3DLayout = new QVBoxLayout;
@@ -80,7 +80,7 @@ void ToolBar::insertTelemetry()
     sensors3DLayout->addWidget(panel->gyroscope->button());
     sensors3DLayout->addStretch(0);
     sensors3D->setLayout(sensors3DLayout);
-    telemetry->addItem(sensors3D,"3D sensors");
+    telemetry->addItem(sensors3D,tr("3D sensors"));
 
     QGroupBox* analogSensors = new QGroupBox();
     QVBoxLayout* analogSensorsLayout = new QVBoxLayout;
@@ -88,7 +88,7 @@ void ToolBar::insertTelemetry()
     //analogSensorsLayout->addWidget(analog);
     //analogSensorsLayout->addStretch(0);
     analogSensors->setLayout(analogSensorsLayout);
-    telemetry->addItem(analogSensors,"Analog sensors");
+    telemetry->addItem(analogSensors,tr("Analog sensors"));
 
     QGroupBox* servoMotors = new QGroupBox();
     QVBoxLayout* servoMotorsLayout = new QVBoxLayout;
@@ -96,7 +96,7 @@ void ToolBar::insertTelemetry()
     //servoMotorsLayout->addWidget(smotor1);
     //servoMotorsLayout->addStretch(0);
     servoMotors->setLayout(servoMotorsLayout);
-    telemetry->addItem(servoMotors,"Servomotors");
+    telemetry->addItem(servoMotors,tr("Servomotors"));
 
     QGroupBox* powerMotors = new QGroupBox();
     QVBoxLayout* powerMotorsLayout = new QVBoxLayout;
@@ -106,7 +106,7 @@ void ToolBar::insertTelemetry()
     powerMotorsLayout->addWidget(panel->powerMotor4->button());
     powerMotorsLayout->addStretch(0);
     powerMotors->setLayout(powerMotorsLayout);
-    telemetry->addItem(powerMotors,"Motors");
+    telemetry->addItem(powerMotors,tr("Motors"));
 
     QGroupBox* encoders = new QGroupBox();
     QVBoxLayout* encodersLayout = new QVBoxLayout;
@@ -114,7 +114,7 @@ void ToolBar::insertTelemetry()
     //encodersLayout->addWidget(encoder);
     //encodersLayout->addStretch(0);
     encoders->setLayout(encodersLayout);
-    telemetry->addItem(encoders,"Encoders");
+    telemetry->addItem(encoders,tr("Encoders"));
 
 
     QGroupBox* batteryGroup = new QGroupBox();
@@ -122,7 +122,7 @@ void ToolBar::insertTelemetry()
     batteryLayout->addWidget(panel->battery->button());
     batteryLayout->addStretch(0);
     batteryGroup->setLayout(batteryLayout);
-    telemetry->addItem(batteryGroup,"Battery");
+    telemetry->addItem(batteryGroup,tr("Battery"));
 
 
 }

@@ -20,7 +20,7 @@ void Dashboard::connectToTRIK(QString ip, int port)
     tcpCommunicator.setPort(port);
     tcpCommunicator.connectToHost();
 
-    panel.setStatusBarText(WAITING_RESPONSE_MESSAGE);
+    panel.setStatusBarText(TelemetryConst::WAITING_RESPONSE_MESSAGE());
     tcpCommunicator.send(SEND_MESSAGE);
 
     QThread::msleep(WAITING_RESPONSE_TIME);
@@ -31,7 +31,7 @@ void Dashboard::connectToTRIK(QString ip, int port)
             connect(s, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
         }
     } else {
-        panel.setStatusBarText(NOCONNECTION_MESSAGE);
+        panel.setStatusBarText(TelemetryConst::NOCONNECTION_MESSAGE());
     }
 }
 

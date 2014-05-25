@@ -16,15 +16,19 @@ Sensor::Sensor(QString title, QString devName, QObject *parent) :
 
 void Sensor::createDashboardWidget()
 {
-    if (title == ACCELEROMETER_TITLE || title == GYROSCOPE_TITLE)
+    if (title == TelemetryConst::ACCELEROMETER_TITLE()
+            || title == TelemetryConst::GYROSCOPE_TITLE())
     {
         pWidget = new CustomPlotWidget(3, title);
     } else
-    if (title == BATTERY_TITLE)
+    if (title == TelemetryConst::BATTERY_TITLE())
     {
         pWidget = new LCDNumberWidget(title);
     } else
-    if (title == POWER_MOTOR1_TITLE || title == POWER_MOTOR2_TITLE || title == POWER_MOTOR3_TITLE || title == POWER_MOTOR4_TITLE)
+    if (title == TelemetryConst::POWER_MOTOR1_TITLE()
+            || title == TelemetryConst::POWER_MOTOR2_TITLE()
+            || title == TelemetryConst::POWER_MOTOR3_TITLE()
+            || title == TelemetryConst::POWER_MOTOR4_TITLE())
     {
         pWidget = new ProgressBarWidget(title);
     } else

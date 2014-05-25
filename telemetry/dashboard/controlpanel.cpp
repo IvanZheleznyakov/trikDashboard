@@ -7,32 +7,33 @@
 #include <QApplication>
 #include <qdebug.h>
 
+
 Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 
 ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
-    accelerometer = new Sensor(ACCELEROMETER_TITLE, ACCELEROMETER_NAME);
-    gyroscope = new Sensor(GYROSCOPE_TITLE, GYROSCOPE_NAME);
-    battery = new Sensor(BATTERY_TITLE, BATTERY_NAME);
-    powerMotor1 = new Sensor(POWER_MOTOR1_TITLE, POWER_MOTOR1_NAME);
-    powerMotor2 = new Sensor(POWER_MOTOR2_TITLE, POWER_MOTOR2_NAME);
-    powerMotor3 = new Sensor(POWER_MOTOR3_TITLE, POWER_MOTOR3_NAME);
-    powerMotor4 = new Sensor(POWER_MOTOR4_TITLE, POWER_MOTOR4_NAME);
+    accelerometer = new Sensor(TelemetryConst::ACCELEROMETER_TITLE(), ACCELEROMETER_NAME);
+    gyroscope = new Sensor(TelemetryConst::GYROSCOPE_TITLE(), GYROSCOPE_NAME);
+    battery = new Sensor(TelemetryConst::BATTERY_TITLE(), BATTERY_NAME);
+    powerMotor1 = new Sensor(TelemetryConst::POWER_MOTOR1_TITLE(), POWER_MOTOR1_NAME);
+    powerMotor2 = new Sensor(TelemetryConst::POWER_MOTOR2_TITLE(), POWER_MOTOR2_NAME);
+    powerMotor3 = new Sensor(TelemetryConst::POWER_MOTOR3_TITLE(), POWER_MOTOR3_NAME);
+    powerMotor4 = new Sensor(TelemetryConst::POWER_MOTOR4_TITLE(), POWER_MOTOR4_NAME);
 
     sensors << accelerometer << gyroscope << battery << powerMotor1 << powerMotor2 << powerMotor3 << powerMotor4;
     foreach (Sensor* s, sensors) {
         connect(s,SIGNAL(newDockWidget(DockWidget*)), this, SLOT(createDockWidget(DockWidget*)));
     }
 
-    setWindowTitle("TRIK Telemetry Dashboard");
+    setWindowTitle(tr("TRIK Telemetry Dashboard"));
     toolBar = new ToolBar(this);
     connect(toolBar, SIGNAL(setConnection(QString,int)), this, SIGNAL(setConnection(QString, int)));
     connect(this,SIGNAL(newConnection()),toolBar,SLOT(insertTelemetry()));
     connect(this,SIGNAL(lostConnection()),toolBar,SLOT(deleteTelemetry()));
     addToolBar(Qt::LeftToolBarArea, toolBar);
 
-    setStatusBarText(SHOW_HIDE_TEXT);
+    setStatusBarText(TelemetryConst::SHOW_HIDE_TEXT());
 
     DockOptions opts;
     opts |= AllowNestedDocks;
