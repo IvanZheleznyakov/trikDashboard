@@ -7,10 +7,10 @@
 QString const ACCELEROMETER_NAME = "Accelerometer";
 QString const GYROSCOPE_NAME = "Gyroscope";
 QString const BATTERY_NAME = "Battery";
-QString const POWER_MOTOR1_NAME = "JM1";
-QString const POWER_MOTOR2_NAME = "JM2";
-QString const POWER_MOTOR3_NAME = "JM3";
-QString const POWER_MOTOR4_NAME = "JM4";
+QString const POWER_MOTOR1_NAME = "M1";
+QString const POWER_MOTOR2_NAME = "JM1";
+QString const POWER_MOTOR3_NAME = "JM2";
+QString const POWER_MOTOR4_NAME = "JM3";
 QString const ENCODER1_NAME = "JB1";
 QString const ENCODER2_NAME = "JB2";
 QString const ENCODER3_NAME = "JB3";

@@ -29,6 +29,7 @@ signals:
 public slots:
 
 private slots:
+    void testSensors(int times);
     void notify();
     void zipPackage();
     void startTelemetry();

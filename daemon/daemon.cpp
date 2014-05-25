@@ -21,7 +21,12 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     batteryObserver = new BatteryObserver(BATTERY_NAME, &brick, this);
     batteryObserver->setUpdateInterval(BATTERY_DATA_UPDATE_PERIOD);
 
-    //toDO: encodersPorts,motorPorts list
+    //toDO: encodersPorts,motorPorts list;
+    //toDO: send info to Dashboard about devices;
+
+    qDebug() << brick.motorPorts(Motor::powerMotor);
+    qDebug() << brick.encoderPorts();
+
     powerMotor1 = new PowerMotorObserver(POWER_MOTOR1_NAME, &brick, this);
     powerMotor1->setUpdateInterval(MOTOR_DATA_UPDATE_PERIOD);
     powerMotor2 = new PowerMotorObserver(POWER_MOTOR2_NAME, &brick, this);
@@ -31,8 +36,11 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     powerMotor4 = new PowerMotorObserver(POWER_MOTOR4_NAME, &brick, this);
     powerMotor4->setUpdateInterval(MOTOR_DATA_UPDATE_PERIOD);
 
+    /*
     encoder1 = new EncoderObserver(ENCODER1_NAME, &brick, this);
     encoder1->setUpdateInterval(ENCODER_DATA_UPDATE_PERIOD);
+    */
+
     encoder2 = new EncoderObserver(ENCODER2_NAME, &brick, this);
     encoder2->setUpdateInterval(ENCODER_DATA_UPDATE_PERIOD);
     encoder3 = new EncoderObserver(ENCODER3_NAME, &brick, this);
@@ -43,6 +51,21 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     for (int i = 0; i < observers.size(); i++)
         qDebug() << observers[i]->getName();
 
+    testSensors(2);
+}
+
+void Daemon::testSensors(int times)
+{
+    for (int j = 0; j < times; j++)
+    {
+        for (int i = 0; i < observers.size(); i++)
+        {
+            observers[i]->subscribe();
+            observers[i]->update();
+            qDebug() << observers[i]->getName() << " = " << observers[i]->getValue();
+            observers[i]->unsubscribe();
+        }
+    }
 }
 
 void Daemon::closeTelemetry()
