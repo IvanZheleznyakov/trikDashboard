@@ -21,6 +21,7 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     batteryObserver = new BatteryObserver(BATTERY_NAME, &brick, this);
     batteryObserver->setUpdateInterval(BATTERY_DATA_UPDATE_PERIOD);
 
+    //toDO: encodersPorts,motorPorts list
     powerMotor1 = new PowerMotorObserver(POWER_MOTOR1_NAME, &brick, this);
     powerMotor1->setUpdateInterval(MOTOR_DATA_UPDATE_PERIOD);
     powerMotor2 = new PowerMotorObserver(POWER_MOTOR2_NAME, &brick, this);
