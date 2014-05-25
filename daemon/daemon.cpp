@@ -4,9 +4,9 @@
 
 Daemon::Daemon(QThread *guiThread, QString configPath) :
     brick(*guiThread, configPath)
-
 {
     updatePeriod = TCP_PEDIOD;
+    algo = new RobotAlgorithm(&brick);
 
     tcpCommunicator.setPort(START_PORT_INT);
     tcpCommunicator.listen();
@@ -71,6 +71,7 @@ void Daemon::testSensors(int times)
 void Daemon::closeTelemetry()
 {
     qDebug() << "TELEMETRY CLOSED";
+    algo->stop();
     timer.stop();
     disconnect(&timer, SIGNAL(timeout()), this, SLOT(zipPackage()));
     for (int i = 0; i < observers.size(); i++)
@@ -91,11 +92,10 @@ void Daemon::attach(Observer *obs)
 void Daemon::startTelemetry()
 {
     tcpCommunicator.send(SEND_FROM_DAEMON_MESSAGE);
-
+    algo->start();
     timer.stop();
     connect(&timer, SIGNAL(timeout()), this, SLOT(zipPackage()));
     timer.start(updatePeriod);
-
 }
 
 void Daemon::zipPackage()
@@ -128,7 +128,7 @@ void Daemon::parseMessage(QString message)
     qDebug() << message;
     QStringList list = message.split(":", QString::SkipEmptyParts);
 
-    if (list.at(0).trimmed() == "subscribe")
+    if (list.at(0).trimmed() == SUBSCRIBE_STRING)
     {
         for (int i = 0; i < observers.size(); i++)
         {
@@ -138,7 +138,7 @@ void Daemon::parseMessage(QString message)
             }
         }
     } else
-    if (list.at(0).trimmed() == "unsubscribe")
+    if (list.at(0).trimmed() == UNSUBSCRIBE_STRING)
     {
         for (int i = 0; i < observers.size(); i++)
         {

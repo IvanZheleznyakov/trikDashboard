@@ -30,9 +30,11 @@ LIBS += -L$$TRIKCONTROL_BINDIR -ltrikControl
 SOURCES += main.cpp \
     daemon.cpp \
     tcpcommunicator.cpp \
-    observer.cpp
+    observer.cpp \
+    robotalgorithm.cpp
 HEADERS += \
     daemon.h \
     tcpcommunicator.h \
     observer.h \
-    ../telemetry/telemetry_const.h
+    ../telemetry/telemetry_const.h \
+    robotalgorithm.h

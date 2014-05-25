@@ -8,6 +8,7 @@
 #include "observer.h"
 #include "tcpcommunicator.h"
 
+#include "robotalgorithm.h"
 using namespace trikControl;
 
 class Observer;
@@ -52,7 +53,8 @@ private:
     EncoderObserver* encoder3;
     EncoderObserver* encoder4;
 
-    QTimer timer;
+    RobotAlgorithm* algo;
 
+    QTimer timer;
     int updatePeriod;
 };
