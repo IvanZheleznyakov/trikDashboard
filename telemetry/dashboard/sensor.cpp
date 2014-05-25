@@ -20,9 +20,13 @@ void Sensor::createDashboardWidget()
     {
         pWidget = new CustomPlotWidget(3, title);
     } else
-    if (title == BATTERY_TITLE || title == POWER_MOTOR1_TITLE)
+    if (title == BATTERY_TITLE)
     {
         pWidget = new LCDNumberWidget(title);
+    } else
+    if (title == POWER_MOTOR1_TITLE || title == POWER_MOTOR2_TITLE || title == POWER_MOTOR3_TITLE || title == POWER_MOTOR4_TITLE)
+    {
+        pWidget = new ProgressBarWidget(title);
     } else
     {
         pWidget = new EmptyWidget(title);

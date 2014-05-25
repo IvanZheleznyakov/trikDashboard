@@ -6,7 +6,6 @@ LCDNumberWidget::LCDNumberWidget(QString title) :
     connect(paintTimer, &QTimer::timeout, this, &LCDNumberWidget::paintWidget);
     LCDNumbers = new QLCDNumber();
 
-    this->setInterval(1000);
     init();
 
     layout->addWidget(LCDNumbers);
@@ -16,6 +15,8 @@ LCDNumberWidget::LCDNumberWidget(QString title) :
 
 void LCDNumberWidget::init()
 {
+    this->setInterval(1000);
+
     LCDNumbers->setDigitCount(10);
 }
 

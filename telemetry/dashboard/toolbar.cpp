@@ -99,6 +99,9 @@ void ToolBar::insertTelemetry()
     QGroupBox* powerMotors = new QGroupBox();
     QVBoxLayout* powerMotorsLayout = new QVBoxLayout;
     powerMotorsLayout->addWidget(panel->powerMotor1->button());
+    powerMotorsLayout->addWidget(panel->powerMotor2->button());
+    powerMotorsLayout->addWidget(panel->powerMotor3->button());
+    powerMotorsLayout->addWidget(panel->powerMotor4->button());
     powerMotorsLayout->addStretch(0);
     powerMotors->setLayout(powerMotorsLayout);
     telemetry->addItem(powerMotors,"Motors");

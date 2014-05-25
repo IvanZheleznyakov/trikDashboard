@@ -16,14 +16,16 @@ SOURCES += dashboardwidget.cpp \
     qcustomplot.cpp \
     customplotwidget.cpp \
     emptywidget.cpp \
-    lcdnumberwidget.cpp
+    lcdnumberwidget.cpp \
+    progressbarwidget.cpp
 
 HEADERS += dashboardwidget.h\
         widgetslib_global.h \
     qcustomplot.h \
     customplotwidget.h \
     emptywidget.h \
-    lcdnumberwidget.h
+    lcdnumberwidget.h \
+    progressbarwidget.h
 
 unix {
     target.path = /usr/lib

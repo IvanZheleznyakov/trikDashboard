@@ -10,6 +10,7 @@
 #include <customplotwidget.h>
 #include <emptywidget.h>
 #include <lcdnumberwidget.h>
+#include <progressbarwidget.h>
 #include "dockwidget.h"
 
 class DockWidget;
