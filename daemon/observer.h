@@ -96,3 +96,35 @@ public:
         value << 0.0;
     }
 };
+
+class PowerMotorObserver: public Observer
+{
+    Q_OBJECT
+
+public slots:
+    void update();
+
+public:
+    explicit PowerMotorObserver(QString devName, Brick *brick, Daemon* daemon):
+        Observer(devName, brick, daemon)
+    {
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+        value << 0.0;
+    }
+};
+
+class EncoderObserver: public Observer
+{
+    Q_OBJECT
+
+public slots:
+    void update();
+
+public:
+    explicit EncoderObserver(QString devName, Brick *brick, Daemon* daemon):
+        Observer(devName, brick, daemon)
+    {
+        connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+        value << 0.0;
+    }
+};

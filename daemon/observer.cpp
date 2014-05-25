@@ -59,3 +59,27 @@ void BatteryObserver::update()
     temp << brickbase->battery()->readVoltage();
     value = temp;
 }
+
+void PowerMotorObserver::update()
+{
+    newData = true;
+    if (!canRead)
+    {
+        return;
+    }
+    QVector<float> temp;
+    temp << brickbase->motor(name)->power();
+    value = temp;
+}
+
+void EncoderObserver::update()
+{
+    newData = true;
+    if (!canRead)
+    {
+        return;
+    }
+    QVector<float> temp;
+    temp << brickbase->encoder(name)->read();
+    value = temp;
+}

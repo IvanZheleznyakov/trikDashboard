@@ -14,6 +14,8 @@ class Observer;
 class GyroObserver;
 class AccelObserver;
 class BatteryObserver;
+class PowerMotorObserver;
+class EncoderObserver;
 
 class Daemon : public QObject
 {
@@ -40,6 +42,14 @@ private:
     GyroObserver *gyroObserver;
     AccelObserver *accelObserver;
     BatteryObserver* batteryObserver;
+    PowerMotorObserver* powerMotor1;
+    PowerMotorObserver* powerMotor2;
+    PowerMotorObserver* powerMotor3;
+    PowerMotorObserver* powerMotor4;
+    EncoderObserver* encoder1;
+    EncoderObserver* encoder2;
+    EncoderObserver* encoder3;
+    EncoderObserver* encoder4;
 
     QTimer timer;
 

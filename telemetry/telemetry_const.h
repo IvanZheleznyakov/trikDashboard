@@ -7,9 +7,20 @@
 QString const ACCELEROMETER_NAME = "Accelerometer";
 QString const GYROSCOPE_NAME = "Gyroscope";
 QString const BATTERY_NAME = "Battery";
+QString const POWER_MOTOR1_NAME = "JM1";
+QString const POWER_MOTOR2_NAME = "JM2";
+QString const POWER_MOTOR3_NAME = "JM3";
+QString const POWER_MOTOR4_NAME = "JM4";
+QString const ENCODER1_NAME = "JB1";
+QString const ENCODER2_NAME = "JB2";
+QString const ENCODER3_NAME = "JB3";
+QString const ENCODER4_NAME = "JB4";
 
 //daemon numbers
-int const SENSORS3D_DATA_UPDATE_PERIOD = 1;
+int const TCP_PEDIOD = 10;
+int const SENSORS3D_DATA_UPDATE_PERIOD = 5;
+int const MOTOR_DATA_UPDATE_PERIOD = 5;
+int const ENCODER_DATA_UPDATE_PERIOD = 5;
 int const BATTERY_DATA_UPDATE_PERIOD = 1000;
 
 //dashboard numbers

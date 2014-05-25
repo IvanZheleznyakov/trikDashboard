@@ -6,7 +6,7 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     brick(*guiThread, configPath)
 
 {
-    updatePeriod = 0;
+    updatePeriod = TCP_PEDIOD;
 
     tcpCommunicator.setPort(START_PORT_INT);
     tcpCommunicator.listen();
@@ -20,6 +20,24 @@ Daemon::Daemon(QThread *guiThread, QString configPath) :
     accelObserver->setUpdateInterval(SENSORS3D_DATA_UPDATE_PERIOD);
     batteryObserver = new BatteryObserver(BATTERY_NAME, &brick, this);
     batteryObserver->setUpdateInterval(BATTERY_DATA_UPDATE_PERIOD);
+
+    powerMotor1 = new PowerMotorObserver(POWER_MOTOR1_NAME, &brick, this);
+    powerMotor1->setUpdateInterval(MOTOR_DATA_UPDATE_PERIOD);
+    powerMotor2 = new PowerMotorObserver(POWER_MOTOR2_NAME, &brick, this);
+    powerMotor2->setUpdateInterval(MOTOR_DATA_UPDATE_PERIOD);
+    powerMotor3 = new PowerMotorObserver(POWER_MOTOR3_NAME, &brick, this);
+    powerMotor3->setUpdateInterval(MOTOR_DATA_UPDATE_PERIOD);
+    powerMotor4 = new PowerMotorObserver(POWER_MOTOR4_NAME, &brick, this);
+    powerMotor4->setUpdateInterval(MOTOR_DATA_UPDATE_PERIOD);
+
+    encoder1 = new EncoderObserver(ENCODER1_NAME, &brick, this);
+    encoder1->setUpdateInterval(ENCODER_DATA_UPDATE_PERIOD);
+    encoder2 = new EncoderObserver(ENCODER2_NAME, &brick, this);
+    encoder2->setUpdateInterval(ENCODER_DATA_UPDATE_PERIOD);
+    encoder3 = new EncoderObserver(ENCODER3_NAME, &brick, this);
+    encoder3->setUpdateInterval(ENCODER_DATA_UPDATE_PERIOD);
+    encoder4 = new EncoderObserver(ENCODER4_NAME, &brick, this);
+    encoder4->setUpdateInterval(ENCODER_DATA_UPDATE_PERIOD);
 
     for (int i = 0; i < observers.size(); i++)
         qDebug() << observers[i]->getName();
