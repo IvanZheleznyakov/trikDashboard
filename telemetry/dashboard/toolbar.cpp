@@ -82,33 +82,32 @@ void ToolBar::insertTelemetry()
 
     QGroupBox* analogSensors = new QGroupBox();
     QVBoxLayout* analogSensorsLayout = new QVBoxLayout;
-    QPushButton* analog=new QPushButton("Sensor 1",this);
-    analogSensorsLayout->addWidget(analog);
-    analogSensorsLayout->addStretch(0);
+    //QPushButton* analog=new QPushButton("Sensor 1",this);
+    //analogSensorsLayout->addWidget(analog);
+    //analogSensorsLayout->addStretch(0);
     analogSensors->setLayout(analogSensorsLayout);
     telemetry->addItem(analogSensors,"Analog sensors");
 
     QGroupBox* servoMotors = new QGroupBox();
     QVBoxLayout* servoMotorsLayout = new QVBoxLayout;
-    QPushButton* smotor1=new QPushButton("Servomotor 1",this);
-    servoMotorsLayout->addWidget(smotor1);
-    servoMotorsLayout->addStretch(0);
+    //QPushButton* smotor1=new QPushButton("Servomotor 1",this);
+    //servoMotorsLayout->addWidget(smotor1);
+    //servoMotorsLayout->addStretch(0);
     servoMotors->setLayout(servoMotorsLayout);
     telemetry->addItem(servoMotors,"Servomotors");
 
     QGroupBox* powerMotors = new QGroupBox();
     QVBoxLayout* powerMotorsLayout = new QVBoxLayout;
-    QPushButton* pmotor1=new QPushButton("Motor 1",this);
-    powerMotorsLayout->addWidget(pmotor1);
+    powerMotorsLayout->addWidget(panel->powerMotor1->button());
     powerMotorsLayout->addStretch(0);
     powerMotors->setLayout(powerMotorsLayout);
     telemetry->addItem(powerMotors,"Motors");
 
     QGroupBox* encoders = new QGroupBox();
     QVBoxLayout* encodersLayout = new QVBoxLayout;
-    QPushButton* encoder=new QPushButton("Encoder 1",this);
-    encodersLayout->addWidget(encoder);
-    encodersLayout->addStretch(0);
+    //QPushButton* encoder=new QPushButton("Encoder 1",this);
+    //encodersLayout->addWidget(encoder);
+    //encodersLayout->addStretch(0);
     encoders->setLayout(encodersLayout);
     telemetry->addItem(encoders,"Encoders");
 

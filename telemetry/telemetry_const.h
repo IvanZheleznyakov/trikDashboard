@@ -3,10 +3,24 @@
 #include <QKeySequence>
 #include <QSize>
 
+//dashboard names
+QString const ACCELEROMETER_TITLE = "Accelerometer";
+QString const GYROSCOPE_TITLE = "Gyroscope";
+QString const BATTERY_TITLE = "Battery";
+QString const POWER_MOTOR1_TITLE = "Motor 1";
+QString const POWER_MOTOR2_TITLE = "Motor 2";
+QString const POWER_MOTOR3_TITLE = "Motor 3";
+QString const POWER_MOTOR4_TITLE = "Motor 4";
+QString const ENCODER1_TITLE = "Encoder 0";
+QString const ENCODER2_TITLE = "Encoder 1";
+QString const ENCODER3_TITLE = "Encoder 2";
+QString const ENCODER4_TITLE = "Encoder 3";
+
+
 //sensors names
-QString const ACCELEROMETER_NAME = "Accelerometer";
-QString const GYROSCOPE_NAME = "Gyroscope";
-QString const BATTERY_NAME = "Battery";
+QString const ACCELEROMETER_NAME = "A";
+QString const GYROSCOPE_NAME = "G";
+QString const BATTERY_NAME = "B";
 QString const POWER_MOTOR1_NAME = "M1";
 QString const POWER_MOTOR2_NAME = "JM1";
 QString const POWER_MOTOR3_NAME = "JM2";

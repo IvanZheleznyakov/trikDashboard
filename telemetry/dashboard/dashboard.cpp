@@ -27,9 +27,9 @@ void Dashboard::connectToTRIK(QString ip, int port)
 
     if (tcpCommunicator.connectedState() == QTcpSocket::ConnectedState)
     {
-        connect(panel.accelerometer, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
-        connect(panel.gyroscope, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
-        connect(panel.battery, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
+        foreach (Sensor* s, panel.sensors) {
+            connect(s, SIGNAL(command(QString)), this, SLOT(sendCommand(QString)));
+        }
     } else {
         panel.setStatusBarText(NOCONNECTION_MESSAGE);
     }
@@ -58,16 +58,21 @@ void Dashboard::parseMessage(QString message)
             float x = val.toFloat();
             values << x;
         }
+        QString const deviceName = info.at(0);
 
-        if (info.at(0) == ACCELEROMETER_NAME && panel.accelerometer->active())
+        if (deviceName == ACCELEROMETER_NAME && panel.accelerometer->active())
         {
             panel.accelerometer->widget()->updateData(values);
         } else
-        if (info.at(0) == GYROSCOPE_NAME && panel.gyroscope->active())
+        if (deviceName == GYROSCOPE_NAME && panel.gyroscope->active())
         {
             panel.gyroscope->widget()->updateData(values);
         } else
-        if (info.at(0) == BATTERY_NAME && panel.battery->active())
+        if (deviceName == POWER_MOTOR1_NAME && panel.powerMotor1->active())
+        {
+            panel.powerMotor1->widget()->updateData(values);
+        }
+        if (deviceName == BATTERY_NAME && panel.battery->active())
         {
             panel.battery->widget()->updateData(values);
         }

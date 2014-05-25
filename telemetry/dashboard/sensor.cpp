@@ -15,11 +15,11 @@ Sensor::Sensor(QString name, QObject *parent) :
 
 void Sensor::createDashboardWidget()
 {
-    if (name == ACCELEROMETER_NAME || name == GYROSCOPE_NAME)
+    if (name == ACCELEROMETER_TITLE || name == GYROSCOPE_TITLE)
     {
         pWidget = new CustomPlotWidget(3, name);
     } else
-    if (name == BATTERY_NAME)
+    if (name == BATTERY_TITLE || name == POWER_MOTOR1_TITLE)
     {
         pWidget = new LCDNumberWidget(name);
     } else
