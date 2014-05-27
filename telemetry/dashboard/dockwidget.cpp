@@ -18,4 +18,3 @@ void DockWidget::changeEvent(QEvent *event)
     }
     QDockWidget::changeEvent(event);
 }
-

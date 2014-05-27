@@ -104,7 +104,6 @@ void ToolBar::setLanguage(int lang)
         panel->appTranslator.load("dashboard_ru");
     }
     retranslateUi();
-
 }
 
 void ToolBar::insertTelemetry()
