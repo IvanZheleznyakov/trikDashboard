@@ -21,8 +21,11 @@ class Sensor : public QObject
 public:
     explicit Sensor(QString title, QString devName, QObject *parent = 0);
     bool active();
+    void setTitle(QString newTitle);
+    QString getTitle();
     DashboardWidget* widget();
     QPushButton* button();
+    void retranslateUi();
 
 signals:
     void newData(QVector<float> newData);

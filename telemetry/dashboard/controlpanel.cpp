@@ -59,6 +59,18 @@ void ControlPanel::retranslateUi()
 {
     statusBar()->showMessage(TelemetryConst::SHOW_HIDE_TEXT());
     setWindowTitle(tr("TRIK Telemetry Dashboard"));
+
+    accelerometer->setTitle(TelemetryConst::ACCELEROMETER_TITLE());
+    gyroscope->setTitle(TelemetryConst::GYROSCOPE_TITLE());
+    battery->setTitle(TelemetryConst::BATTERY_TITLE());
+    powerMotor1->setTitle(TelemetryConst::POWER_MOTOR1_TITLE());
+    powerMotor2->setTitle(TelemetryConst::POWER_MOTOR2_TITLE());
+    powerMotor3->setTitle(TelemetryConst::POWER_MOTOR3_TITLE());
+    powerMotor4->setTitle(TelemetryConst::POWER_MOTOR4_TITLE());
+
+    foreach (Sensor* s, sensors) {
+        s->retranslateUi();
+    }
 }
 
 void ControlPanel::setStatusBarText(const QString text)

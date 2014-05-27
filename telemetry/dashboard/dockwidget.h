@@ -9,6 +9,7 @@ class DockWidget : public QDockWidget
 {
 public:
     DockWidget(Sensor* sensor);
+    void changeEvent(QEvent *event);
     void closeEvent(QCloseEvent* event);
 
 private:

@@ -7,11 +7,18 @@ Sensor::Sensor(QString title, QString devName, QObject *parent) :
     title(title),
     devName(devName)
 {
-    sensorButton = new QPushButton(title);
+    sensorButton = new QPushButton();
     sensorButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
                          "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
 
     connect(sensorButton, SIGNAL(clicked()), this, SLOT(actionTriggered()));
+
+    retranslateUi();
+}
+
+void Sensor::retranslateUi()
+{
+    sensorButton->setText(title);
 }
 
 void Sensor::createDashboardWidget()
@@ -48,7 +55,6 @@ void Sensor::actionTriggered()
     }
 }
 
-
 void Sensor::setActive()
 {
     pActive = true;
@@ -79,6 +85,16 @@ void Sensor::setInactive()
     pWidget->stopPaint();
     dockWidget->deleteLater();
     pWidget->deleteLater();
+}
+
+void Sensor::setTitle(QString newTitle)
+{
+    title = newTitle;
+}
+
+QString Sensor::getTitle()
+{
+    return title;
 }
 
 bool Sensor::active()

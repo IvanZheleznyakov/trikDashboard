@@ -19,7 +19,7 @@ ToolBar::ToolBar(ControlPanel* panel)
     this->setFixedWidth(TOOLBAR_WIDTH);
 
     insertToolBox();
-    //insertTelemetry();
+    insertTelemetry();
 
     retranslateUi();
 }
