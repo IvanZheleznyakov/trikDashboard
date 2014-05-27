@@ -6,7 +6,7 @@
     <message>
         <location filename="controlpanel.cpp" line="32"/>
         <source>TRIK Telemetry Dashboard</source>
-        <translation>Панель телеметрии ТРИК</translation>
+        <translation>TRIK Telemetry Dashboard</translation>
     </message>
 </context>
 <context>
@@ -14,72 +14,72 @@
     <message>
         <location filename="../telemetry_const.h" line="12"/>
         <source>Accelerometer</source>
-        <translation>Акселерометр</translation>
+        <translation>Accelerometer</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="13"/>
         <source>Gyroscope</source>
-        <translation>Гироскоп</translation>
+        <translation>Gyroscope</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="14"/>
         <source>Battery</source>
-        <translation>Батарея</translation>
+        <translation>Battery</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="15"/>
         <source>Motor 1</source>
-        <translation>Мотор 1</translation>
+        <translation>Motor 1</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="16"/>
         <source>Motor 2</source>
-        <translation>Мотор 2</translation>
+        <translation>Motor 2</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="17"/>
         <source>Motor 3</source>
-        <translation>Мотор 3</translation>
+        <translation>Motor 3</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="19"/>
         <source>Encoder 0</source>
-        <translation>Энкодер 0</translation>
+        <translation>Encoder 0</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="20"/>
         <source>Encoder 1</source>
-        <translation>Энкодер 1</translation>
+        <translation>Encoder 1</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="21"/>
         <source>Encoder 2</source>
-        <translation>Энкодер 2</translation>
+        <translation>Encoder 2</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="22"/>
         <source>Encoder 3</source>
-        <translation>Энкодер 3</translation>
+        <translation>Encoder 3</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="25"/>
         <source>Use Ctrl+Q for show/hide menu</source>
-        <translation>Используйте Ctrl+Q чтобы скрывать/отображать меню</translation>
+        <translation>Use Ctrl+Q for show/hide menu</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="26"/>
         <source>Connection to TRIK: waiting responce...</source>
-        <translation>Подключение к ТРИК: ожидайте ответа...</translation>
+        <translation>Connection to TRIK: waiting responce...</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="27"/>
         <source>No connection: try to connect again</source>
-        <translation>Нет соединения: попробуйте подключиться снова</translation>
+        <translation>No connection: try to connect again</translation>
     </message>
     <message>
         <location filename="../telemetry_const.h" line="28"/>
         <source>TRIK connected</source>
-        <translation>Подключено к ТРИК</translation>
+        <translation>TRIK connected</translation>
     </message>
 </context>
 <context>
@@ -87,27 +87,27 @@
     <message>
         <location filename="toolbar.cpp" line="38"/>
         <source>Connect to IP:</source>
-        <translation>IP адрес:</translation>
+        <translation>Connect to IP:</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="40"/>
         <source>Port:</source>
-        <translation>Порт:</translation>
+        <translation>Port:</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="42"/>
         <source>Connect</source>
-        <translation>Подключиться</translation>
+        <translation>Connect</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="54"/>
         <source>Connection</source>
-        <translation>Соединение</translation>
+        <translation>Connection</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="77"/>
         <source>Logging</source>
-        <translation>Журналирование</translation>
+        <translation>Logging</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="81"/>
@@ -122,42 +122,42 @@
     <message>
         <location filename="toolbar.cpp" line="90"/>
         <source>Settings</source>
-        <translation>Настройки</translation>
+        <translation>Settings</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="96"/>
         <source>Telemetry</source>
-        <translation>Телеметрия</translation>
+        <translation>Telemetry</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="105"/>
         <source>3D sensors</source>
-        <translation>3D сенсоры</translation>
+        <translation>3D sensors</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="113"/>
         <source>Analog sensors</source>
-        <translation>Аналоговые сенсоры</translation>
+        <translation>Analog sensors</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="121"/>
         <source>Servomotors</source>
-        <translation>Сервомоторы</translation>
+        <translation>Servomotors</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="131"/>
         <source>Motors</source>
-        <translation>Моторы</translation>
+        <translation>Motors</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="139"/>
         <source>Encoders</source>
-        <translation>Энкодеры</translation>
+        <translation>Encoders</translation>
     </message>
     <message>
         <location filename="toolbar.cpp" line="147"/>
         <source>Battery</source>
-        <translation>Батарея</translation>
+        <translation>Battery</translation>
     </message>
 </context>
 </TS>

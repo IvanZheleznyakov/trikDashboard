@@ -4,6 +4,9 @@
 #include <QToolBar>
 #include <QLineEdit>
 #include <QToolBox>
+#include <QPushButton>
+#include <QLabel>
+#include <QCheckBox>
 #include <controlpanel.h>
 
 class ToolBar : public QToolBar
@@ -26,12 +29,19 @@ public slots:
     void deleteTelemetry();
 
 private slots:
+    void retranslateUi();
+    void setLanguage(int lang);
+    void insertToolBox();
     void connectButtonPressed();
 
 private:
-    void insertToolBox();
     QLineEdit* portTextEdit;
     QLineEdit* ipTextEdit;
+    QLabel* ipLabel;
+    QLabel* portLabel;
+    QCheckBox* logging;
+    QPushButton* connectButton;
+    QToolBox* telemetry;
     ControlPanel* panel;
 
 };

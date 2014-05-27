@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDockWidget>
 #include "sensor.h"
+#include <QTranslator>
 
 class ToolBar;
 class ControlPanel : public QMainWindow
@@ -22,6 +23,9 @@ public:
     Sensor* encoder2;
     Sensor* encoder3;
     Sensor* encoder4;
+    QTranslator appTranslator;
+
+    void changeEvent(QEvent *event);
 
 signals:
     void newConnection();
@@ -34,7 +38,8 @@ public slots:
 protected:
     void showEvent(QShowEvent *event);
 
-public slots:
+private slots:
+    void retranslateUi();
     void createDockWidget(DockWidget* dw);
 
 private:

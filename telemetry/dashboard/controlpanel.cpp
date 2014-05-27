@@ -13,6 +13,9 @@ Q_DECLARE_METATYPE(QDockWidget::DockWidgetFeatures)
 ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
 {
+
+    qApp->installTranslator(&appTranslator);
+
     accelerometer = new Sensor(TelemetryConst::ACCELEROMETER_TITLE(), ACCELEROMETER_NAME);
     gyroscope = new Sensor(TelemetryConst::GYROSCOPE_TITLE(), GYROSCOPE_NAME);
     battery = new Sensor(TelemetryConst::BATTERY_TITLE(), BATTERY_NAME);
@@ -26,14 +29,11 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
         connect(s,SIGNAL(newDockWidget(DockWidget*)), this, SLOT(createDockWidget(DockWidget*)));
     }
 
-    setWindowTitle(tr("TRIK Telemetry Dashboard"));
     toolBar = new ToolBar(this);
     connect(toolBar, SIGNAL(setConnection(QString,int)), this, SIGNAL(setConnection(QString, int)));
     connect(this,SIGNAL(newConnection()),toolBar,SLOT(insertTelemetry()));
     connect(this,SIGNAL(lostConnection()),toolBar,SLOT(deleteTelemetry()));
     addToolBar(Qt::LeftToolBarArea, toolBar);
-
-    setStatusBarText(TelemetryConst::SHOW_HIDE_TEXT());
 
     DockOptions opts;
     opts |= AllowNestedDocks;
@@ -43,11 +43,27 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     QAction *viewAction = toolBar->toggleViewAction();
     viewAction->setShortcut(SHOW_HIDE_SHORTCUT);
     addAction(viewAction);
+
+    retranslateUi();
+}
+
+void ControlPanel::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        retranslateUi();
+    }
+    QMainWindow::changeEvent(event);
+}
+
+void ControlPanel::retranslateUi()
+{
+    statusBar()->showMessage(TelemetryConst::SHOW_HIDE_TEXT());
+    setWindowTitle(tr("TRIK Telemetry Dashboard"));
 }
 
 void ControlPanel::setStatusBarText(const QString text)
 {
-    statusBar()->showMessage(text.trimmed().toLatin1());
+    statusBar()->showMessage(text.trimmed());
 }
 
 void ControlPanel::showEvent(QShowEvent *event)

@@ -39,4 +39,5 @@ HEADERS  += dashboard.h \
     ../telemetry_const.h \
     dockwidget.h
 
-TRANSLATIONS += dashboard_ru.ts
+TRANSLATIONS += dashboard_ru.ts dashboard_eng.ts
+
