@@ -16,5 +16,6 @@ public slots:
 private:
     static const int pMaxOfRows;
 
+    int pRowToWriteData;
     QTableWidget *pTable;
 };
