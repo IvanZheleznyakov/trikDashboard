@@ -25,7 +25,7 @@ public:
     bool active();
     void setTitle(QString newTitle);
     QString getTitle();
-    DashboardWidget* widget();
+    QVector<DashboardWidget*> widgets();
     QPushButton* button();
     void retranslateUi();
 
@@ -38,7 +38,7 @@ public slots:
     void actionTriggered();
     void setActive();
     void setInactive();
-    void createDashboardWidget();
+    void createDashboardWidgets();
 
 private:
     bool pActive;
@@ -46,6 +46,6 @@ private:
     QString title;
     QString devName;
     DockWidget* dockWidget;
-    DashboardWidget* pWidget;
+    QVector<DashboardWidget*> pWidgets;
 
 };

@@ -62,31 +62,52 @@ void Dashboard::parseMessage(QString message)
 
         if (deviceName == ACCELEROMETER_NAME && panel.accelerometer->active())
         {
-            panel.accelerometer->widget()->updateData(values);
+            foreach (DashboardWidget *widget, panel.accelerometer->widgets()) {
+                widget->updateData(values);
+            }
+//            panel.accelerometer->widget()->updateData(values);
         } else
         if (deviceName == GYROSCOPE_NAME && panel.gyroscope->active())
         {
-            panel.gyroscope->widget()->updateData(values);
+            foreach (DashboardWidget *widget, panel.gyroscope->widgets()) {
+                widget->updateData(values);
+            }
+//            panel.gyroscope->widget()->updateData(values);
         } else
         if (deviceName == POWER_MOTOR1_NAME && panel.powerMotor1->active())
         {
-            panel.powerMotor1->widget()->updateData(values);
+            foreach (DashboardWidget *widget, panel.powerMotor1->widgets()) {
+                widget->updateData(values);
+            }
+//            panel.powerMotor1->widget()->updateData(values);
         } else
         if (deviceName == POWER_MOTOR2_NAME && panel.powerMotor2->active())
         {
-            panel.powerMotor2->widget()->updateData(values);
+            foreach (DashboardWidget *widget, panel.powerMotor2->widgets()) {
+                widget->updateData(values);
+            }
+//            panel.powerMotor2->widget()->updateData(values);
         } else
         if (deviceName == POWER_MOTOR3_NAME && panel.powerMotor3->active())
         {
-            panel.powerMotor3->widget()->updateData(values);
+            foreach (DashboardWidget *widget, panel.powerMotor3->widgets()) {
+                widget->updateData(values);
+            }
+//            panel.powerMotor3->widget()->updateData(values);
         } else
         if (deviceName == POWER_MOTOR4_NAME && panel.powerMotor4->active())
         {
-            panel.powerMotor4->widget()->updateData(values);
+            foreach (DashboardWidget *widget, panel.powerMotor4->widgets()) {
+                widget->updateData(values);
+            }
+//            panel.powerMotor4->widget()->updateData(values);
         } else
         if (deviceName == BATTERY_NAME && panel.battery->active())
         {
-            panel.battery->widget()->updateData(values);
+            foreach (DashboardWidget *widget, panel.battery->widgets()) {
+                widget->updateData(values);
+            }
+   //         panel.battery->widget()->updateData(values);
         }
     }
 }

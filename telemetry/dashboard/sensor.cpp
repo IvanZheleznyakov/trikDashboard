@@ -21,27 +21,29 @@ void Sensor::retranslateUi()
     sensorButton->setText(title);
 }
 
-void Sensor::createDashboardWidget()
+void Sensor::createDashboardWidgets()
 {
     if (title == TelemetryConst::ACCELEROMETER_TITLE()
             || title == TelemetryConst::GYROSCOPE_TITLE())
     {
-//        pWidget = new CustomPlotWidget(3, title);
-        pWidget = new TableWidget(3, title);
+
+        pWidgets.append(new CustomPlotWidget(3, title));
+        pWidgets.append(new TableWidget(3, title));
     } else
     if (title == TelemetryConst::BATTERY_TITLE())
     {
-        pWidget = new LCDNumberWidget(title);
+//        pWidget = new LCDNumberWidget(title);
+        pWidgets.append(new TableWidget(1, title));
     } else
     if (title == TelemetryConst::POWER_MOTOR1_TITLE()
             || title == TelemetryConst::POWER_MOTOR2_TITLE()
             || title == TelemetryConst::POWER_MOTOR3_TITLE()
             || title == TelemetryConst::POWER_MOTOR4_TITLE())
     {
-        pWidget = new ProgressBarWidget(title);
+        pWidgets.append(new ProgressBarWidget(title));
     } else
     {
-        pWidget = new EmptyWidget(title);
+        pWidgets.append(new EmptyWidget(title));
     }
 }
 
@@ -62,7 +64,7 @@ void Sensor::setActive()
     QString buf = SUBSCRIBE_STRING +":"+ devName;
     emit command(buf);
 
-    createDashboardWidget();
+    createDashboardWidgets();
 
     dockWidget = new DockWidget(this);
     dockWidget->setObjectName(title);
@@ -71,11 +73,19 @@ void Sensor::setActive()
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetFloatable);
     dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
     dockWidget->setWindowTitle(title);
-    dockWidget->setWidget(pWidget);
+    foreach (DashboardWidget *widget, pWidgets) {
+        dockWidget->setWidget(widget);
+    }
+
+//    dockWidget->setWidget(pWidget);
 
     emit newDockWidget(dockWidget);
 
-    pWidget->startPaint();
+    foreach (DashboardWidget *widget, pWidgets) {
+        widget->startPaint();
+    }
+
+//    pWidget->startPaint();
 }
 
 void Sensor::setInactive()
@@ -83,9 +93,17 @@ void Sensor::setInactive()
     pActive = false;
     QString buf = UNSUBSCRIBE_STRING +":"+ devName;
     emit command(buf);
-    pWidget->stopPaint();
+    foreach (DashboardWidget *widget, pWidgets) {
+        widget->stopPaint();
+    }
+
+//    pWidget->stopPaint();
     dockWidget->deleteLater();
-    pWidget->deleteLater();
+    foreach (DashboardWidget *widget, pWidgets) {
+        widget->deleteLater();
+    }
+
+//    pWidget->deleteLater();
 }
 
 void Sensor::setTitle(QString newTitle)
@@ -103,9 +121,9 @@ bool Sensor::active()
     return pActive;
 }
 
-DashboardWidget* Sensor::widget()
+QVector<DashboardWidget*> Sensor::widgets()
 {
-    return pWidget;
+    return pWidgets;
 }
 
 QPushButton* Sensor::button()
