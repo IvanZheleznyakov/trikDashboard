@@ -13,6 +13,8 @@
 #include <progressbarwidget.h>
 #include "dockwidget.h"
 
+#include "tablewidget.h"
+
 class DockWidget;
 class Sensor : public QObject
 {

@@ -26,7 +26,8 @@ void Sensor::createDashboardWidget()
     if (title == TelemetryConst::ACCELEROMETER_TITLE()
             || title == TelemetryConst::GYROSCOPE_TITLE())
     {
-        pWidget = new CustomPlotWidget(3, title);
+//        pWidget = new CustomPlotWidget(3, title);
+        pWidget = new TableWidget(3, title);
     } else
     if (title == TelemetryConst::BATTERY_TITLE())
     {

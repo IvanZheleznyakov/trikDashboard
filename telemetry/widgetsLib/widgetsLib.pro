@@ -17,7 +17,8 @@ SOURCES += dashboardwidget.cpp \
     customplotwidget.cpp \
     emptywidget.cpp \
     lcdnumberwidget.cpp \
-    progressbarwidget.cpp
+    progressbarwidget.cpp \
+    tablewidget.cpp
 
 HEADERS += dashboardwidget.h\
         widgetslib_global.h \
@@ -25,7 +26,8 @@ HEADERS += dashboardwidget.h\
     customplotwidget.h \
     emptywidget.h \
     lcdnumberwidget.h \
-    progressbarwidget.h
+    progressbarwidget.h \
+    tablewidget.h
 
 unix {
     target.path = /usr/lib
