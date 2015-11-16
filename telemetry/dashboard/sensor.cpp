@@ -97,21 +97,31 @@ void Sensor::setInactive()
     pActive = false;
     QString buf = UNSUBSCRIBE_STRING +":"+ devName;
     emit command(buf);
-    foreach (DashboardWidget *widget, pWidgets.second) {
-        widget->stopPaint();
+//    foreach (DashboardWidget *widget, pWidgets.second) {
+//        widget->stopPaint();
+//    }
+
+// //    pWidget->stopPaint();
+
+//    foreach (DockWidget *widget, pWidgets.first) {
+//        widget->deleteLater();
+//    }
+
+//    foreach (DashboardWidget *widget, pWidgets.second) {
+//        widget->deleteLater();
+//    }
+
+// //    pWidget->deleteLater();
+    int numOfWidgets = pWidgets.first.count();
+    for (int i = 0; i != numOfWidgets; ++i) {
+        pWidgets.second.at(i)->stopPaint();
+        pWidgets.first.at(i)->deleteLater();
+        pWidgets.second.at(i)->deleteLater();
+        // Do I need to delete widgets with operator delete?
     }
 
-//    pWidget->stopPaint();
-
-    foreach (DockWidget *widget, pWidgets.first) {
-        widget->deleteLater();
-    }
-
-    foreach (DashboardWidget *widget, pWidgets.second) {
-        widget->deleteLater();
-    }
-
-//    pWidget->deleteLater();
+    pWidgets.first.clear();
+    pWidgets.second.clear();
 }
 
 void Sensor::setTitle(QString newTitle)
