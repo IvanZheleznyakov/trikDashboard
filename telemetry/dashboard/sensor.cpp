@@ -27,23 +27,23 @@ void Sensor::createDashboardWidgets()
             || title == TelemetryConst::GYROSCOPE_TITLE())
     {
 
-        pWidgets.append(new CustomPlotWidget(3, title));
-        pWidgets.append(new TableWidget(3, title));
+        pWidgets.second.append(new CustomPlotWidget(3, title));
+        pWidgets.second.append(new TableWidget(3, title));
     } else
     if (title == TelemetryConst::BATTERY_TITLE())
     {
 //        pWidget = new LCDNumberWidget(title);
-        pWidgets.append(new TableWidget(1, title));
+        pWidgets.second.append(new TableWidget(1, title));
     } else
     if (title == TelemetryConst::POWER_MOTOR1_TITLE()
             || title == TelemetryConst::POWER_MOTOR2_TITLE()
             || title == TelemetryConst::POWER_MOTOR3_TITLE()
             || title == TelemetryConst::POWER_MOTOR4_TITLE())
     {
-        pWidgets.append(new ProgressBarWidget(title));
+        pWidgets.second.append(new ProgressBarWidget(title));
     } else
     {
-        pWidgets.append(new EmptyWidget(title));
+        pWidgets.second.append(new EmptyWidget(title));
     }
 }
 
@@ -66,22 +66,33 @@ void Sensor::setActive()
 
     createDashboardWidgets();
 
-    dockWidget = new DockWidget(this);
-    dockWidget->setObjectName(title);
-    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
-    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
-    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetFloatable);
-    dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
-    dockWidget->setWindowTitle(title);
-    foreach (DashboardWidget *widget, pWidgets) {
-        dockWidget->setWidget(widget);
+    DockWidget *firstDockWidget = new DockWidget(this);
+    firstDockWidget->setObjectName(title);
+    firstDockWidget->setFeatures(firstDockWidget->features() | QDockWidget::DockWidgetClosable);
+    firstDockWidget->setFeatures(firstDockWidget->features() | QDockWidget::DockWidgetMovable);
+    firstDockWidget->setFeatures(firstDockWidget->features() | QDockWidget::DockWidgetFloatable);
+    firstDockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
+    firstDockWidget->setWindowTitle(title);
+
+    DockWidget *secondDockWidget = new DockWidget(this);
+    secondDockWidget->setObjectName(title);
+    secondDockWidget->setFeatures(secondDockWidget->features() | QDockWidget::DockWidgetClosable);
+    secondDockWidget->setFeatures(secondDockWidget->features() | QDockWidget::DockWidgetMovable);
+    secondDockWidget->setFeatures(secondDockWidget->features() | QDockWidget::DockWidgetFloatable);
+    secondDockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
+    secondDockWidget->setWindowTitle(title);
+
+    pWidgets.first.append(firstDockWidget);
+    pWidgets.first.append(secondDockWidget);
+
+    for (int i = 0; i != pWidgets.first.count(); ++i) {
+        pWidgets.first.at(i)->setWidget(pWidgets.second.at(i));
+        emit newDockWidget(pWidgets.first.at(i));
     }
 
 //    dockWidget->setWidget(pWidget);
 
-    emit newDockWidget(dockWidget);
-
-    foreach (DashboardWidget *widget, pWidgets) {
+    foreach (DashboardWidget *widget, pWidgets.second) {
         widget->startPaint();
     }
 
@@ -93,13 +104,17 @@ void Sensor::setInactive()
     pActive = false;
     QString buf = UNSUBSCRIBE_STRING +":"+ devName;
     emit command(buf);
-    foreach (DashboardWidget *widget, pWidgets) {
+    foreach (DashboardWidget *widget, pWidgets.second) {
         widget->stopPaint();
     }
 
 //    pWidget->stopPaint();
-    dockWidget->deleteLater();
-    foreach (DashboardWidget *widget, pWidgets) {
+
+    foreach (DockWidget *widget, pWidgets.first) {
+        widget->deleteLater();
+    }
+
+    foreach (DashboardWidget *widget, pWidgets.second) {
         widget->deleteLater();
     }
 
@@ -123,7 +138,7 @@ bool Sensor::active()
 
 QVector<DashboardWidget*> Sensor::widgets()
 {
-    return pWidgets;
+    return pWidgets.second;
 }
 
 QPushButton* Sensor::button()

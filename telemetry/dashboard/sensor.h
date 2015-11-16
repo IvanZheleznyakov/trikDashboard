@@ -13,6 +13,7 @@
 #include <progressbarwidget.h>
 #include "dockwidget.h"
 
+#include <QPair>
 #include "tablewidget.h"
 
 class DockWidget;
@@ -45,7 +46,8 @@ private:
     QPushButton* sensorButton;
     QString title;
     QString devName;
-    DockWidget* dockWidget;
-    QVector<DashboardWidget*> pWidgets;
+    QVector<DockWidget*> dockWidget;
+//    QVector<DashboardWidget*> pWidgets;
+    QPair<QVector<DockWidget*>, QVector<DashboardWidget*> > pWidgets;
 
 };
