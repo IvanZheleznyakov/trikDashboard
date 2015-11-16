@@ -66,24 +66,17 @@ void Sensor::setActive()
 
     createDashboardWidgets();
 
-    DockWidget *firstDockWidget = new DockWidget(this);
-    firstDockWidget->setObjectName(title);
-    firstDockWidget->setFeatures(firstDockWidget->features() | QDockWidget::DockWidgetClosable);
-    firstDockWidget->setFeatures(firstDockWidget->features() | QDockWidget::DockWidgetMovable);
-    firstDockWidget->setFeatures(firstDockWidget->features() | QDockWidget::DockWidgetFloatable);
-    firstDockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
-    firstDockWidget->setWindowTitle(title);
-
-    DockWidget *secondDockWidget = new DockWidget(this);
-    secondDockWidget->setObjectName(title);
-    secondDockWidget->setFeatures(secondDockWidget->features() | QDockWidget::DockWidgetClosable);
-    secondDockWidget->setFeatures(secondDockWidget->features() | QDockWidget::DockWidgetMovable);
-    secondDockWidget->setFeatures(secondDockWidget->features() | QDockWidget::DockWidgetFloatable);
-    secondDockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
-    secondDockWidget->setWindowTitle(title);
-
-    pWidgets.first.append(firstDockWidget);
-    pWidgets.first.append(secondDockWidget);
+    for (int i = 0; i != pWidgets.second.count(); ++i)
+    {
+        DockWidget *dockWidget = new DockWidget(this);
+        dockWidget->setObjectName(title);
+        dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
+        dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
+        dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetFloatable);
+        dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
+        dockWidget->setWindowTitle(title);
+        pWidgets.first.append(dockWidget);
+    }
 
     for (int i = 0; i != pWidgets.first.count(); ++i) {
         pWidgets.first.at(i)->setWidget(pWidgets.second.at(i));
