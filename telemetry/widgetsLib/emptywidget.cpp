@@ -1,8 +1,8 @@
 #include "emptywidget.h"
 #include <QTextEdit>
 
-EmptyWidget::EmptyWidget(QString title) :
-    DashboardWidget(1, title)
+EmptyWidget::EmptyWidget(QString title, int timerInterval) :
+    DashboardWidget(1, title, timerInterval)
 {
     connect(paintTimer, &QTimer::timeout, this, &EmptyWidget::paintWidget);
 

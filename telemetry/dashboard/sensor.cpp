@@ -27,23 +27,24 @@ void Sensor::createDashboardWidgets()
             || title == TelemetryConst::GYROSCOPE_TITLE())
     {
 
-        pWidgets.second.append(new CustomPlotWidget(3, title));
-        pWidgets.second.append(new TableWidget(3, title));
+        pWidgets.second.append(new CustomPlotWidget(3, title, SENSORS3D_DATA_UPDATE_PERIOD));
+        pWidgets.second.append(new TableWidget(3, title, SENSORS3D_DATA_UPDATE_PERIOD));
     } else
     if (title == TelemetryConst::BATTERY_TITLE())
     {
-//        pWidget = new LCDNumberWidget(title);
-        pWidgets.second.append(new TableWidget(1, title));
+        pWidgets.second.append(new LCDNumberWidget(title, BATTERY_DATA_UPDATE_PERIOD));
+        pWidgets.second.append(new TableWidget(1, title, BATTERY_DATA_UPDATE_PERIOD));
     } else
     if (title == TelemetryConst::POWER_MOTOR1_TITLE()
             || title == TelemetryConst::POWER_MOTOR2_TITLE()
             || title == TelemetryConst::POWER_MOTOR3_TITLE()
             || title == TelemetryConst::POWER_MOTOR4_TITLE())
     {
-        pWidgets.second.append(new ProgressBarWidget(title));
+        pWidgets.second.append(new ProgressBarWidget(title, MOTOR_DATA_UPDATE_PERIOD));
+        pWidgets.second.append(new TableWidget(1, title, MOTOR_DATA_UPDATE_PERIOD));
     } else
     {
-        pWidgets.second.append(new EmptyWidget(title));
+        pWidgets.second.append(new EmptyWidget(title, 0));
     }
 }
 

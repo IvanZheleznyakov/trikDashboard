@@ -7,7 +7,7 @@
 class WIDGETSLIBSHARED_EXPORT TableWidget : public DashboardWidget
 {
 public:
-    TableWidget(int axis, QString title);
+    TableWidget(int axis, QString title, int timerInterval);
 
 public slots:
     void paintWidget();

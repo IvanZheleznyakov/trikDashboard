@@ -7,7 +7,7 @@ class WIDGETSLIBSHARED_EXPORT EmptyWidget : public DashboardWidget
 {
     Q_OBJECT
 public:
-    EmptyWidget(QString title);
+    EmptyWidget(QString title, int timerInterval);
 
 public slots:
     void paintWidget();

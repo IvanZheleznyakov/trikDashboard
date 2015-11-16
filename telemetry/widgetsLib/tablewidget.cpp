@@ -1,7 +1,7 @@
 #include "tablewidget.h"
 
-TableWidget::TableWidget(int axis, QString title) :
-    DashboardWidget(axis, title)
+TableWidget::TableWidget(int axis, QString title, int timerInterval) :
+    DashboardWidget(axis, title, timerInterval)
 {
     connect(paintTimer, &QTimer::timeout, this, &TableWidget::paintWidget);
     pTable = new QTableWidget();
@@ -16,7 +16,7 @@ TableWidget::TableWidget(int axis, QString title) :
 
 void TableWidget::init()
 {
-    this->setInterval(40);
+//    this->setInterval(5);
 
     pTable->setRowCount(1);
     pTable->setColumnCount(axis + 1);

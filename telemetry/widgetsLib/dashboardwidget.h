@@ -12,7 +12,7 @@ class WIDGETSLIBSHARED_EXPORT DashboardWidget : public QWidget
 {
 
 public:
-    explicit DashboardWidget(int axis, QString title, QWidget *parent = 0);
+    explicit DashboardWidget(int axis, QString title, int timerInterval, QWidget *parent = 0);
 
 public slots:
     void startPaint();

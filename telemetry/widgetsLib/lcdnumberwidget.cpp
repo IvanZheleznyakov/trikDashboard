@@ -1,7 +1,7 @@
 #include "lcdnumberwidget.h"
 
-LCDNumberWidget::LCDNumberWidget(QString title) :
-    DashboardWidget(1, title)
+LCDNumberWidget::LCDNumberWidget(QString title, int timerInterval) :
+    DashboardWidget(1, title, timerInterval)
 {
     connect(paintTimer, &QTimer::timeout, this, &LCDNumberWidget::paintWidget);
     LCDNumbers = new QLCDNumber();
@@ -15,7 +15,7 @@ LCDNumberWidget::LCDNumberWidget(QString title) :
 
 void LCDNumberWidget::init()
 {
-    this->setInterval(1000);
+//    this->setInterval(1000);
 
     LCDNumbers->setDigitCount(10);
 }

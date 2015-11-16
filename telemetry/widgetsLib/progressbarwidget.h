@@ -7,7 +7,7 @@
 class WIDGETSLIBSHARED_EXPORT ProgressBarWidget : public DashboardWidget
 {
 public:
-    ProgressBarWidget(QString title);
+    ProgressBarWidget(QString title, int timerInterval);
 
 public slots:
     void paintWidget();

@@ -6,7 +6,7 @@
 class WIDGETSLIBSHARED_EXPORT LCDNumberWidget : public DashboardWidget
 {
 public:
-    LCDNumberWidget(QString title);
+    LCDNumberWidget(QString title, int timerInterval);
 
 public slots:
     void paintWidget();

@@ -6,7 +6,7 @@
 class WIDGETSLIBSHARED_EXPORT CustomPlotWidget : public DashboardWidget
 {
 public:
-    CustomPlotWidget(int axis, QString title);
+    CustomPlotWidget(int axis, QString title, int timerInterval);
 
 public slots:
     void paintWidget();

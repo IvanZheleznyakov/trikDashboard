@@ -1,8 +1,8 @@
 #include "customplotwidget.h"
 #include <QSizePolicy>
 
-CustomPlotWidget::CustomPlotWidget(int axis, QString title) :
-    DashboardWidget(axis, title)
+CustomPlotWidget::CustomPlotWidget(int axis, QString title, int timerInterval) :
+    DashboardWidget(axis, title, timerInterval)
 {
     connect(paintTimer, &QTimer::timeout, this, &CustomPlotWidget::paintWidget);
 
@@ -39,7 +39,7 @@ void CustomPlotWidget::addGraph(int n, QColor color)
 
 void CustomPlotWidget::init()
 {
-    this->setInterval(40); //60HZ = 17msecs, 72Hz = 13msecs
+//    this->setInterval(5); //60HZ = 17msecs, 72Hz = 13msecs
 //    include this section to fully disable antialiasing for higher performance:
     /*
     plot->setNotAntialiasedElements(QCP::aeAll);

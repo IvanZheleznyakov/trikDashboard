@@ -1,11 +1,11 @@
 #include "dashboardwidget.h"
 
-DashboardWidget::DashboardWidget(int axis, QString title, QWidget *parent) :
+DashboardWidget::DashboardWidget(int axis, QString title, int timerInterval, QWidget *parent) :
     QWidget(parent),
     data(axis),
     title(title),
     axis(axis),
-    timerInterval(1000)
+    timerInterval(timerInterval)
 {
     this->setStyleSheet("background-color: white");
     data.fill(0.0);
