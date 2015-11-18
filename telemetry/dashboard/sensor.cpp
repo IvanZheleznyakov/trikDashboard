@@ -13,6 +13,8 @@ Sensor::Sensor(QString title, QString devName, QObject *parent) :
 
     connect(sensorButton, SIGNAL(clicked()), this, SLOT(actionTriggered()));
 
+    alert = new Alert(title);
+
     retranslateUi();
 }
 
@@ -148,4 +150,9 @@ QVector<DashboardWidget*> Sensor::widgets()
 QPushButton* Sensor::button()
 {
     return sensorButton;
+}
+
+QPushButton *Sensor::alertButton()
+{
+    return alert->button();
 }

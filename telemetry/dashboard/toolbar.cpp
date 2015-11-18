@@ -167,6 +167,10 @@ void ToolBar::insertTelemetry()
 
     QGroupBox *alertsGroup = new QGroupBox();
     QVBoxLayout *alertsLayout = new QVBoxLayout();
+    foreach (Sensor *sensor, panel->sensors) {
+        alertsLayout->addWidget(sensor->alertButton());
+    }
+
     alertsLayout->addStretch(0);
     alertsGroup->setLayout(alertsLayout);
     telemetry->addItem(alertsGroup,"");

@@ -3,13 +3,14 @@
 #include "widgetslib_global.h"
 #include <QWidget>
 #include <QPushButton>
+#include <QDockWidget>
 
 class Alert : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Alert(QString title);
+    Alert(QString title);
     QPushButton *button();
 
 public slots:

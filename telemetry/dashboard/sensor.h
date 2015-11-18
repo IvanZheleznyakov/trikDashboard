@@ -15,7 +15,9 @@
 
 #include <QPair>
 #include "tablewidget.h"
+#include "alert.h"
 
+class Alert;
 class DockWidget;
 class Sensor : public QObject
 {
@@ -28,6 +30,7 @@ public:
     QString getTitle();
     QVector<DashboardWidget*> widgets();
     QPushButton* button();
+    QPushButton *alertButton();
     void retranslateUi();
 
 signals:
@@ -49,5 +52,6 @@ private:
     QVector<DockWidget*> dockWidget;
 //    QVector<DashboardWidget*> pWidgets;
     QPair<QVector<DockWidget*>, QVector<DashboardWidget*> > pWidgets;
+    Alert *alert;
 
 };
