@@ -12,6 +12,10 @@ Alert::Alert(QString title) :
     title = "Alert for " + title;
     alertButton->setText(title);
 
+    //temp values
+    minValue = 0;
+    maxValue = 100;
+
     isShowed = false;
 }
 
@@ -35,6 +39,16 @@ void Alert::showOptions()
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetFloatable);
     dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
     dockWidget->setWindowTitle(title);
+
+//    emit newDockWidget(dockWidget);
+
+    minValueLabel = new QLabel("Enter min value");
+    minValueText = new QLineEdit(QString::number(minValue));
+    maxValueLabel = new QLabel("Enter max value");
+    maxValueText = new QLineEdit(QString::number(maxValue));
+
+    dockWidget->setWidget(minValueLabel);
+    dockWidget->setWidget(minValueText);
 }
 
 void Alert::hideOptions()

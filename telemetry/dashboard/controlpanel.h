@@ -40,7 +40,7 @@ protected:
 
 private slots:
     void retranslateUi();
-    void createDockWidget(DockWidget* dw);
+    void createDockWidget(QDockWidget* dw);
 
 private:
     ToolBar *toolBar;

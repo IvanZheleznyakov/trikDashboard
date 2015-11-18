@@ -36,7 +36,7 @@ public:
 signals:
     void newData(QVector<float> newData);
     void command(QString command);
-    void newDockWidget(DockWidget* dockWidget);
+    void newDockWidget(QDockWidget* dockWidget);
 
 public slots:
     void actionTriggered();

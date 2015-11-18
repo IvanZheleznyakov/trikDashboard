@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QDockWidget>
+#include <QLineEdit>
+#include <QLabel>
 
 class Alert : public QObject
 {
@@ -24,4 +26,8 @@ private:
     double minValue;
     double maxValue;
     bool isShowed;
+    QLineEdit *minValueText;
+    QLabel *minValueLabel;
+    QLineEdit *maxValueText;
+    QLabel *maxValueLabel;
 };

@@ -26,7 +26,7 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
 
     sensors << accelerometer << gyroscope << battery << powerMotor1 << powerMotor2 << powerMotor3 << powerMotor4;
     foreach (Sensor* s, sensors) {
-        connect(s,SIGNAL(newDockWidget(DockWidget*)), this, SLOT(createDockWidget(DockWidget*)));
+        connect(s,SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
     }
 
     toolBar = new ToolBar(this);
@@ -83,7 +83,7 @@ void ControlPanel::showEvent(QShowEvent *event)
     QMainWindow::showEvent(event);
 }
 
-void ControlPanel::createDockWidget(DockWidget* dw)
+void ControlPanel::createDockWidget(QDockWidget* dw)
 {
     addDockWidget(Qt::LeftDockWidgetArea, dw);
 }
