@@ -32,7 +32,7 @@ void Alert::showOptions()
 {
     isShowed = true;
 
-    QDockWidget *dockWidget = new QDockWidget();
+    dockWidget = new QDockWidget();
     dockWidget->setObjectName(title);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
     dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
@@ -46,8 +46,11 @@ void Alert::showOptions()
     QVBoxLayout *alertOptionsLayout = new QVBoxLayout();
     minValueLabel = new QLabel("Enter min value");
     minValueText = new QLineEdit(QString::number(minValue));
+    connect(minValueText, SIGNAL(editingFinished()), this, SLOT(minValueIsChanged()));
+
     maxValueLabel = new QLabel("Enter max value");
     maxValueText = new QLineEdit(QString::number(maxValue));
+    connect(maxValueText, SIGNAL(editingFinished()), this, SLOT(maxValueIsChanged()));
 
     alertOptionsLayout->addWidget(minValueLabel);
     alertOptionsLayout->addWidget(minValueText);
@@ -60,10 +63,22 @@ void Alert::showOptions()
 
 void Alert::hideOptions()
 {
+    isShowed = false;
 
+    dockWidget->deleteLater();
 }
 
 QPushButton *Alert::button()
 {
     return alertButton;
+}
+
+void Alert::minValueIsChanged()
+{
+    minValue = minValueText->text().toDouble();
+}
+
+void Alert::maxValueIsChanged()
+{
+    maxValue = maxValueText->text().toDouble();
 }

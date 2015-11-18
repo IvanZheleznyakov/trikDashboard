@@ -24,6 +24,8 @@ public slots:
     void actionTriggered();
     void showOptions();
     void hideOptions();
+    void minValueIsChanged();
+    void maxValueIsChanged();
 
 private:
     QString title;
@@ -35,4 +37,5 @@ private:
     QLabel *minValueLabel;
     QLineEdit *maxValueText;
     QLabel *maxValueLabel;
+    QDockWidget *dockWidget;
 };
