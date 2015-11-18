@@ -42,13 +42,20 @@ void Alert::showOptions()
 
     emit newDockWidget(dockWidget);
 
+    QGroupBox *alertOptions = new QGroupBox();
+    QVBoxLayout *alertOptionsLayout = new QVBoxLayout();
     minValueLabel = new QLabel("Enter min value");
     minValueText = new QLineEdit(QString::number(minValue));
     maxValueLabel = new QLabel("Enter max value");
     maxValueText = new QLineEdit(QString::number(maxValue));
 
-    dockWidget->setWidget(minValueLabel);
-    dockWidget->setWidget(minValueText);
+    alertOptionsLayout->addWidget(minValueLabel);
+    alertOptionsLayout->addWidget(minValueText);
+    alertOptionsLayout->addWidget(maxValueLabel);
+    alertOptionsLayout->addWidget(maxValueText);
+    alertOptions->setLayout(alertOptionsLayout);
+
+    dockWidget->setWidget(alertOptions);
 }
 
 void Alert::hideOptions()

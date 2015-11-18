@@ -6,6 +6,8 @@
 #include <QDockWidget>
 #include <QLineEdit>
 #include <QLabel>
+#include <QGroupBox>
+#include <QVBoxLayout>
 
 class Alert : public QObject
 {
