@@ -2,9 +2,25 @@
 
 #include "widgetslib_global.h"
 #include <QWidget>
+#include <QPushButton>
 
-class WIDGETSLIBSHARED_EXPORT Alert : public QWidget
+class Alert : public QObject
 {
+    Q_OBJECT
+
 public:
-    explicit Alert(QWidget *parent = 0);
+    explicit Alert(QString title);
+    QPushButton *button();
+
+public slots:
+    void actionTriggered();
+    void showOptions();
+    void hideOptions();
+
+private:
+    QString title;
+    QPushButton *alertButton;
+    double minValue;
+    double maxValue;
+    bool isShowed;
 };
