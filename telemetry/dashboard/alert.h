@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QGroupBox>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 class Alert : public QObject
 {
@@ -26,16 +27,18 @@ public slots:
     void hideOptions();
     void minValueIsChanged();
     void maxValueIsChanged();
+    void checkCriticalValues(QVector<float> values);
 
 private:
     QString title;
     QPushButton *alertButton;
-    double minValue;
-    double maxValue;
+    float minValue;
+    float maxValue;
     bool isShowed;
     QLineEdit *minValueText;
     QLabel *minValueLabel;
     QLineEdit *maxValueText;
     QLabel *maxValueLabel;
     QDockWidget *dockWidget;
+    void showCriticalAlert();
 };

@@ -26,6 +26,8 @@ void Sensor::retranslateUi()
 
 void Sensor::createDashboardWidgets()
 {
+    connect(this, SIGNAL(newData(QVector<float>)), alert, SLOT(checkCriticalValues(QVector<float>)));
+
     if (title == TelemetryConst::ACCELEROMETER_TITLE()
             || title == TelemetryConst::GYROSCOPE_TITLE())
     {

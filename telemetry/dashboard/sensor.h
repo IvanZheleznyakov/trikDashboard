@@ -53,5 +53,4 @@ private:
 //    QVector<DashboardWidget*> pWidgets;
     QPair<QVector<DockWidget*>, QVector<DashboardWidget*> > pWidgets;
     Alert *alert;
-
 };

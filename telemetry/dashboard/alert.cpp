@@ -9,8 +9,7 @@ Alert::Alert(QString title) :
 
     connect(alertButton, SIGNAL(clicked()), this, SLOT(actionTriggered()));
 
-    title = "Alert for " + title;
-    alertButton->setText(title);
+    alertButton->setText("Alert for " + title);
 
     //temp values
     minValue = 0;
@@ -75,10 +74,28 @@ QPushButton *Alert::button()
 
 void Alert::minValueIsChanged()
 {
-    minValue = minValueText->text().toDouble();
+    minValue = minValueText->text().toFloat();
 }
 
 void Alert::maxValueIsChanged()
 {
-    maxValue = maxValueText->text().toDouble();
+    maxValue = maxValueText->text().toFloat();
+}
+
+void Alert::checkCriticalValues(QVector<float> values)
+{
+    foreach (double value, values)
+    {
+        if (value < minValue || value > maxValue) {
+            showCriticalAlert();
+        }
+    }
+}
+
+void Alert::showCriticalAlert()
+{
+    QMessageBox::critical(0,
+                          "Attention!",
+                          "Some data in " + title + " are critical!",
+                          QMessageBox::Ok | QMessageBox::Escape);
 }
