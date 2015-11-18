@@ -41,6 +41,7 @@ void ToolBar::retranslateUi()
         telemetry->setItemText(3, tr("Motors"));
         telemetry->setItemText(4, tr("Encoders"));
         telemetry->setItemText(5, tr("Battery"));
+        telemetry->setItemText(6, tr("Alerts"));
     }
 }
 
@@ -163,6 +164,12 @@ void ToolBar::insertTelemetry()
     batteryLayout->addStretch(0);
     batteryGroup->setLayout(batteryLayout);
     telemetry->addItem(batteryGroup,"");
+
+    QGroupBox *alertsGroup = new QGroupBox();
+    QVBoxLayout *alertsLayout = new QVBoxLayout();
+    alertsLayout->addStretch(0);
+    alertsGroup->setLayout(alertsLayout);
+    telemetry->addItem(alertsGroup,"");
 
     retranslateUi();
 }

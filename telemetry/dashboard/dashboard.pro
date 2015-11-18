@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     controlpanel.cpp \
     toolbar.cpp \
     sensor.cpp \
-    dockwidget.cpp
+    dockwidget.cpp \
+    alert.cpp
 
 HEADERS  += dashboard.h \
     tcpcommunicator.h \
@@ -37,7 +38,8 @@ HEADERS  += dashboard.h \
     toolbar.h \
     sensor.h \
     ../telemetry_const.h \
-    dockwidget.h
+    dockwidget.h \
+    alert.h
 
 TRANSLATIONS += dashboard_ru.ts dashboard_eng.ts
 
