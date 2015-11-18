@@ -14,6 +14,7 @@ Sensor::Sensor(QString title, QString devName, QObject *parent) :
     connect(sensorButton, SIGNAL(clicked()), this, SLOT(actionTriggered()));
 
     alert = new Alert(title);
+    connect(alert, SIGNAL(newDockWidget(QDockWidget*)), this, SIGNAL(newDockWidget(QDockWidget*)));
 
     retranslateUi();
 }

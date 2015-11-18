@@ -40,7 +40,7 @@ void Alert::showOptions()
     dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
     dockWidget->setWindowTitle(title);
 
-//    emit newDockWidget(dockWidget);
+    emit newDockWidget(dockWidget);
 
     minValueLabel = new QLabel("Enter min value");
     minValueText = new QLineEdit(QString::number(minValue));

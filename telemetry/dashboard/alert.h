@@ -15,6 +15,9 @@ public:
     Alert(QString title);
     QPushButton *button();
 
+signals:
+    void newDockWidget(QDockWidget *);
+
 public slots:
     void actionTriggered();
     void showOptions();
