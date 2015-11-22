@@ -55,6 +55,7 @@ void Alert::showOptions()
     alertOptionsLayout->addWidget(minValueText);
     alertOptionsLayout->addWidget(maxValueLabel);
     alertOptionsLayout->addWidget(maxValueText);
+    alertOptionsLayout->setContentsMargins(10, 10, 10, 1000);
     alertOptions->setLayout(alertOptionsLayout);
 
     dockWidget->setWidget(alertOptions);
@@ -84,9 +85,8 @@ void Alert::maxValueIsChanged()
 
 void Alert::checkCriticalValues(QVector<float> values)
 {
-    foreach (double value, values)
-    {
-        if (value < minValue || value > maxValue) {
+    for (int i = 0; i != values.size(); ++i) {
+        if (values.at(i) < minValue || values.at(i) > maxValue) {
             showCriticalAlert();
         }
     }

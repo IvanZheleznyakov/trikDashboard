@@ -25,8 +25,8 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     powerMotor4 = new Sensor(TelemetryConst::POWER_MOTOR4_TITLE(), POWER_MOTOR4_NAME);
 
     sensors << accelerometer << gyroscope << battery << powerMotor1 << powerMotor2 << powerMotor3 << powerMotor4;
-    foreach (Sensor* s, sensors) {
-        connect(s,SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
+    for (int i = 0; i != sensors.size(); ++i) {
+        connect(sensors.at(i), SIGNAL(newDockWidget(QDockWidget*)), this, SLOT(createDockWidget(QDockWidget*)));
     }
 
     toolBar = new ToolBar(this);
@@ -68,8 +68,8 @@ void ControlPanel::retranslateUi()
     powerMotor3->setTitle(TelemetryConst::POWER_MOTOR3_TITLE());
     powerMotor4->setTitle(TelemetryConst::POWER_MOTOR4_TITLE());
 
-    foreach (Sensor* s, sensors) {
-        s->retranslateUi();
+    for (int i = 0; i != sensors.size(); ++i) {
+        sensors.at(i)->retranslateUi();
     }
 }
 

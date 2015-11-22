@@ -50,7 +50,7 @@ int const BATTERY_DATA_UPDATE_PERIOD = 1000;
 
 //dashboard numbers
 int const WAITING_RESPONSE_TIME = 5000;
-int const TOOLBAR_WIDTH = 135;
+int const TOOLBAR_WIDTH = 150;
 QSize const PANEL_START_SIZE = QSize(800, 600);
 QSize const PANEL_MIN_SIZE = QSize(640, 480);
 
