@@ -23,9 +23,3 @@ void Dashboard::connectToTRIK(QString ip, int port)
         panel.setStatusBarText(TelemetryConst::NOCONNECTION_MESSAGE());
     }
 }
-
-void Dashboard::sendCommand(QString command)
-{
-
-}
-

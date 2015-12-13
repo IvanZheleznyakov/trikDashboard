@@ -17,7 +17,6 @@ signals:
 
 private slots:
     void connectToTRIK(QString ip, int port);
-    void sendCommand(QString command);
 
 private:
     ControlPanel panel;

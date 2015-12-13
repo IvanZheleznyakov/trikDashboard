@@ -35,7 +35,8 @@ HEADERS  += \
     tcpcommunicator.h \
     parser.h \
     isensorwidget.h \
-    widgetslib_global.h
+    widgetslib_global.h \
+    idatasource.h
 
 unix {
     target.path = /usr/lib
