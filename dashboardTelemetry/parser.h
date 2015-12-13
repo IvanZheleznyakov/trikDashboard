@@ -11,7 +11,12 @@ class Parser : public QObject
 
 public:
     Parser();
+
+public slots:
     void parseMessage(QString message);
+
+signals:
+
 
 private:
     QMap<QString, IDataSource> map;

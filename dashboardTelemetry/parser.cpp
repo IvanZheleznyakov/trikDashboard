@@ -18,7 +18,14 @@ void Parser::parseMessage(QString message)
             float x = data.at(j).toFloat();
             values << x;
         }
+
         QString const deviceName = info.at(0);
+
+        if (map.contains(deviceName)) {
+            map[deviceName].readData(values);
+        } else {
+
+        }
 
 /*        if (deviceName == ACCELEROMETER_NAME && panel.accelerometer->active())
         {

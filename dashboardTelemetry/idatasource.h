@@ -8,7 +8,7 @@ class IDataSource : public QObject
     Q_OBJECT
 
 public:
-    void readData(QVector<double> submittedData);
+    void readData(QVector<float> submittedData);
 protected:
-    QVector<double> data;
+    QVector<float> data;
 };

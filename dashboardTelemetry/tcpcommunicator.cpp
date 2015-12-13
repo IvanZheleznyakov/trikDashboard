@@ -10,6 +10,7 @@ TcpCommunicator::TcpCommunicator(Parser *parser) :
     connect(socket, &QTcpSocket::readyRead, this, &TcpCommunicator::read);
     connect(socket, &QTcpSocket::connected, this, &TcpCommunicator::setConnection);
     connect(socket, &QTcpSocket::disconnected, this, &TcpCommunicator::abortConnection);
+    connect(this, &TcpCommunicator::recieveMessage, this->parser, &Parser::parseMessage);
 }
 
 void TcpCommunicator::setConnection()
