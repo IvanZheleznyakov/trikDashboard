@@ -1,6 +1,6 @@
 #include "facade.h"
 
-Facade::Facade(ICommunicator *communicator):
+Facade::Facade(ICommunicator *communicator) :
     communicator(communicator)
 {
 

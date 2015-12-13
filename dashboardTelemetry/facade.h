@@ -1,6 +1,7 @@
 #pragma once
 
 #include "icommunicator.h"
+#include "parser.h"
 
 #include <QObject>
 
@@ -14,5 +15,6 @@ public:
 
 private:
     ICommunicator *communicator;
+    Parser *parser;
 };
 

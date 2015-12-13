@@ -1,6 +1,7 @@
 #pragma once
 
 #include "icommunicator.h"
+#include "parser.h"
 
 #include <QTcpSocket>
 
@@ -9,7 +10,7 @@ class TcpCommunicator : public ICommunicator
     Q_OBJECT
 
 public:
-    explicit TcpCommunicator();
+    explicit TcpCommunicator(Parser *parser);
     void setPort(int port);
     void setIP(QString ip);
     void connectToHost();
@@ -34,5 +35,6 @@ private:
     QString     ip;
     QTcpSocket* socket;
     quint16     blockSize;
+    Parser *parser;
 };
 

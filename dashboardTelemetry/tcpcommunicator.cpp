@@ -1,9 +1,10 @@
 #include "tcpcommunicator.h"
 
-TcpCommunicator::TcpCommunicator() :
+TcpCommunicator::TcpCommunicator(Parser *parser) :
     port(START_PORT_INT),
     ip(START_IP_STRING),
-    blockSize(0)
+    blockSize(0),
+    parser(parser)
 {
     socket = new QTcpSocket(this);
     connect(socket, &QTcpSocket::readyRead, this, &TcpCommunicator::read);

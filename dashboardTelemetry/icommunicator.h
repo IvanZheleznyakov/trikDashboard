@@ -1,5 +1,6 @@
 #pragma once
 #include "telemetry_const.h"
+#include "parser.h"
 
 #include <QObject>
 
