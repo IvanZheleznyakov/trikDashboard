@@ -1,10 +1,11 @@
 #include "parser.h"
+#include "elementarydatasource.h"
 #include <QStringList>
 #include <QVector>
 
 Parser::Parser()
 {
-
+    connect(this, &Parser::messageIsParsed, this, &Parser::sendData);
 }
 
 void Parser::parseMessage(QString message)
@@ -21,11 +22,12 @@ void Parser::parseMessage(QString message)
 
         QString const deviceName = info.at(0);
 
-        if (map.contains(deviceName)) {
-            map[deviceName]->readData(values);
-        } else {
+        if (!map.contains(deviceName))
+        {
 
         }
+        emit messageIsParsed(deviceName, values);
+
 
 /*        if (deviceName == ACCELEROMETER_NAME && panel.accelerometer->active())
         {
@@ -94,6 +96,15 @@ void Parser::parseMessage(QString message)
 }
 
 void Parser::sendData(QString deviceName, QVector<float> values)
+{
+    if (map.contains(deviceName)) {
+        map[deviceName]->readData(values);
+    } else {
+
+    }
+}
+
+void Parser::addDataSource(QString deviceName, IDataSource *newDataSource)
 {
 
 }

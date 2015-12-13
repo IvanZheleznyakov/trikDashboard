@@ -21,6 +21,7 @@ signals:
 
 private slots:
     void sendData(QString deviceName, QVector<float> values);
+    void addDataSource(QString deviceName, IDataSource *newDataSource);
 
 private:
     QMap<QString, IDataSource *> map;

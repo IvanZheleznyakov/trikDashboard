@@ -1,8 +1,15 @@
 #pragma once
 
-class ElementaryDataSource
+#include "idatasource.h"
+#include <QVector>
+
+class ElementaryDataSource : public IDataSource
 {
 public:
     ElementaryDataSource();
+
+public:
+    void readData(QVector<float> submittedData);
+
 };
 

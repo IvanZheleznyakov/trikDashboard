@@ -25,7 +25,7 @@ SOURCES += \
     parser.cpp \
     isensorwidget.cpp \
     elementarydatasource.cpp \
-    icommunicator.cpp
+    idatasource.cpp
 
 HEADERS  += \
     controlpanel.h \
