@@ -22,7 +22,7 @@ void Parser::parseMessage(QString message)
         QString const deviceName = info.at(0);
 
         if (map.contains(deviceName)) {
-            map[deviceName].readData(values);
+            map[deviceName]->readData(values);
         } else {
 
         }
@@ -91,4 +91,9 @@ void Parser::parseMessage(QString message)
    //         panel.battery->widget()->updateData(values);
         }
    */ }
+}
+
+void Parser::sendData(QString deviceName, QVector<float> values)
+{
+
 }

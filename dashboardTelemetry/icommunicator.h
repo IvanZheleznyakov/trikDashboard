@@ -15,6 +15,12 @@ public:
     virtual bool isConnected() = 0;
     virtual int connectedState() = 0;
 
+protected:
+    int getPort() const;
+
+    QString getIp() const;
+    void setIp(const QString &value);
+
 signals:
     void newConnection();
     void lostConnection();
@@ -28,7 +34,7 @@ public slots:
 protected slots:
     virtual void read() = 0;
 
-protected:
+private:
     int         port;
     QString     ip;
 };

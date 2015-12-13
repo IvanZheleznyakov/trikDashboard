@@ -23,7 +23,9 @@ SOURCES += \
     toolbar.cpp \
     tcpcommunicator.cpp \
     parser.cpp \
-    isensorwidget.cpp
+    isensorwidget.cpp \
+    elementarydatasource.cpp \
+    icommunicator.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -36,7 +38,8 @@ HEADERS  += \
     parser.h \
     isensorwidget.h \
     widgetslib_global.h \
-    idatasource.h
+    idatasource.h \
+    elementarydatasource.h
 
 unix {
     target.path = /usr/lib

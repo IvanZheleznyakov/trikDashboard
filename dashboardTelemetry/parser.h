@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QVector>
 #include "idatasource.h"
 #include "telemetry_const.h"
 
@@ -16,9 +17,12 @@ public slots:
     void parseMessage(QString message);
 
 signals:
+    void messageIsParsed(QString, QVector<float>);
 
+private slots:
+    void sendData(QString deviceName, QVector<float> values);
 
 private:
-    QMap<QString, IDataSource> map;
+    QMap<QString, IDataSource *> map;
 };
 
