@@ -26,4 +26,8 @@ public slots:
 
 protected slots:
     virtual void read() = 0;
+
+protected:
+    int         port;
+    QString     ip;
 };

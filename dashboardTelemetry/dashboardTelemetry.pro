@@ -6,12 +6,14 @@
 
 QT       += core gui
 QT       += network
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = dashboardTelemetry
 TEMPLATE = app
 
+DEFINES += WIDGETSLIB_LIBRARY
 
 SOURCES += \
     controlpanel.cpp \
@@ -20,7 +22,8 @@ SOURCES += \
     main.cpp \
     toolbar.cpp \
     tcpcommunicator.cpp \
-    parser.cpp
+    parser.cpp \
+    isensorwidget.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -30,4 +33,11 @@ HEADERS  += \
     toolbar.h \
     icommunicator.h \
     tcpcommunicator.h \
-    parser.h
+    parser.h \
+    isensorwidget.h \
+    widgetslib_global.h
+
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+}
