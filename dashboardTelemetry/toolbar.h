@@ -33,6 +33,11 @@ private slots:
     void retranslateUi();
     void insertToolBox();
     void connectButtonPressed();
+    void insertWidgetGroupBox(QString deviceName);
+    WidgetButton *createPlotButton(QString deviceName);
+    WidgetButton *createLCDNumberButton(QString deviceName);
+    WidgetButton *createProgressBarButton(QString deviceName);
+    WidgetButton *createTableButton(QString deviceName);
 
 private:
     QLineEdit *mPortTextEdit;

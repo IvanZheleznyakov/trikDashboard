@@ -86,28 +86,7 @@ void ToolBar::insertTelemetry()
                              "QToolBox::tab:selected { font: italic; color: black;}");
     menuBox->addItem(mTelemetry, "");
 
-    QGroupBox *sensors3D = new QGroupBox();
-    QVBoxLayout *sensors3DLayout = new QVBoxLayout;
-
-    QToolBox *accelerometerToolBox = new QToolBox();
-    QGroupBox *accelerometerGroupBox = new QGroupBox();
-    QVBoxLayout *accelerometerLayout = new QVBoxLayout;
-    WidgetButton *accelerometerPlotButton = new WidgetButton("Plot", TelemetryConst::ACCELEROMETER_TITLE());
-    accelerometerLayout->addWidget(accelerometerPlotButton);
-    mWidgetButtons.append(accelerometerPlotButton);
-    WidgetButton *accelerometerTableButton = new WidgetButton("Table", TelemetryConst::ACCELEROMETER_TITLE());
-    accelerometerLayout->addWidget(accelerometerTableButton);
-    mWidgetButtons.append(accelerometerTableButton);
-    accelerometerGroupBox->setLayout(accelerometerLayout);
-    accelerometerToolBox->addItem(accelerometerGroupBox, "");
-    accelerometerToolBox->setItemText(0, TelemetryConst::ACCELEROMETER_TITLE());
-    sensors3DLayout->addWidget(accelerometerToolBox);
-
- //   sensors3DLayout->addWidget(panel->accelerometer->button());
-//    sensors3DLayout->addWidget(panel->gyroscope->button());
-    sensors3DLayout->addStretch(0);
-    sensors3D->setLayout(sensors3DLayout);
-    mTelemetry->addItem(sensors3D, "");
+    insertWidgetGroupBox(TelemetryConst::ACCELEROMETER_TITLE());
 
     QGroupBox* analogSensors = new QGroupBox();
     QVBoxLayout* analogSensorsLayout = new QVBoxLayout;
@@ -158,6 +137,53 @@ void ToolBar::insertTelemetry()
     mTelemetry->addItem(alertsGroup, "");
 
     retranslateUi();
+}
+
+void ToolBar::insertWidgetGroupBox(QString deviceName)
+{
+    QGroupBox *groupBox = new QGroupBox();
+    QVBoxLayout *vBoxLayout = new QVBoxLayout;
+
+    QToolBox *widgetToolBox = new QToolBox();
+    QGroupBox *widgetGroupBox = new QGroupBox();
+    QVBoxLayout *widgetLayout = new QVBoxLayout;
+    if (deviceName == TelemetryConst::ACCELEROMETER_TITLE()){
+        widgetLayout->addWidget(createPlotButton(deviceName));
+        widgetLayout->addWidget(createTableButton(deviceName));
+    }
+
+    widgetGroupBox->setLayout(widgetLayout);
+    widgetToolBox->addItem(widgetGroupBox, "");
+    widgetToolBox->setItemText(0, deviceName);
+    vBoxLayout->addWidget(widgetToolBox);
+    vBoxLayout->addStretch(0);
+    groupBox->setLayout(vBoxLayout);
+    mTelemetry->addItem(groupBox, "");
+}
+
+WidgetButton *ToolBar::createPlotButton(QString deviceName)
+{
+    WidgetButton *plotButton = new WidgetButton(TelemetryConst::PLOT_TITLE(), deviceName);
+    mWidgetButtons.append(plotButton);
+    return plotButton;
+}
+
+WidgetButton *ToolBar::createLCDNumberButton(QString deviceName)
+{
+    WidgetButton *lcdNumberButton = new WidgetButton(TelemetryConst::LCDNUMBER_TITLE(), deviceName);
+    return lcdNumberButton;
+}
+
+WidgetButton *ToolBar::createProgressBarButton(QString deviceName)
+{
+    WidgetButton *progressBarButton = new WidgetButton(TelemetryConst::PROGRESSBAR_TITLE(), deviceName);
+    return progressBarButton;
+}
+
+WidgetButton *ToolBar::createTableButton(QString deviceName)
+{
+    WidgetButton *tableButton = new WidgetButton(TelemetryConst::TABLE_TITLE(), deviceName);
+    return tableButton;
 }
 
 void ToolBar::deleteTelemetry()
