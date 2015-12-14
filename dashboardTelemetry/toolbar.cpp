@@ -7,6 +7,9 @@
 #include <QGroupBox>
 #include <stdlib.h>
 
+//this
+#include <QPushButton>
+
 ToolBar::ToolBar()
     : QToolBar()
 {
@@ -88,6 +91,29 @@ void ToolBar::insertTelemetry()
 
     QGroupBox *sensors3D = new QGroupBox();
     QVBoxLayout *sensors3DLayout = new QVBoxLayout;
+
+    QToolBox *test1t = new QToolBox();
+    QGroupBox *test1 = new QGroupBox();
+    QVBoxLayout *test1l = new QVBoxLayout;
+    test1l->addWidget(new QPushButton("test1"));
+    test1l->addWidget(new QPushButton("test1"));
+    test1l->addWidget(new QPushButton("test1"));
+    test1l->addWidget(new QPushButton("test1"));
+    test1->setLayout(test1l);
+    test1t->addItem(test1, "");
+    test1t->setItemText(0, "Accelerometr");
+    sensors3DLayout->addWidget(test1t);
+
+    QGroupBox *test2 = new QGroupBox();
+    QVBoxLayout *test2l = new QVBoxLayout;
+    test2l->addWidget(new QPushButton("test2"));
+    test2l->addWidget(new QPushButton("test2"));
+    test2l->addWidget(new QPushButton("test2"));
+    test2l->addWidget(new QPushButton("test2"));
+    test2->setLayout(test2l);
+    test1t->addItem(test2, "");
+    test1t->setItemText(1, "Gyroscope");
+
  //   sensors3DLayout->addWidget(panel->accelerometer->button());
 //    sensors3DLayout->addWidget(panel->gyroscope->button());
     sensors3DLayout->addStretch(0);
