@@ -27,7 +27,11 @@ SOURCES += \
     elementarydatasource.cpp \
     idatasource.cpp \
     widgetbutton.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    customplotwidget.cpp \
+    lcdnumberwidget.cpp \
+    progressbarwidget.cpp \
+    tablewidget.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -43,7 +47,11 @@ HEADERS  += \
     idatasource.h \
     elementarydatasource.h \
     widgetbutton.h \
-    qcustomplot.h
+    qcustomplot.h \
+    customplotwidget.h \
+    lcdnumberwidget.h \
+    progressbarwidget.h \
+    tablewidget.h
 
 unix {
     target.path = /usr/lib
