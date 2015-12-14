@@ -20,6 +20,8 @@ public:
 
 signals:
     void setConnection(QString ip, int port);
+    void subscribeWidgetToDataSource(QString, QString);
+    void unscribeWidgetToDataSource(QString, QString);
 
 protected:
     void enterEvent(QEvent *);
@@ -28,12 +30,14 @@ protected:
 public slots:
     void insertTelemetry();
     void deleteTelemetry();
+    void connectButtons();
 
 private slots:
     void retranslateUi();
     void insertToolBox();
     void connectButtonPressed();
     void insertGroupOfWidgets(QVector<QString> &nameOfWidgets);
+    void widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive);
     WidgetButton *createPlotButton(QString deviceName);
     WidgetButton *createLCDNumberButton(QString deviceName);
     WidgetButton *createProgressBarButton(QString deviceName);

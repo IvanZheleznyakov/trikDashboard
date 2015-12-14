@@ -107,3 +107,28 @@ void ISensorWidget::setTimerInterval(int value)
 {
     mTimerInterval = value;
 }
+
+void ISensorWidget::startPaint()
+{
+    mPaintTimer->start(mTimerInterval);
+}
+
+void ISensorWidget::stopPaint()
+{
+    mPaintTimer->stop();
+}
+
+void ISensorWidget::setInterval(int interval)
+{
+    mTimerInterval = interval;
+}
+
+void ISensorWidget::updateData(QVector<float> updates)
+{
+    int n = updates.size();
+    n = n >= mAxis ? mAxis : n;
+    for (int i = 0; i < n; i++)
+    {
+        mData[i] = updates.at(i);
+    }
+}

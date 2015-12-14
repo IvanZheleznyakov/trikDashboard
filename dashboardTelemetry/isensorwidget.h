@@ -43,10 +43,10 @@ protected:
     void setTimerInterval(int value);
 
 public slots:
-    virtual void startPaint() = 0;
-    virtual void stopPaint() = 0;
-    virtual void updateData(QVector <float> updates) = 0;
-    virtual void setInterval(int interval) = 0;
+    virtual void startPaint();
+    virtual void stopPaint();
+    virtual void updateData(QVector <float> updates);
+    virtual void setInterval(int interval);
     virtual void paintWidget() = 0;
     virtual void init() = 0;
 

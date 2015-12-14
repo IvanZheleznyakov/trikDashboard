@@ -4,6 +4,8 @@
 Dashboard::Dashboard(ICommunicator *communicator)
 {
     connect(&mPanel, &ControlPanel::setConnection, this, &Dashboard::connectToTRIK);
+    connect(&mPanel, &ControlPanel::subscribeWidgetToDataSource, mFacade, &Facade::subscribeWidgetToDataSource);
+    connect(&mPanel, &ControlPanel::unscribeWidgetToDataSource, mFacade, &Facade::unscribeWidgetToDataSource);
 
     mFacade = new Facade(communicator);
 

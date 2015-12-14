@@ -115,6 +115,7 @@ void ToolBar::insertTelemetry()
     //camera
     insertGroupOfWidgets(nameOfWidgets);
 
+    connectButtons();
     retranslateUi();
 }
 
@@ -161,24 +162,42 @@ WidgetButton *ToolBar::createPlotButton(QString deviceName)
 WidgetButton *ToolBar::createLCDNumberButton(QString deviceName)
 {
     WidgetButton *lcdNumberButton = new WidgetButton(TelemetryConst::LCDNUMBER_TITLE(), deviceName);
+    mWidgetButtons.append(lcdNumberButton);
     return lcdNumberButton;
 }
 
 WidgetButton *ToolBar::createProgressBarButton(QString deviceName)
 {
     WidgetButton *progressBarButton = new WidgetButton(TelemetryConst::PROGRESSBAR_TITLE(), deviceName);
+    mWidgetButtons.append(progressBarButton);
     return progressBarButton;
 }
 
 WidgetButton *ToolBar::createTableButton(QString deviceName)
 {
     WidgetButton *tableButton = new WidgetButton(TelemetryConst::TABLE_TITLE(), deviceName);
+    mWidgetButtons.append(tableButton);
     return tableButton;
+}
+
+void ToolBar::connectButtons()
+{
+    for (int i = 0; i != mWidgetButtons.count(); ++i) {
+        connect(mWidgetButtons.at(i), &WidgetButton::sendDataFromButton,
+                this, &ToolBar::widgetButtonIsPressed);
+    }
 }
 
 void ToolBar::deleteTelemetry()
 {
     menuBox->deleteLater();
+
+    int numOfWidgets = mWidgetButtons.count();
+    for (int i = 0; i != numOfWidgets; ++i) {
+        delete mWidgetButtons.at(i);
+    }
+
+    mWidgetButtons.clear();
 
     menuBox = new QToolBox();
     insertToolBox();
@@ -196,4 +215,13 @@ void ToolBar::connectButtonPressed()
 {
     int port = mPortTextEdit->text().trimmed().toInt();
     emit setConnection(mIpTextEdit->text(), port);
+}
+
+void ToolBar::widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive)
+{
+    if (isActive) {
+        emit subscribeWidgetToDataSource(widgetName, deviceName);
+    } else {
+        emit unscribeWidgetToDataSource(widgetName, deviceName);
+    }
 }
