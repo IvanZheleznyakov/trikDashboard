@@ -16,6 +16,7 @@ public:
     void connectToHost();
     bool isConnected();
     int connectedState();
+    Parser *getParser();
 
 signals:
     void newConnection();

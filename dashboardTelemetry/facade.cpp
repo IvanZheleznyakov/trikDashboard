@@ -3,7 +3,7 @@
 Facade::Facade(ICommunicator *communicator) :
     communicator(communicator)
 {
-
+    parser = communicator->getParser();
 }
 
 bool Facade::connectToTRIK(QString ip, int port)

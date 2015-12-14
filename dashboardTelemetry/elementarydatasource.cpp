@@ -5,7 +5,8 @@ ElementaryDataSource::ElementaryDataSource()
 
 }
 
-void ElementaryDataSource::readData(QVector<float> submittedData)
+void ElementaryDataSource::updateData(QVector<float> submittedData)
 {
     setData(submittedData);
+//    emit receiveNewData();
 }

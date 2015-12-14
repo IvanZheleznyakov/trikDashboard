@@ -33,7 +33,7 @@ void Parser::parseMessage(QString message)
 
 void Parser::sendData(QString deviceName, QVector<float> values)
 {
-    map[deviceName]->readData(values);
+    map[deviceName]->updateData(values);
 }
 
 void Parser::addDataSource(QString deviceName, IDataSource *newDataSource)

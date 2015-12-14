@@ -9,7 +9,10 @@ public:
     ElementaryDataSource();
 
 public:
-    void readData(QVector<float> submittedData);
+    void updateData(QVector<float> submittedData);
+
+signals:
+    void receiveNewData();
 
 };
 

@@ -8,7 +8,10 @@ class IDataSource : public QObject
     Q_OBJECT
 
 public:
-    virtual void readData(QVector<float> submittedData) = 0;
+    virtual void updateData(QVector<float> submittedData) = 0;
+
+signals:
+    void recieveNewData();
 
 protected:
     QVector<float> getData() const;

@@ -50,6 +50,11 @@ bool TcpCommunicator::isConnected()
     return (connectedState() == QTcpSocket::ConnectedState);
 }
 
+Parser *TcpCommunicator::getParser()
+{
+    return parser;
+}
+
 void TcpCommunicator::send(QString message)
 {
     QByteArray block;

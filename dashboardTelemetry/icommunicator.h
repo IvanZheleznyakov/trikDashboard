@@ -14,6 +14,7 @@ public:
     virtual void connectToHost() = 0;
     virtual bool isConnected() = 0;
     virtual int connectedState() = 0;
+    virtual Parser *getParser() = 0;
 
 signals:
     void newConnection();
