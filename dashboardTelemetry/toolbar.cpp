@@ -151,11 +151,6 @@ void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfWidgets)
     nameOfWidgets.clear();
 }
 
-void ToolBar::insertWidgetToolBox()
-{
-
-}
-
 WidgetButton *ToolBar::createPlotButton(QString deviceName)
 {
     WidgetButton *plotButton = new WidgetButton(TelemetryConst::PLOT_TITLE(), deviceName);

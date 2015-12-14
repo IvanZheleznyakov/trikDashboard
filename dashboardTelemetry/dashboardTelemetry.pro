@@ -26,7 +26,8 @@ SOURCES += \
     isensorwidget.cpp \
     elementarydatasource.cpp \
     idatasource.cpp \
-    widgetbutton.cpp
+    widgetbutton.cpp \
+    qcustomplot.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -41,7 +42,8 @@ HEADERS  += \
     widgetslib_global.h \
     idatasource.h \
     elementarydatasource.h \
-    widgetbutton.h
+    widgetbutton.h \
+    qcustomplot.h
 
 unix {
     target.path = /usr/lib
