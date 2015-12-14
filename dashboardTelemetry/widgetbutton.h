@@ -5,5 +5,9 @@
 class WidgetButton : public QPushButton
 {
 public:
-    WidgetButton();
+    WidgetButton(QString mSensorName);
+    QString getSensorName();
+
+private:
+    QString mSensorName;
 };
