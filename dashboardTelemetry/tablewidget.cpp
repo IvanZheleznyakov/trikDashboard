@@ -36,6 +36,7 @@ void TableWidget::paintWidget()
     if (currentNumOfRows < mMaxOfRows) {
         mTable->insertRow(currentNumOfRows);
     }
+
     QString currentTime = QTime::currentTime().toString();
     QTableWidgetItem *firstItem = new QTableWidgetItem(currentTime);
     firstItem->setFlags(firstItem->flags() ^ Qt::ItemIsEditable);
