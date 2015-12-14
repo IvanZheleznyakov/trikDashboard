@@ -33,7 +33,8 @@ private slots:
     void retranslateUi();
     void insertToolBox();
     void connectButtonPressed();
-    void insertWidgetGroupBox(QString deviceName);
+    void insertGroupOfWidgets(QVector<QString> &nameOfWidgets);
+    void insertWidgetToolBox();
     WidgetButton *createPlotButton(QString deviceName);
     WidgetButton *createLCDNumberButton(QString deviceName);
     WidgetButton *createProgressBarButton(QString deviceName);

@@ -35,7 +35,6 @@ void ToolBar::retranslateUi()
         mTelemetry->setItemText(4, tr("Encoders"));
         mTelemetry->setItemText(5, tr("Battery"));
         mTelemetry->setItemText(6, tr("Camera"));
-        mTelemetry->setItemText(7, tr("Alerts"));
     }
 }
 
@@ -86,79 +85,75 @@ void ToolBar::insertTelemetry()
                              "QToolBox::tab:selected { font: italic; color: black;}");
     menuBox->addItem(mTelemetry, "");
 
-    insertWidgetGroupBox(TelemetryConst::ACCELEROMETER_TITLE());
+    QVector<QString> nameOfWidgets;
 
-    QGroupBox* analogSensors = new QGroupBox();
-    QVBoxLayout* analogSensorsLayout = new QVBoxLayout;
-    analogSensors->setLayout(analogSensorsLayout);
-    mTelemetry->addItem(analogSensors, "");
+    //3D sensors
+    nameOfWidgets.append(TelemetryConst::ACCELEROMETER_TITLE());
+    nameOfWidgets.append(TelemetryConst::GYROSCOPE_TITLE());
+    insertGroupOfWidgets(nameOfWidgets);
 
-    QGroupBox* servoMotors = new QGroupBox();
-    QVBoxLayout* servoMotorsLayout = new QVBoxLayout;
-    servoMotors->setLayout(servoMotorsLayout);
-    mTelemetry->addItem(servoMotors, "");
+    //analog sensors
+    insertGroupOfWidgets(nameOfWidgets);
 
-    QGroupBox* powerMotors = new QGroupBox();
-    QVBoxLayout* powerMotorsLayout = new QVBoxLayout;
-//    powerMotorsLayout->addWidget(panel->powerMotor1->button());
-//    powerMotorsLayout->addWidget(panel->powerMotor2->button());
-//    powerMotorsLayout->addWidget(panel->powerMotor3->button());
-//    powerMotorsLayout->addWidget(panel->powerMotor4->button());
-    powerMotorsLayout->addStretch(0);
-    powerMotors->setLayout(powerMotorsLayout);
-    mTelemetry->addItem(powerMotors, "");
+    //servomotors
+    insertGroupOfWidgets(nameOfWidgets);
 
-    QGroupBox* encoders = new QGroupBox();
-    QVBoxLayout* encodersLayout = new QVBoxLayout;
-    encoders->setLayout(encodersLayout);
-    mTelemetry->addItem(encoders, "");
+    //power motors
+    nameOfWidgets.append(TelemetryConst::POWER_MOTOR1_TITLE());
+    nameOfWidgets.append(TelemetryConst::POWER_MOTOR2_TITLE());
+    nameOfWidgets.append(TelemetryConst::POWER_MOTOR3_TITLE());
+    nameOfWidgets.append(TelemetryConst::POWER_MOTOR4_TITLE());
+    insertGroupOfWidgets(nameOfWidgets);
 
+    //encoders
+    insertGroupOfWidgets(nameOfWidgets);
 
-    QGroupBox* batteryGroup = new QGroupBox();
-    QVBoxLayout* batteryLayout = new QVBoxLayout();
-//    batteryLayout->addWidget(panel->battery->button());
-    batteryLayout->addStretch(0);
-    batteryGroup->setLayout(batteryLayout);
-    mTelemetry->addItem(batteryGroup, "");
+    //batteryGroup
+    nameOfWidgets.append(TelemetryConst::BATTERY_TITLE());
+    insertGroupOfWidgets(nameOfWidgets);
 
-    QGroupBox *cameraGroup = new QGroupBox();
-    QVBoxLayout *cameraLayout = new QVBoxLayout();
-    cameraLayout->addStretch(0);
-    cameraGroup->setLayout(cameraLayout);
-    mTelemetry->addItem(cameraGroup, "");
-
-    QGroupBox *alertsGroup = new QGroupBox();
-    QVBoxLayout *alertsLayout = new QVBoxLayout();
-//    foreach (Sensor *sensor, panel->sensors) {
-//        alertsLayout->addWidget(sensor->alertButton());
-//    }
-    alertsLayout->addStretch(0);
-    alertsGroup->setLayout(alertsLayout);
-    mTelemetry->addItem(alertsGroup, "");
+    //camera
+    insertGroupOfWidgets(nameOfWidgets);
 
     retranslateUi();
 }
 
-void ToolBar::insertWidgetGroupBox(QString deviceName)
+void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfWidgets)
 {
     QGroupBox *groupBox = new QGroupBox();
     QVBoxLayout *vBoxLayout = new QVBoxLayout;
+    QToolBox *groupToolBox = new QToolBox();
 
-    QToolBox *widgetToolBox = new QToolBox();
-    QGroupBox *widgetGroupBox = new QGroupBox();
-    QVBoxLayout *widgetLayout = new QVBoxLayout;
-    if (deviceName == TelemetryConst::ACCELEROMETER_TITLE()){
-        widgetLayout->addWidget(createPlotButton(deviceName));
-        widgetLayout->addWidget(createTableButton(deviceName));
+    for (int i = 0; i != nameOfWidgets.count(); ++i) {
+        QGroupBox *widgetGroupBox = new QGroupBox();
+        QVBoxLayout *widgetLayout = new QVBoxLayout;
+        if (nameOfWidgets.at(i) == TelemetryConst::ACCELEROMETER_TITLE() ||
+            nameOfWidgets.at(i) == TelemetryConst::GYROSCOPE_TITLE()) {
+            widgetLayout->addWidget(createPlotButton(nameOfWidgets.at(i)));
+        } else if (nameOfWidgets.at(i) == TelemetryConst::BATTERY_TITLE()) {
+            widgetLayout->addWidget(createLCDNumberButton(nameOfWidgets.at(i)));
+        } else if (nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR1_TITLE() ||
+                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR2_TITLE() ||
+                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR3_TITLE() ||
+                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR4_TITLE()) {
+            widgetLayout->addWidget(createProgressBarButton(nameOfWidgets.at(i)));
+        }
+
+        widgetLayout->addWidget(createTableButton(nameOfWidgets.at(i)));
+        widgetGroupBox->setLayout(widgetLayout);
+        groupToolBox->addItem(widgetGroupBox, "");
+        groupToolBox->setItemText(i, nameOfWidgets.at(i));
+        vBoxLayout->addWidget(groupToolBox);
     }
-
-    widgetGroupBox->setLayout(widgetLayout);
-    widgetToolBox->addItem(widgetGroupBox, "");
-    widgetToolBox->setItemText(0, deviceName);
-    vBoxLayout->addWidget(widgetToolBox);
     vBoxLayout->addStretch(0);
     groupBox->setLayout(vBoxLayout);
     mTelemetry->addItem(groupBox, "");
+    nameOfWidgets.clear();
+}
+
+void ToolBar::insertWidgetToolBox()
+{
+
 }
 
 WidgetButton *ToolBar::createPlotButton(QString deviceName)
