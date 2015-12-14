@@ -10,9 +10,9 @@ class TcpCommunicator : public ICommunicator
     Q_OBJECT
 
 public:
-    explicit TcpCommunicator(Parser *parser);
-    void setPort(int port);
-    void setIP(QString ip);
+    explicit TcpCommunicator(Parser *mParser);
+    void setPort(int mPort);
+    void setIP(QString mIp);
     void connectToHost();
     bool isConnected();
     int connectedState();
@@ -32,10 +32,10 @@ protected slots:
     void read() ;
 
 private:
-    int         port;
-    QString     ip;
-    QTcpSocket* socket;
-    quint16     blockSize;
-    Parser *parser;
+    int         mPort;
+    QString     mIp;
+    QTcpSocket* mSocket;
+    quint16     mBlockSize;
+    Parser      *mParser;
 };
 

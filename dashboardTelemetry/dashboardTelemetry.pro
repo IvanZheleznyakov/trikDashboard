@@ -25,7 +25,8 @@ SOURCES += \
     parser.cpp \
     isensorwidget.cpp \
     elementarydatasource.cpp \
-    idatasource.cpp
+    idatasource.cpp \
+    widgetbutton.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -39,7 +40,8 @@ HEADERS  += \
     isensorwidget.h \
     widgetslib_global.h \
     idatasource.h \
-    elementarydatasource.h
+    elementarydatasource.h \
+    widgetbutton.h
 
 unix {
     target.path = /usr/lib

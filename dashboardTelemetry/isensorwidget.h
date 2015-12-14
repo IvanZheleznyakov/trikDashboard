@@ -12,7 +12,7 @@ class WIDGETSLIBSHARED_EXPORT ISensorWidget : public QWidget
 {
 
 public:
-    explicit ISensorWidget(int axis, QString title, int timerInterval, QWidget *parent = 0);
+    explicit ISensorWidget(int mAxis, QString mTitle, int mTimerInterval, QWidget *parent = 0);
 
 protected:
     QVector<QColor> getColors() const;
@@ -51,13 +51,13 @@ public slots:
     virtual void init() = 0;
 
 private:
-    QVector<QColor> colors;
-    QVector<float> data;
-    QGridLayout *layout;
-    QLabel *titleLabel;
-    QMenu *widgetMenu;
-    QTimer *paintTimer;
-    QString title;
-    int axis;
-    int timerInterval;
+    QVector<QColor> mColors;
+    QVector<float> mData;
+    QGridLayout *mLayout;
+    QLabel *mTitleLabel;
+    QMenu *mWidgetMenu;
+    QTimer *mPaintTimer;
+    QString mTitle;
+    int mAxis;
+    int mTimerInterval;
 };

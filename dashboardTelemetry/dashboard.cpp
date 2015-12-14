@@ -3,23 +3,23 @@
 
 Dashboard::Dashboard(ICommunicator *communicator)
 {
-    connect(&panel, &ControlPanel::setConnection, this, &Dashboard::connectToTRIK);
+    connect(&mPanel, &ControlPanel::setConnection, this, &Dashboard::connectToTRIK);
 
-    facade = new Facade(communicator);
+    mFacade = new Facade(communicator);
 
-    panel.resize(PANEL_START_SIZE);
-    panel.setMinimumSize(PANEL_MIN_SIZE);
-    panel.show();
+    mPanel.resize(PANEL_START_SIZE);
+    mPanel.setMinimumSize(PANEL_MIN_SIZE);
+    mPanel.show();
 }
 
 void Dashboard::connectToTRIK(QString ip, int port)
 {
-    panel.setStatusBarText(TelemetryConst::WAITING_RESPONSE_MESSAGE());
+    mPanel.setStatusBarText(TelemetryConst::WAITING_RESPONSE_MESSAGE());
     QThread::msleep(WAITING_RESPONSE_TIME);
-    if (facade->connectToTRIK(ip, port)) {
-        panel.setStatusBarText(TelemetryConst::SEND_FROM_DAEMON_MESSAGE());
-        emit panel.newConnection();
+    if (mFacade->connectToTRIK(ip, port)) {
+        mPanel.setStatusBarText(TelemetryConst::SEND_FROM_DAEMON_MESSAGE());
+        emit mPanel.newConnection();
     } else {
-        panel.setStatusBarText(TelemetryConst::NOCONNECTION_MESSAGE());
+        mPanel.setStatusBarText(TelemetryConst::NOCONNECTION_MESSAGE());
     }
 }

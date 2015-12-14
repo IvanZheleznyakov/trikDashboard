@@ -2,108 +2,108 @@
 
 ISensorWidget::ISensorWidget(int axis, QString title, int timerInterval, QWidget *parent) :
     QWidget(parent),
-    data(axis),
-    title(title),
-    axis(axis),
-    timerInterval(timerInterval)
+    mData(axis),
+    mTitle(title),
+    mAxis(axis),
+    mTimerInterval(timerInterval)
 {
     this->setStyleSheet("background-color: white");
-    data.fill(0.0);
-    colors << QColor("red") << QColor("blue") << QColor("green");
-    paintTimer = new QTimer(this);
-    layout = new QGridLayout;
-    titleLabel = new QLabel(title);
-    titleLabel->setAlignment(Qt::AlignCenter);
+    mData.fill(0.0);
+    mColors << QColor("red") << QColor("blue") << QColor("green");
+    mPaintTimer = new QTimer(this);
+    mLayout = new QGridLayout;
+    mTitleLabel = new QLabel(title);
+    mTitleLabel->setAlignment(Qt::AlignCenter);
 
-    paintTimer->setInterval(timerInterval);
+    mPaintTimer->setInterval(timerInterval);
 }
 
 QVector<QColor> ISensorWidget::getColors() const
 {
-    return colors;
+    return mColors;
 }
 
 void ISensorWidget::setColors(const QVector<QColor> &value)
 {
-    colors = value;
+    mColors = value;
 }
 
 QVector<float> ISensorWidget::getData() const
 {
-    return data;
+    return mData;
 }
 
 void ISensorWidget::setData(const QVector<float> &value)
 {
-    data = value;
+    mData = value;
 }
 
 QGridLayout *ISensorWidget::getLayout() const
 {
-    return layout;
+    return mLayout;
 }
 
 void ISensorWidget::setLayout(QGridLayout *value)
 {
-    layout = value;
+    mLayout = value;
 }
 
 QLabel *ISensorWidget::getTitleLabel() const
 {
-    return titleLabel;
+    return mTitleLabel;
 }
 
 void ISensorWidget::setTitleLabel(QLabel *value)
 {
-    titleLabel = value;
+    mTitleLabel = value;
 }
 
 QMenu *ISensorWidget::getWidgetMenu() const
 {
-    return widgetMenu;
+    return mWidgetMenu;
 }
 
 void ISensorWidget::setWidgetMenu(QMenu *value)
 {
-    widgetMenu = value;
+    mWidgetMenu = value;
 }
 
 QTimer *ISensorWidget::getPaintTimer() const
 {
-    return paintTimer;
+    return mPaintTimer;
 }
 
 void ISensorWidget::setPaintTimer(QTimer *value)
 {
-    paintTimer = value;
+    mPaintTimer = value;
 }
 
 QString ISensorWidget::getTitle() const
 {
-    return title;
+    return mTitle;
 }
 
 void ISensorWidget::setTitle(const QString &value)
 {
-    title = value;
+    mTitle = value;
 }
 
 int ISensorWidget::getAxis() const
 {
-    return axis;
+    return mAxis;
 }
 
 void ISensorWidget::setAxis(int value)
 {
-    axis = value;
+    mAxis = value;
 }
 
 int ISensorWidget::getTimerInterval() const
 {
-    return timerInterval;
+    return mTimerInterval;
 }
 
 void ISensorWidget::setTimerInterval(int value)
 {
-    timerInterval = value;
+    mTimerInterval = value;
 }

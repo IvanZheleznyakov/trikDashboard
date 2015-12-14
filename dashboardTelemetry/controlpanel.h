@@ -30,5 +30,5 @@ private slots:
     void createDockWidget(QDockWidget* dw);
 
 private:
-    ToolBar *toolBar;
+    ToolBar *mToolBar;
 };

@@ -33,11 +33,11 @@ private slots:
     void connectButtonPressed();
 
 private:
-    QLineEdit *portTextEdit;
-    QLineEdit *ipTextEdit;
-    QLabel *ipLabel;
-    QLabel *portLabel;
-    QPushButton *connectButton;
-    QToolBox *telemetry;
+    QLineEdit *mPortTextEdit;
+    QLineEdit *mIpTextEdit;
+    QLabel *mIpLabel;
+    QLabel *mPortLabel;
+    QPushButton *mConnectButton;
+    QToolBox *mTelemetry;
 
 };
