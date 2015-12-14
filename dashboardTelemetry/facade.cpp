@@ -1,18 +1,18 @@
 #include "facade.h"
 
 Facade::Facade(ICommunicator *communicator) :
-    communicator(communicator)
+    mCommunicator(communicator)
 {
-    parser = communicator->getParser();
+    mParser = communicator->getParser();
 }
 
 bool Facade::connectToTRIK(QString ip, int port)
 {
-    communicator->setIP(ip.toLatin1());
-    communicator->setPort(port);
-    communicator->connectToHost();
+    mCommunicator->setIP(ip.toLatin1());
+    mCommunicator->setPort(port);
+    mCommunicator->connectToHost();
 
-    communicator->send(SEND_MESSAGE);
+    mCommunicator->send(SEND_MESSAGE);
 
-    return communicator->isConnected();
+    return mCommunicator->isConnected();
 }

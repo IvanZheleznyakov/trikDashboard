@@ -2,10 +2,10 @@
 
 QVector<float> IDataSource::getData() const
 {
-    return data;
+    return mData;
 }
 
 void IDataSource::setData(const QVector<float> &value)
 {
-    data = value;
+    mData = value;
 }

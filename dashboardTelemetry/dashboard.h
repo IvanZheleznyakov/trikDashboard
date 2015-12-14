@@ -19,6 +19,6 @@ private slots:
     void connectToTRIK(QString ip, int port);
 
 private:
-    ControlPanel panel;
-    Facade *facade;
+    ControlPanel mPanel;
+    Facade *mFacade;
 };

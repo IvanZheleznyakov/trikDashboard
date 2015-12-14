@@ -1,5 +1,6 @@
 #pragma once
 #include "telemetry_const.h"
+#include "widgetbutton.h"
 
 #include <QToolBar>
 #include <QLineEdit>
@@ -7,6 +8,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QCheckBox>
+#include <QVector>
 
 class ToolBar : public QToolBar
 {
@@ -39,5 +41,5 @@ private:
     QLabel *mPortLabel;
     QPushButton *mConnectButton;
     QToolBox *mTelemetry;
-
+    QVector<WidgetButton *> mWidgetButtons;
 };

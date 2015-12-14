@@ -1,16 +1,16 @@
 #include "tcpcommunicator.h"
 
 TcpCommunicator::TcpCommunicator(Parser *parser) :
-    port(START_PORT_INT),
-    ip(START_IP_STRING),
-    blockSize(0),
-    parser(parser)
+    mPort(START_PORT_INT),
+    mIp(START_IP_STRING),
+    mBlockSize(0),
+    mParser(parser)
 {
-    socket = new QTcpSocket(this);
-    connect(socket, &QTcpSocket::readyRead, this, &TcpCommunicator::read);
-    connect(socket, &QTcpSocket::connected, this, &TcpCommunicator::setConnection);
-    connect(socket, &QTcpSocket::disconnected, this, &TcpCommunicator::abortConnection);
-    connect(this, &TcpCommunicator::recieveMessage, this->parser, &Parser::parseMessage);
+    mSocket = new QTcpSocket(this);
+    connect(mSocket, &QTcpSocket::readyRead, this, &TcpCommunicator::read);
+    connect(mSocket, &QTcpSocket::connected, this, &TcpCommunicator::setConnection);
+    connect(mSocket, &QTcpSocket::disconnected, this, &TcpCommunicator::abortConnection);
+    connect(this, &TcpCommunicator::recieveMessage, this->mParser, &Parser::parseMessage);
 }
 
 void TcpCommunicator::setConnection()
@@ -25,24 +25,24 @@ void TcpCommunicator::abortConnection()
 
 void TcpCommunicator::setIP(QString ipString)
 {
-    ip = ipString;
+    mIp = ipString;
 }
 
 void TcpCommunicator::setPort(int numPort)
 {
-    port = numPort;
+    mPort = numPort;
 }
 
 int TcpCommunicator::connectedState()
 {
-    return socket->ConnectedState;
+    return mSocket->ConnectedState;
 }
 
 void TcpCommunicator::connectToHost()
 {
-    blockSize = 0;
-    socket->abort();
-    socket->connectToHost(ip, port);
+    mBlockSize = 0;
+    mSocket->abort();
+    mSocket->connectToHost(mIp, mPort);
 }
 
 bool TcpCommunicator::isConnected()
@@ -52,7 +52,7 @@ bool TcpCommunicator::isConnected()
 
 Parser *TcpCommunicator::getParser()
 {
-    return parser;
+    return mParser;
 }
 
 void TcpCommunicator::send(QString message)
@@ -64,31 +64,31 @@ void TcpCommunicator::send(QString message)
     out << message;
     out.device()->seek(0);
     out << (quint16)(block.size() - sizeof(quint16));
-    socket->write(block);
+    mSocket->write(block);
 }
 
 void TcpCommunicator::read()
 {
-    QDataStream in(socket);
+    QDataStream in(mSocket);
     in.setVersion(QDataStream::Qt_4_0);
     QString message;
 
     for (;;)
     {
-        if (!blockSize)
+        if (!mBlockSize)
         {
-            if (socket->bytesAvailable() < sizeof(quint16))
+            if (mSocket->bytesAvailable() < sizeof(quint16))
             {
                 break;
             }
-            in >> blockSize;
+            in >> mBlockSize;
         }
-        if (socket->bytesAvailable() < blockSize)
+        if (mSocket->bytesAvailable() < mBlockSize)
         {
             break;
         }
         in >> message;
-        blockSize = 0;
+        mBlockSize = 0;
         emit recieveMessage(message);
     }
 }

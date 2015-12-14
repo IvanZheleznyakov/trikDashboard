@@ -24,6 +24,6 @@ private slots:
     void addDataSource(QString deviceName, IDataSource *newDataSource);
 
 private:
-    QMap<QString, IDataSource *> map;
+    QMap<QString, IDataSource *> mMap;
 };
 

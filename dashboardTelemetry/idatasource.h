@@ -18,5 +18,5 @@ protected:
     void setData(const QVector<float> &value);
 
 private:
-    QVector<float> data;
+    QVector<float> mData;
 };

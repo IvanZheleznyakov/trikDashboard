@@ -15,18 +15,18 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
 
     qApp->installTranslator(&appTranslator);
 
-    toolBar = new ToolBar();
-    connect(toolBar, &ToolBar::setConnection, this, &ControlPanel::setConnection);
-    connect(this, &ControlPanel::newConnection, toolBar, &ToolBar::insertTelemetry);
-    connect(this, &ControlPanel::lostConnection, toolBar, &ToolBar::deleteTelemetry);
-    addToolBar(Qt::LeftToolBarArea, toolBar);
+    mToolBar = new ToolBar();
+    connect(mToolBar, &ToolBar::setConnection, this, &ControlPanel::setConnection);
+    connect(this, &ControlPanel::newConnection, mToolBar, &ToolBar::insertTelemetry);
+    connect(this, &ControlPanel::lostConnection, mToolBar, &ToolBar::deleteTelemetry);
+    addToolBar(Qt::LeftToolBarArea, mToolBar);
 
     DockOptions opts;
     opts |= AllowNestedDocks;
     opts |= AnimatedDocks;
     QMainWindow::setDockOptions(opts);
 
-    QAction *viewAction = toolBar->toggleViewAction();
+    QAction *viewAction = mToolBar->toggleViewAction();
     viewAction->setShortcut(SHOW_HIDE_SHORTCUT);
     addAction(viewAction);
 

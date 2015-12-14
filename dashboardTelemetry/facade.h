@@ -10,11 +10,11 @@ class Facade : QObject
     Q_OBJECT
 
 public:
-    Facade(ICommunicator *communicator);
+    Facade(ICommunicator *mCommunicator);
     bool connectToTRIK(QString ip, int port);
 
 private:
-    ICommunicator *communicator;
-    Parser *parser;
+    ICommunicator *mCommunicator;
+    Parser *mParser;
 };
 
