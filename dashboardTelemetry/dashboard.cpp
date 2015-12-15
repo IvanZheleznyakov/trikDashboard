@@ -4,14 +4,18 @@
 Dashboard::Dashboard(ICommunicator *communicator)
 {
     connect(&mPanel, &ControlPanel::setConnection, this, &Dashboard::connectToTRIK);
-    connect(&mPanel, &ControlPanel::subscribeWidgetToDataSource, mFacade, &Facade::subscribeWidgetToDataSource);
-    connect(&mPanel, &ControlPanel::unscribeWidgetToDataSource, mFacade, &Facade::unscribeWidgetToDataSource);
 
     mFacade = new Facade(communicator);
 
     mPanel.resize(PANEL_START_SIZE);
     mPanel.setMinimumSize(PANEL_MIN_SIZE);
     mPanel.show();
+
+    connect(&mPanel, &ControlPanel::requestDataToSubscribe, mFacade, &Facade::requestDataToSubscribe);
+    connect(&mPanel, &ControlPanel::requestDataToUnscribe, mFacade, &Facade::requestDataToUnscribe);
+
+    connect(mFacade, &Facade::subscribeWidgetToDataSource, &mPanel, &ControlPanel::subscribeWidgetToDataSource);
+
 }
 
 void Dashboard::connectToTRIK(QString ip, int port)

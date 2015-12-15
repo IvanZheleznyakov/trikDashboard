@@ -8,5 +8,5 @@ ElementaryDataSource::ElementaryDataSource()
 void ElementaryDataSource::updateData(QVector<float> submittedData)
 {
     setData(submittedData);
-//    emit receiveNewData();
+    emit this->recieveNewData(submittedData);
 }

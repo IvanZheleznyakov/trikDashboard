@@ -5,6 +5,7 @@
 
 #include <QObject>
 
+class IDataSource;
 class Facade : public QObject
 {
     Q_OBJECT
@@ -14,8 +15,11 @@ public:
     bool connectToTRIK(QString ip, int port);
 
 signals:
-    void subscribeWidgetToDataSource(QString, QString);
-    void unscribeWidgetToDataSource(QString, QString);
+    void subscribeWidgetToDataSource(IDataSource *, QString, QString);
+
+public slots:
+    void requestDataToSubscribe(QString widgetName, QString deviceName);
+    void requestDataToUnscribe(QString, QString);
 
 private:
     ICommunicator *mCommunicator;

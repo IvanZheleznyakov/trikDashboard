@@ -25,9 +25,13 @@ void Parser::parseMessage(QString message)
         if (!mMap.contains(deviceName)) {
             ElementaryDataSource *newDataSource = new ElementaryDataSource();
             addDataSource(deviceName, newDataSource);
+            if (deviceName == ACCELEROMETER_NAME) {
+                addDataSource(TelemetryConst::ACCELEROMETER_TITLE(), newDataSource);
+                emit messageIsParsed(deviceName, values);
+            }
         }
 
-        emit messageIsParsed(deviceName, values);
+//        emit messageIsParsed(deviceName, values);
     }
 }
 
@@ -39,4 +43,12 @@ void Parser::sendData(QString deviceName, QVector<float> values)
 void Parser::addDataSource(QString deviceName, IDataSource *newDataSource)
 {
     mMap.insert(deviceName, newDataSource);
+}
+
+void Parser::requestDataToSubscribe(QString widgetName, QString deviceName)
+{
+    if (mMap.contains(deviceName))
+    {
+        emit subscribeWidgetToDataSource(mMap[deviceName], widgetName, deviceName);
+    }
 }

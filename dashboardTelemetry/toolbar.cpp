@@ -220,8 +220,8 @@ void ToolBar::connectButtonPressed()
 void ToolBar::widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive)
 {
     if (isActive) {
-        emit subscribeWidgetToDataSource(widgetName, deviceName);
+        emit requestDataToSubscribe(widgetName, deviceName);
     } else {
-        emit unscribeWidgetToDataSource(widgetName, deviceName);
+        emit requestDataToUnscribe(widgetName, deviceName);
     }
 }

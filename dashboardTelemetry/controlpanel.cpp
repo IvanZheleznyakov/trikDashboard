@@ -24,10 +24,10 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     connect(mToolBar, &ToolBar::setConnection, this, &ControlPanel::setConnection);
     connect(this, &ControlPanel::newConnection, mToolBar, &ToolBar::insertTelemetry);
     connect(this, &ControlPanel::lostConnection, mToolBar, &ToolBar::deleteTelemetry);
-    connect(mToolBar, &ToolBar::subscribeWidgetToDataSource, this, &ControlPanel::createSensorWidget);
-    connect(mToolBar, &ToolBar::unscribeWidgetToDataSource, this, &ControlPanel::deleteSensorWidget);
-    connect(mToolBar, &ToolBar::subscribeWidgetToDataSource, this, &ControlPanel::subscribeWidgetToDataSource);
-    connect(mToolBar, &ToolBar::unscribeWidgetToDataSource, this, &ControlPanel::unscribeWidgetToDataSource);
+    connect(mToolBar, &ToolBar::requestDataToSubscribe, this, &ControlPanel::createSensorWidget);
+    connect(mToolBar, &ToolBar::requestDataToUnscribe, this, &ControlPanel::deleteSensorWidget);
+    connect(mToolBar, &ToolBar::requestDataToSubscribe, this, &ControlPanel::requestDataToSubscribe);
+    connect(mToolBar, &ToolBar::requestDataToUnscribe, this, &ControlPanel::requestDataToUnscribe);
     addToolBar(Qt::LeftToolBarArea, mToolBar);
 
     DockOptions opts;
@@ -68,16 +68,9 @@ void ControlPanel::showEvent(QShowEvent *event)
 
 void ControlPanel::createSensorWidget(QString widgetName, QString sensorName)
 {
-    QDockWidget *dockWidget = new QDockWidget();
-    QString nameOfDockWidget = sensorName + ": " + widgetName;
-    dockWidget->setObjectName(nameOfDockWidget);
-    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
-    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
-    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetFloatable);
-    dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
-    dockWidget->setWindowTitle(nameOfDockWidget);
     QPair<QDockWidget *, ISensorWidget *> newPair;
-    newPair.first = dockWidget;
+    QString nameOfDockWidget = sensorName + ": " + widgetName;
+
     if (widgetName == TelemetryConst::TABLE_TITLE()) {
         newPair.second = new TableWidget(3, nameOfDockWidget, SENSORS3D_DATA_UPDATE_PERIOD);
     } else if (widgetName == TelemetryConst::PLOT_TITLE()) {
@@ -88,9 +81,19 @@ void ControlPanel::createSensorWidget(QString widgetName, QString sensorName)
         newPair.second = new ProgressBarWidget(nameOfDockWidget, MOTOR_DATA_UPDATE_PERIOD);
     }
 
+    QDockWidget *dockWidget = new QDockWidget();
+    dockWidget->setObjectName(nameOfDockWidget);
+    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetClosable);
+    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetMovable);
+    dockWidget->setFeatures(dockWidget->features() | QDockWidget::DockWidgetFloatable);
+    dockWidget->setAllowedAreas(Qt::AllDockWidgetAreas);
+    dockWidget->setWindowTitle(nameOfDockWidget);
+    newPair.first = dockWidget;
+
     newPair.first->setWidget(newPair.second);
     mWidgets.insert(nameOfDockWidget, newPair);
     createDockWidget(newPair.first);
+    newPair.second->startPaint();
 }
 
 void ControlPanel::createDockWidget(QDockWidget* dw)
@@ -105,4 +108,10 @@ void ControlPanel::deleteSensorWidget(QString widgetName, QString sensorName)
     mWidgets[nameOfWidget].first->deleteLater();
     mWidgets[nameOfWidget].second->deleteLater();
     mWidgets.remove(nameOfWidget);
+}
+
+void ControlPanel::subscribeWidgetToDataSource(IDataSource *dataSource, QString widgetName, QString deviceName)
+{
+    QString nameOfWidget = deviceName + ": " + widgetName;
+    mWidgets[nameOfWidget].second->subscribeToDataSource(dataSource);
 }

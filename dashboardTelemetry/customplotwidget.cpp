@@ -51,15 +51,16 @@ void CustomPlotWidget::init()
 void CustomPlotWidget::paintWidget()
 {
     QString buf;
-    buf.sprintf("%g %g %g", getData()[0], getData()[1], getData()[2]);
+    QVector<float> mData = getDataSource()->getData();
+    buf.sprintf("%g %g %g", mData.at(0), mData.at(1), mData.at(2));
     mLabelNumders->setText(buf);
 
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     for (int n = 0; n < getAxis(); n++)
     {
-        mPlot->graph(2*n)->addData(key, getData()[n]);
+        mPlot->graph(2*n)->addData(key, getDataSource()->getData()[n]);
         mPlot->graph(2*n+1)->clearData();
-        mPlot->graph(2*n+1)->addData(key, getData()[n]);
+        mPlot->graph(2*n+1)->addData(key, getDataSource()->getData()[n]);
         mPlot->graph(2*n)->removeDataBefore(key - 5);
         mPlot->graph(2*n)->rescaleValueAxis(true);
         mPlot->xAxis->setRange(key + 0.2, 5, Qt::AlignRight);

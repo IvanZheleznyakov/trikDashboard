@@ -11,10 +11,12 @@ public:
     virtual void updateData(QVector<float> submittedData) = 0;
 
 signals:
-    void recieveNewData();
+    void recieveNewData(QVector<float> updates);
+
+public:
+    QVector<float> getData() const;
 
 protected:
-    QVector<float> getData() const;
     void setData(const QVector<float> &value);
 
 private:

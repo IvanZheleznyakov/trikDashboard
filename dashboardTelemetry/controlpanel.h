@@ -10,6 +10,7 @@
 #include <QPair>
 #include <QMap>
 
+class IDataSource;
 class ControlPanel : public QMainWindow
 {
     Q_OBJECT
@@ -23,11 +24,12 @@ signals:
     void newConnection();
     void lostConnection();
     void setConnection(QString ip, int port);
-    void subscribeWidgetToDataSource(QString, QString);
-    void unscribeWidgetToDataSource(QString, QString);
+    void requestDataToSubscribe(QString, QString);
+    void requestDataToUnscribe(QString, QString);
 
 public slots:
     void setStatusBarText(const QString text);
+    void subscribeWidgetToDataSource(IDataSource *dataSource, QString widgetName, QString deviceName);
 
 protected:
     void showEvent(QShowEvent *event);

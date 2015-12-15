@@ -20,8 +20,8 @@ public:
 
 signals:
     void setConnection(QString ip, int port);
-    void subscribeWidgetToDataSource(QString, QString);
-    void unscribeWidgetToDataSource(QString, QString);
+    void requestDataToSubscribe(QString, QString);
+    void requestDataToUnscribe(QString, QString);
 
 protected:
     void enterEvent(QEvent *);

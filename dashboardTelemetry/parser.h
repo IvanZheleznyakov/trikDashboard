@@ -15,12 +15,14 @@ public:
 
 public slots:
     void parseMessage(QString message);
+    void sendData(QString deviceName, QVector<float> values);
+    void requestDataToSubscribe(QString widgetName, QString deviceName);
 
 signals:
     void messageIsParsed(QString, QVector<float>);
+    void subscribeWidgetToDataSource(IDataSource *, QString, QString);
 
 private slots:
-    void sendData(QString deviceName, QVector<float> values);
     void addDataSource(QString deviceName, IDataSource *newDataSource);
 
 private:

@@ -10,8 +10,5 @@ public:
 
 public:
     void updateData(QVector<float> submittedData);
-
-signals:
-    void receiveNewData();
 };
 

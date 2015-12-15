@@ -1,5 +1,7 @@
 #pragma once
 
+#include "idatasource.h"
+
 #include "widgetslib_global.h"
 #include <QWidget>
 #include <QVector>
@@ -14,15 +16,16 @@ class WIDGETSLIBSHARED_EXPORT ISensorWidget : public QWidget
 public:
     explicit ISensorWidget(int mAxis, QString mTitle, int mTimerInterval, QWidget *parent = 0);
 
+    IDataSource *getDataSource() const;
+
 protected:
+    void setDataSource(IDataSource *dataSource);
+
     QVector<QColor> getColors() const;
     void setColors(const QVector<QColor> &value);
 
-    QVector<float> getData() const;
-    void setData(const QVector<float> &value);
-
     QGridLayout *getLayout() const;
-    void setLayout(QGridLayout *value);
+    void setMLayout(QGridLayout *value);
 
     QLabel *getTitleLabel() const;
     void setTitleLabel(QLabel *value);
@@ -43,16 +46,17 @@ protected:
     void setTimerInterval(int value);
 
 public slots:
-    virtual void startPaint();
-    virtual void stopPaint();
-    virtual void updateData(QVector <float> updates);
-    virtual void setInterval(int interval);
+     void startPaint();
+     void stopPaint();
+     void updateData(QVector <float> updates);
+     void setInterval(int interval);
+     void subscribeToDataSource(IDataSource *dataSource);
     virtual void paintWidget() = 0;
     virtual void init() = 0;
 
 private:
+    IDataSource *mDataSource;
     QVector<QColor> mColors;
-    QVector<float> mData;
     QGridLayout *mLayout;
     QLabel *mTitleLabel;
     QMenu *mWidgetMenu;
