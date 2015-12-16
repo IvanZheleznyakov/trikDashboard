@@ -10,7 +10,6 @@ Parser::Parser()
 
 void Parser::parseMessage(QString message)
 {
-    if (message != "Server Response: Connected!") {
     QStringList devices = message.split(";", QString::SkipEmptyParts);
     for (int i = 0; i != devices.count(); ++i) {
         QStringList info = devices.at(i).split(":", QString::SkipEmptyParts);
@@ -21,20 +20,31 @@ void Parser::parseMessage(QString message)
             values << x;
         }
 
-        QString const deviceName = info.at(0);
+        QString deviceName = info.at(0);
+
+        if (deviceName == ACCELEROMETER_NAME) {
+            deviceName = TelemetryConst::ACCELEROMETER_TITLE();
+        } else if (deviceName == GYROSCOPE_NAME) {
+            deviceName = TelemetryConst::GYROSCOPE_TITLE();
+        } else if (deviceName == POWER_MOTOR1_NAME) {
+            deviceName = TelemetryConst::POWER_MOTOR1_TITLE();
+        } else if (deviceName == POWER_MOTOR2_NAME) {
+            deviceName = TelemetryConst::POWER_MOTOR2_TITLE();
+        } else if (deviceName == POWER_MOTOR3_NAME) {
+            deviceName = TelemetryConst::POWER_MOTOR3_TITLE();
+        } else if (deviceName == POWER_MOTOR4_NAME) {
+            deviceName = TelemetryConst::POWER_MOTOR4_TITLE();
+        } else if (deviceName == BATTERY_NAME) {
+            deviceName = TelemetryConst::BATTERY_TITLE();
+        }
 
         if (!mMap.contains(deviceName)) {
             ElementaryDataSource *newDataSource = new ElementaryDataSource();
+
             addDataSource(deviceName, newDataSource);
-            if (deviceName == ACCELEROMETER_NAME) {
-                addDataSource(TelemetryConst::ACCELEROMETER_TITLE(), newDataSource);
-            }
         }
 
-        emit messageIsParsed(TelemetryConst::ACCELEROMETER_TITLE(), values);
-
-//        emit messageIsParsed(deviceName, values);
-    }
+        emit messageIsParsed(deviceName, values);
     }
 }
 

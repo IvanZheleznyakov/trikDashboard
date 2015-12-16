@@ -4,7 +4,8 @@ TcpCommunicator::TcpCommunicator(Parser *parser) :
     mPort(START_PORT_INT),
     mIp(START_IP_STRING),
     mBlockSize(0),
-    mParser(parser)
+    mParser(parser),
+    hiMessage(true)
 {
     mSocket = new QTcpSocket(this);
     connect(mSocket, &QTcpSocket::readyRead, this, &TcpCommunicator::read);
@@ -69,6 +70,12 @@ void TcpCommunicator::send(QString message)
 
 void TcpCommunicator::read()
 {
+    if (hiMessage)
+    {
+        hiMessage = false;
+        return;
+    }
+
     QDataStream in(mSocket);
     in.setVersion(QDataStream::Qt_4_0);
     QString message;

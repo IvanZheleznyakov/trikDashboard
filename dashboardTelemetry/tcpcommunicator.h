@@ -37,5 +37,6 @@ private:
     QTcpSocket* mSocket;
     quint16     mBlockSize;
     Parser      *mParser;
+    bool        hiMessage;
 };
 
