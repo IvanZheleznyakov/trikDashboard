@@ -30,6 +30,7 @@ signals:
 public slots:
     void setStatusBarText(const QString text);
     void subscribeWidgetToDataSource(IDataSource *dataSource, QString widgetName, QString deviceName);
+    void unscribeWidgetFromDataSource(IDataSource *dataSource, QString widgetName, QString deviceName);
 
 protected:
     void showEvent(QShowEvent *event);

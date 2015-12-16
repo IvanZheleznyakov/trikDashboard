@@ -57,3 +57,8 @@ void Parser::requestDataToSubscribe(QString widgetName, QString deviceName)
         emit subscribeWidgetToDataSource(mMap[deviceName], widgetName, deviceName);
     }
 }
+
+void Parser::requestDataToUnscribe(QString widgetName, QString deviceName)
+{
+    emit unscribeWidgetFromDataSource(mMap[deviceName], widgetName, deviceName);
+}

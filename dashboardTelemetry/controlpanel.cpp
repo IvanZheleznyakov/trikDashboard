@@ -113,5 +113,11 @@ void ControlPanel::deleteSensorWidget(QString widgetName, QString sensorName)
 void ControlPanel::subscribeWidgetToDataSource(IDataSource *dataSource, QString widgetName, QString deviceName)
 {
     QString nameOfWidget = deviceName + ": " + widgetName;
-    connect(dataSource, &IDataSource::recieveNewData, mWidgets[nameOfWidget].second, &ISensorWidget::updateData);
+    mWidgets[nameOfWidget].second->subscribeWidgetToDataSource(dataSource);
+}
+
+void ControlPanel::unscribeWidgetFromDataSource(IDataSource *dataSource, QString widgetName, QString deviceName)
+{
+    QString nameOfWidget = deviceName + ": " + widgetName;
+    mWidgets[nameOfWidget].second->unscribeWidgetFromDataSource(dataSource);
 }

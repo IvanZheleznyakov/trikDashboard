@@ -15,6 +15,7 @@ Dashboard::Dashboard(ICommunicator *communicator)
     connect(&mPanel, &ControlPanel::requestDataToUnscribe, mFacade, &Facade::requestDataToUnscribe);
 
     connect(mFacade, &Facade::subscribeWidgetToDataSource, &mPanel, &ControlPanel::subscribeWidgetToDataSource);
+    connect(mFacade, &Facade::unscribeWidgetFromDataSource, &mPanel, &ControlPanel::unscribeWidgetFromDataSource);
 
 }
 

@@ -132,3 +132,13 @@ void ISensorWidget::updateData(QVector<float> updates)
         mData[i] = updates.at(i);
     }
 }
+
+void ISensorWidget::subscribeWidgetToDataSource(IDataSource *dataSource)
+{
+    connect(dataSource, &IDataSource::recieveNewData, this, &ISensorWidget::updateData);
+}
+
+void ISensorWidget::unscribeWidgetFromDataSource(IDataSource *dataSource)
+{
+    disconnect(dataSource, &IDataSource::recieveNewData, this, &ISensorWidget::updateData);
+}

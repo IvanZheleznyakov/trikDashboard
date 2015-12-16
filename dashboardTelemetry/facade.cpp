@@ -23,7 +23,7 @@ void Facade::requestDataToSubscribe(QString widgetName, QString deviceName)
     mParser->requestDataToSubscribe(widgetName, deviceName);
 }
 
-void Facade::requestDataToUnscribe(QString, QString)
+void Facade::requestDataToUnscribe(QString widgetName, QString deviceName)
 {
-
+    mParser->requestDataToUnscribe(widgetName, deviceName);
 }

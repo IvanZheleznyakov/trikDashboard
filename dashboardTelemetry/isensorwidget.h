@@ -1,5 +1,7 @@
 #pragma once
 
+#include "idatasource.h"
+
 #include "widgetslib_global.h"
 #include <QWidget>
 #include <QVector>
@@ -43,10 +45,12 @@ protected:
     void setTimerInterval(int value);
 
 public slots:
-     void startPaint();
-     void stopPaint();
-     void updateData(QVector <float> updates);
-     void setInterval(int interval);
+    void startPaint();
+    void stopPaint();
+    void updateData(QVector <float> updates);
+    void setInterval(int interval);
+    void subscribeWidgetToDataSource(IDataSource *dataSource);
+    void unscribeWidgetFromDataSource(IDataSource *dataSource);
     virtual void paintWidget() = 0;
     virtual void init() = 0;
 
