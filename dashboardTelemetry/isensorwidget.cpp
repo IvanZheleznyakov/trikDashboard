@@ -2,11 +2,13 @@
 
 ISensorWidget::ISensorWidget(int axis, QString title, int timerInterval, QWidget *parent) :
     QWidget(parent),
+    mData(axis),
     mTitle(title),
     mAxis(axis),
     mTimerInterval(timerInterval)
 {
     this->setStyleSheet("background-color: white");
+    mData.fill(0.0);
     mColors << QColor("red") << QColor("blue") << QColor("green");
     mPaintTimer = new QTimer(this);
     mLayout = new QGridLayout;
@@ -14,16 +16,6 @@ ISensorWidget::ISensorWidget(int axis, QString title, int timerInterval, QWidget
     mTitleLabel->setAlignment(Qt::AlignCenter);
 
     mPaintTimer->setInterval(timerInterval);
-}
-
-IDataSource *ISensorWidget::getDataSource() const
-{
-    return mDataSource;
-}
-
-void ISensorWidget::setDataSource(IDataSource *dataSource)
-{
-    mDataSource = dataSource;
 }
 
 QVector<QColor> ISensorWidget::getColors() const
@@ -120,14 +112,23 @@ void ISensorWidget::setInterval(int interval)
 {
     mTimerInterval = interval;
 }
+QVector<float> ISensorWidget::getData() const
+{
+    return mData;
+}
+
+void ISensorWidget::setData(const QVector<float> &data)
+{
+    mData = data;
+}
+
 
 void ISensorWidget::updateData(QVector<float> updates)
 {
-
-}
-
-void ISensorWidget::subscribeToDataSource(IDataSource *dataSource)
-{
-    setDataSource(dataSource);
-    connect(mDataSource, &IDataSource::recieveNewData, this, &ISensorWidget::updateData);
+    int n = updates.size();
+    n = n >= mAxis ? mAxis : n;
+    for (int i = 0; i < n; i++)
+    {
+        mData[i] = updates.at(i);
+    }
 }

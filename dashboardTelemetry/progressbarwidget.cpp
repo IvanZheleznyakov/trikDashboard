@@ -25,5 +25,5 @@ void ProgressBarWidget::init()
 
 void ProgressBarWidget::paintWidget()
 {
-    mProgressBar->setValue(floor(getDataSource()->getData().at(0)));
+    mProgressBar->setValue(floor(getData().at(0)));
 }

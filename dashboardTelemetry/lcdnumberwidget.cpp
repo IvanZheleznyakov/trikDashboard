@@ -20,5 +20,5 @@ void LCDNumberWidget::init()
 
 void LCDNumberWidget::paintWidget()
 {
-    LCDNumbers->display(getDataSource()->getData().at(0));
+    LCDNumbers->display(getData().at(0));
 }

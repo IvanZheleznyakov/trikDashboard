@@ -1,7 +1,5 @@
 #pragma once
 
-#include "idatasource.h"
-
 #include "widgetslib_global.h"
 #include <QWidget>
 #include <QVector>
@@ -16,10 +14,9 @@ class WIDGETSLIBSHARED_EXPORT ISensorWidget : public QWidget
 public:
     explicit ISensorWidget(int mAxis, QString mTitle, int mTimerInterval, QWidget *parent = 0);
 
-    IDataSource *getDataSource() const;
-
 protected:
-    void setDataSource(IDataSource *dataSource);
+    QVector<float> getData() const;
+    void setData(const QVector<float> &data);
 
     QVector<QColor> getColors() const;
     void setColors(const QVector<QColor> &value);
@@ -50,12 +47,11 @@ public slots:
      void stopPaint();
      void updateData(QVector <float> updates);
      void setInterval(int interval);
-     void subscribeToDataSource(IDataSource *dataSource);
     virtual void paintWidget() = 0;
     virtual void init() = 0;
 
 private:
-    IDataSource *mDataSource;
+    QVector<float> mData;
     QVector<QColor> mColors;
     QGridLayout *mLayout;
     QLabel *mTitleLabel;

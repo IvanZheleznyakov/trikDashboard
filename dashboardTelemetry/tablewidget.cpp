@@ -42,7 +42,7 @@ void TableWidget::paintWidget()
     firstItem->setFlags(firstItem->flags() ^ Qt::ItemIsEditable);
     mTable->setItem(mRowToWriteData, 0, firstItem);
     for (int i = 1; i != getAxis() + 1; ++i) {
-        QTableWidgetItem *newItem = new QTableWidgetItem(QString::number(getDataSource()->getData().at(i - 1)));
+        QTableWidgetItem *newItem = new QTableWidgetItem(QString::number(getData().at(i - 1)));
         newItem->setFlags(newItem->flags() ^ Qt::ItemIsEditable);
         mTable->setItem(mRowToWriteData, i, newItem);
     }
