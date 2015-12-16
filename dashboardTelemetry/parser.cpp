@@ -10,6 +10,7 @@ Parser::Parser()
 
 void Parser::parseMessage(QString message)
 {
+    if (message != "Server Response: Connected!") {
     QStringList devices = message.split(";", QString::SkipEmptyParts);
     for (int i = 0; i != devices.count(); ++i) {
         QStringList info = devices.at(i).split(":", QString::SkipEmptyParts);
@@ -27,11 +28,13 @@ void Parser::parseMessage(QString message)
             addDataSource(deviceName, newDataSource);
             if (deviceName == ACCELEROMETER_NAME) {
                 addDataSource(TelemetryConst::ACCELEROMETER_TITLE(), newDataSource);
-                emit messageIsParsed(deviceName, values);
             }
         }
 
+        emit messageIsParsed(TelemetryConst::ACCELEROMETER_TITLE(), values);
+
 //        emit messageIsParsed(deviceName, values);
+    }
     }
 }
 
@@ -42,7 +45,9 @@ void Parser::sendData(QString deviceName, QVector<float> values)
 
 void Parser::addDataSource(QString deviceName, IDataSource *newDataSource)
 {
-    mMap.insert(deviceName, newDataSource);
+    if (!mMap.contains(deviceName)) {
+        mMap.insert(deviceName, newDataSource);
+    }
 }
 
 void Parser::requestDataToSubscribe(QString widgetName, QString deviceName)
