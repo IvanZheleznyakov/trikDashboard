@@ -31,7 +31,8 @@ SOURCES += \
     customplotwidget.cpp \
     lcdnumberwidget.cpp \
     progressbarwidget.cpp \
-    tablewidget.cpp
+    tablewidget.cpp \
+    udpcommunicator.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -51,7 +52,8 @@ HEADERS  += \
     customplotwidget.h \
     lcdnumberwidget.h \
     progressbarwidget.h \
-    tablewidget.h
+    tablewidget.h \
+    udpcommunicator.h
 
 unix {
     target.path = /usr/lib
