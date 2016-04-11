@@ -14,6 +14,11 @@ TcpCommunicator::TcpCommunicator(Parser *parser) :
     connect(this, &TcpCommunicator::recieveMessage, this->mParser, &Parser::parseMessage);
 }
 
+QHostAddress TcpCommunicator::getHostAddress()
+{
+    return mSocket->peerAddress();
+}
+
 void TcpCommunicator::setConnection()
 {
     emit newConnection();

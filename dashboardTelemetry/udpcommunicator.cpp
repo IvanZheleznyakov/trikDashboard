@@ -1,36 +1,64 @@
 #include "udpcommunicator.h"
 
-UdpCommunicator::UdpCommunicator() :
-    port(START_PORT_INT),
-    blockSize(0)
+UdpCommunicator::UdpCommunicator(Parser *parser) :
+    mPort(START_PORT_INT),
+    mIp(START_IP_STRING),
+    mBlockSize(0),
+    mParser(parser),
+    hiMessage(true)
 {
-}
-
-void UdpCommunicator::setPort(int numPort)
-{
-    port = numPort;
-}
-
-void UdpCommunicator::setHostAddr(QHostAddress hostAddress)
-{
-    hostAddr = hostAddress;
-    this->setConnection();
+    mSocket = new QUdpSocket(this);
+    connect(mSocket, SIGNAL(readyRead()), this, SLOT(read()));
+    connect(mSocket, &QUdpSocket::connected, this, &UdpCommunicator::setConnection);
+    connect(mSocket, &QUdpSocket::disconnected, this, &UdpCommunicator::abortConnection);
+    connect(this, &UdpCommunicator::recieveMessage, this->mParser, &Parser::parseMessage);
 }
 
 void UdpCommunicator::setConnection()
 {
-    udpSocket = new QUdpSocket(this);
-    udpSocket->bind(hostAddr, port);
-    qDebug() << "Socked binded to " << hostAddr.toString() << " " << port;
-    blockSize = 0;
-    connect(udpSocket, SIGNAL(readyRead()), this, SLOT(read()));
-    connect(udpSocket, SIGNAL(disconnected()), this, SLOT(abortConnection()));
+    emit newConnection();
 }
 
 void UdpCommunicator::abortConnection()
 {
-    udpSocket->disconnectFromHost();
     emit lostConnection();
+}
+
+void UdpCommunicator::setIP(QString ipString)
+{
+    mIp = QHostAddress(ipString);
+}
+
+QHostAddress UdpCommunicator::getHostAddress()
+{
+    return mIp;
+}
+
+void UdpCommunicator::setPort(int numPort)
+{
+    mPort = numPort;
+}
+
+int UdpCommunicator::connectedState()
+{
+    return mSocket->ConnectedState;
+}
+
+void UdpCommunicator::connectToHost()
+{
+    mBlockSize = 0;
+    mSocket->abort();
+    mSocket->bind(QHostAddress::Any, mPort);
+}
+
+bool UdpCommunicator::isConnected()
+{
+    return (connectedState() == QUdpSocket::ConnectedState);
+}
+
+Parser *UdpCommunicator::getParser()
+{
+    return mParser;
 }
 
 void UdpCommunicator::send(QString message)
@@ -42,39 +70,22 @@ void UdpCommunicator::send(QString message)
     out << message;
     out.device()->seek(0);
     out << (quint16)(block.size() - sizeof(quint16));
-    udpSocket->writeDatagram(block, hostAddr, port);
+    mSocket->writeDatagram(block, mIp, mPort);
 }
 
 void UdpCommunicator::read()
 {
-    while (udpSocket->hasPendingDatagrams())
+    while(mSocket->hasPendingDatagrams())
     {
         QByteArray datagram;
-        datagram.resize(udpSocket->pendingDatagramSize());
-        udpSocket->readDatagram(datagram.data(), datagram.size());
-        QString message(datagram.data());
-        qDebug() << message;
+        QString message(datagram);
+        datagram.resize(mSocket->pendingDatagramSize());
+        QHostAddress *address = new QHostAddress(START_IP_STRING);
+        mSocket->readDatagram(datagram.data(), datagram.size(), address);
+        for (int i = 0; i < datagram.size(); i++)
+        {
+            message += datagram.data()[i];
+        }
         emit recieveMessage(message);
     }
-    /*QDataStream in(udpSocket);
-    in.setVersion(QDataStream::Qt_4_0);
-    QString message;
-    for (;;)
-    {
-        if (!blockSize)
-        {
-            if (udpSocket->bytesAvailable() < sizeof(quint16))
-            {
-                break;
-            }
-            in >> blockSize;
-        }
-        if (udpSocket->bytesAvailable() < blockSize)
-        {
-            break;
-        }
-        in >> message;
-        blockSize = 0;
-        emit recieveMessage(message);
-    }*/
 }

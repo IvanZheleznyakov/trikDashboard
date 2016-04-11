@@ -1,7 +1,7 @@
 #pragma once
 #include "telemetry_const.h"
 #include "parser.h"
-
+#include <QHostAddress>
 #include <QObject>
 
 class ICommunicator : public QObject
@@ -15,6 +15,7 @@ public:
     virtual bool isConnected() = 0;
     virtual int connectedState() = 0;
     virtual Parser *getParser() = 0;
+    virtual QHostAddress getHostAddress() = 0;
 
 signals:
     void newConnection();

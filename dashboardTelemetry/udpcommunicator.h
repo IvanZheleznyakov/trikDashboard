@@ -1,33 +1,44 @@
 #pragma once
-#include "telemetry_const.h"
+
+#include "icommunicator.h"
+#include "parser.h"
 #include <QUdpSocket>
 #include <QDataStream>
-#include <icommunicator.h>
 
 class UdpCommunicator : public ICommunicator
 {
     Q_OBJECT
+
 public:
-    explicit UdpCommunicator();
-    void setPort(int port);
-    void setHostAddr(QHostAddress hostAddress);
+    explicit UdpCommunicator(Parser *mParser);
+    void setPort(int mPort);
+    void setIP(QString mIp);
+    void connectToHost();
+    bool isConnected();
+    int connectedState();
+    QHostAddress getHostAddress();
+    Parser *getParser();
 
 signals:
     void newConnection();
-    void lostConnection();
+    void lostConnection() ;
     void recieveMessage(QString);
+    void readyRead();
 
 public slots:
-    void send(QString);
+    void send(QString) ;
+    void setConnection() ;
+    void abortConnection() ;
 
-private slots:
-    void setConnection();
-    void abortConnection();
-    void read();
+protected slots:
+    void read() ;
 
 private:
-    int         port;
-    QUdpSocket* udpSocket;
-    QHostAddress hostAddr;
-    quint16     blockSize;
+    int             mPort;
+    QHostAddress    mIp;
+    QUdpSocket*     mSocket;
+    quint16         mBlockSize;
+    Parser          *mParser;
+    bool            hiMessage;
 };
+

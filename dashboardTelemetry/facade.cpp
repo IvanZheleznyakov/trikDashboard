@@ -1,21 +1,24 @@
 #include "facade.h"
 
-Facade::Facade(ICommunicator *communicator) :
-    mCommunicator(communicator)
+Facade::Facade(ICommunicator *tcpCommunicator, ICommunicator *udpCommunicator) :
+    mTCommunicator(tcpCommunicator),
+    mUCommunicator(udpCommunicator)
 {
-    mParser = communicator->getParser();
+    mParser = tcpCommunicator->getParser();
     connect(mParser, &Parser::subscribeWidgetToDataSource, this, &Facade::subscribeWidgetToDataSource);
 }
 
 bool Facade::connectToTRIK(QString ip, int port)
 {
-    mCommunicator->setIP(ip.toLatin1());
-    mCommunicator->setPort(port);
-    mCommunicator->connectToHost();
+    mTCommunicator->setIP(ip.toLatin1());
+    mUCommunicator->setIP(ip.toLatin1());
+    mTCommunicator->setPort(port);
+    mUCommunicator->setPort(port);
+    mTCommunicator->connectToHost();
+    mUCommunicator->connectToHost();
+    mTCommunicator->send(SEND_MESSAGE);
 
-    mCommunicator->send(SEND_MESSAGE);
-
-    return mCommunicator->isConnected();
+    return mTCommunicator->isConnected() && mUCommunicator->isConnected();
 }
 
 void Facade::requestDataToSubscribe(QString widgetName, QString deviceName)

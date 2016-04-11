@@ -1,11 +1,11 @@
 #include "dashboard.h"
 #include <QThread>
 
-Dashboard::Dashboard(ICommunicator *communicator)
+Dashboard::Dashboard(ICommunicator *tcpCommunicator, ICommunicator *udpCommunicator)
 {
     connect(&mPanel, &ControlPanel::setConnection, this, &Dashboard::connectToTRIK);
 
-    mFacade = new Facade(communicator);
+    mFacade = new Facade(tcpCommunicator, udpCommunicator);
 
     mPanel.resize(PANEL_START_SIZE);
     mPanel.setMinimumSize(PANEL_MIN_SIZE);

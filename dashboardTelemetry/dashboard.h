@@ -11,7 +11,7 @@ class Dashboard : public QObject
     Q_OBJECT
 
 public:
-    Dashboard(ICommunicator *communicator);
+    Dashboard(ICommunicator *tcpCommunicator, ICommunicator *udpCommunicator);
 
 signals:
 

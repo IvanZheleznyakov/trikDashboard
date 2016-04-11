@@ -4,6 +4,7 @@
 #include "parser.h"
 
 #include <QTcpSocket>
+#include <QDataStream>
 
 class TcpCommunicator : public ICommunicator
 {
@@ -16,6 +17,7 @@ public:
     void connectToHost();
     bool isConnected();
     int connectedState();
+    QHostAddress getHostAddress();
     Parser *getParser();
 
 signals:

@@ -11,7 +11,7 @@ class Facade : public QObject
     Q_OBJECT
 
 public:
-    Facade(ICommunicator *mCommunicator);
+    Facade(ICommunicator *tcpCommunicator, ICommunicator *udpCommunicator);
     bool connectToTRIK(QString ip, int port);
 
 signals:
@@ -23,7 +23,8 @@ public slots:
     void requestDataToUnscribe(QString widgetName, QString deviceName);
 
 private:
-    ICommunicator *mCommunicator;
+    ICommunicator *mUCommunicator;
+    ICommunicator *mTCommunicator;
     Parser *mParser;
 };
 

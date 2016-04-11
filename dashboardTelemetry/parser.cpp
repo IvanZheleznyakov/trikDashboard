@@ -10,7 +10,8 @@ Parser::Parser()
 
 void Parser::parseMessage(QString message)
 {
-    if (message != "TRIK connected") {
+    if (message != "TRIK connected")
+    {
         QStringList devices = message.split(";", QString::SkipEmptyParts);
         for (int i = 0; i != devices.count(); ++i) {
             QStringList info = devices.at(i).split(":", QString::SkipEmptyParts);
