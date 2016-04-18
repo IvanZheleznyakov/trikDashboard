@@ -153,6 +153,7 @@ void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfWidgets)
                 widgetLayout->addWidget(createProgressBarButton(nameOfWidgets.at(i)));
             }
 
+            widgetLayout->addWidget(createTableButton(nameOfWidgets.at(i)));
             widgetGroupBox->setLayout(widgetLayout);
             groupToolBox->addItem(widgetGroupBox, "");
             groupToolBox->setItemText(i, nameOfWidgets.at(i));
