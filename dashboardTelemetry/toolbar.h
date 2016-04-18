@@ -42,6 +42,7 @@ private slots:
     WidgetButton *createLCDNumberButton(QString deviceName);
     WidgetButton *createProgressBarButton(QString deviceName);
     WidgetButton *createTableButton(QString deviceName);
+    QPushButton *createExpressionsButton();
 
 private:
     QLineEdit *mPortTextEdit;

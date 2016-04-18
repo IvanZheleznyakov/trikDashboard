@@ -35,6 +35,8 @@ void ToolBar::retranslateUi()
         mTelemetry->setItemText(4, tr("Encoders"));
         mTelemetry->setItemText(5, tr("Battery"));
         mTelemetry->setItemText(6, tr("Camera"));
+        mTelemetry->setItemText(7, tr("Expressions"));
+\
     }
 }
 
@@ -115,6 +117,10 @@ void ToolBar::insertTelemetry()
     //camera
     insertGroupOfWidgets(nameOfWidgets);
 
+    //expressions
+    nameOfWidgets.append("Expressions");
+    insertGroupOfWidgets(nameOfWidgets);
+
     connectButtons();
     retranslateUi();
 }
@@ -125,31 +131,39 @@ void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfWidgets)
     QVBoxLayout *vBoxLayout = new QVBoxLayout;
     QToolBox *groupToolBox = new QToolBox();
 
-    for (int i = 0; i != nameOfWidgets.count(); ++i) {
-        QGroupBox *widgetGroupBox = new QGroupBox();
-        QVBoxLayout *widgetLayout = new QVBoxLayout;
-        if (nameOfWidgets.at(i) == TelemetryConst::ACCELEROMETER_TITLE() ||
-            nameOfWidgets.at(i) == TelemetryConst::GYROSCOPE_TITLE()) {
-            widgetLayout->addWidget(createPlotButton(nameOfWidgets.at(i)));
-        } else if (nameOfWidgets.at(i) == TelemetryConst::BATTERY_TITLE()) {
-            widgetLayout->addWidget(createLCDNumberButton(nameOfWidgets.at(i)));
-        } else if (nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR1_TITLE() ||
-                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR2_TITLE() ||
-                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR3_TITLE() ||
-                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR4_TITLE()) {
-            widgetLayout->addWidget(createProgressBarButton(nameOfWidgets.at(i)));
+    if (nameOfWidgets.count() != 0 && nameOfWidgets.at(0) == "Expressions")
+    {
+        vBoxLayout->addStretch(0);
+        groupBox->setLayout(vBoxLayout);
+        mTelemetry->addItem(createExpressionsButton(), "");
+        nameOfWidgets.clear();
+    } else {
+        for (int i = 0; i != nameOfWidgets.count(); ++i) {
+            QGroupBox *widgetGroupBox = new QGroupBox();
+            QVBoxLayout *widgetLayout = new QVBoxLayout;
+            if (nameOfWidgets.at(i) == TelemetryConst::ACCELEROMETER_TITLE() ||
+                nameOfWidgets.at(i) == TelemetryConst::GYROSCOPE_TITLE()) {
+                widgetLayout->addWidget(createPlotButton(nameOfWidgets.at(i)));
+            } else if (nameOfWidgets.at(i) == TelemetryConst::BATTERY_TITLE()) {
+                widgetLayout->addWidget(createLCDNumberButton(nameOfWidgets.at(i)));
+            } else if (nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR1_TITLE() ||
+                       nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR2_TITLE() ||
+                       nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR3_TITLE() ||
+                       nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR4_TITLE()) {
+                widgetLayout->addWidget(createProgressBarButton(nameOfWidgets.at(i)));
+            }
+
+            widgetGroupBox->setLayout(widgetLayout);
+            groupToolBox->addItem(widgetGroupBox, "");
+            groupToolBox->setItemText(i, nameOfWidgets.at(i));
+            vBoxLayout->addWidget(groupToolBox);
         }
 
-        widgetLayout->addWidget(createTableButton(nameOfWidgets.at(i)));
-        widgetGroupBox->setLayout(widgetLayout);
-        groupToolBox->addItem(widgetGroupBox, "");
-        groupToolBox->setItemText(i, nameOfWidgets.at(i));
-        vBoxLayout->addWidget(groupToolBox);
+        vBoxLayout->addStretch(0);
+        groupBox->setLayout(vBoxLayout);
+        mTelemetry->addItem(groupBox, "");
+        nameOfWidgets.clear();
     }
-    vBoxLayout->addStretch(0);
-    groupBox->setLayout(vBoxLayout);
-    mTelemetry->addItem(groupBox, "");
-    nameOfWidgets.clear();
 }
 
 WidgetButton *ToolBar::createPlotButton(QString deviceName)
@@ -178,6 +192,15 @@ WidgetButton *ToolBar::createTableButton(QString deviceName)
     WidgetButton *tableButton = new WidgetButton(TelemetryConst::TABLE_TITLE(), deviceName);
     mWidgetButtons.append(tableButton);
     return tableButton;
+}
+
+QPushButton *ToolBar::createExpressionsButton()
+{
+    QPushButton *expressionsButton = new QPushButton();
+    expressionsButton->setText("Add new expression");
+    expressionsButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
+                                 "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
+    return expressionsButton;
 }
 
 void ToolBar::connectButtons()
