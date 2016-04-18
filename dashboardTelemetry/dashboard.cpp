@@ -11,6 +11,9 @@ Dashboard::Dashboard(ICommunicator *tcpCommunicator, ICommunicator *udpCommunica
     mPanel.setMinimumSize(PANEL_MIN_SIZE);
     mPanel.show();
 
+    connect(tcpCommunicator, ICommunicator::lostConnection, &mPanel, &ControlPanel::lostConnection);
+    connect(udpCommunicator, ICommunicator::lostConnection, &mPanel, &ControlPanel::lostConnection);
+
     connect(&mPanel, &ControlPanel::requestDataToSubscribe, mFacade, &Facade::requestDataToSubscribe);
     connect(&mPanel, &ControlPanel::requestDataToUnscribe, mFacade, &Facade::requestDataToUnscribe);
 
