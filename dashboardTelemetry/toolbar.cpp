@@ -14,6 +14,7 @@ ToolBar::ToolBar()
     setMovable(false);
     this->setFixedWidth(TOOLBAR_WIDTH);
     expressionInputDialog = new ExpressionInputDialog();
+    connect(expressionInputDialog, ExpressionInputDialog::sendDataToExpression, this, ToolBar::insertNewExpression);
 
     insertToolBox();
 
@@ -153,11 +154,6 @@ void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfSensors)
                        nameOfSensors.at(i) == TelemetryConst::POWER_MOTOR3_TITLE() ||
                        nameOfSensors.at(i) == TelemetryConst::POWER_MOTOR4_TITLE()) {
                 widgetLayout->addWidget(createProgressBarButton(nameOfSensors.at(i)));
-            } else { //нужно придумать, как обобщить этот случай и коннектить кнопку не здесь
-                WidgetButton *expressionWidgetButton = createPlotButton(nameOfSensors.at(i));
-                connect(expressionWidgetButton, &WidgetButton::sendDataFromButton,
-                        this, &ToolBar::widgetButtonIsPressed);
-                widgetLayout->addWidget(expressionWidgetButton);
             }
 
             widgetLayout->addWidget(createTableButton(nameOfSensors.at(i)));
@@ -174,11 +170,24 @@ void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfSensors)
     }
 }
 
-void ToolBar::insertNewExpression(QString widgetName, QString deviceName)
+void ToolBar::insertNewExpression(QString deviceName, QString expression)
 {
-    QVector<QString> nameOfSensor;
-    nameOfWidget.append(deviceName);
-    insertGroupOfWidgets(nameOfSensor);
+//    QVector<QString> nameOfSensor;
+//    nameOfSensor.append(deviceName);
+//    insertGroupOfWidgets(nameOfSensor);
+    QToolBox *groupToolBox = new QToolBox();
+    QGroupBox *widgetGroupBox = new QGroupBox();
+    QVBoxLayout *widgetLayout = new QVBoxLayout;
+    WidgetButton *expressionWidgetButton = createPlotButton(deviceName);
+    connect(expressionWidgetButton, &WidgetButton::sendDataFromButton,
+            this, &ToolBar::widgetButtonIsPressed);
+    widgetLayout->addWidget(expressionWidgetButton);
+    widgetLayout->addWidget(createTableButton(deviceName));
+    widgetGroupBox->setLayout(widgetLayout);
+    groupToolBox->addItem(widgetGroupBox, "");
+    groupToolBox->setItemText(0, deviceName);
+    mTelemetry->widget(7)->layout()->addWidget(groupToolBox);
+
 }
 
 WidgetButton *ToolBar::createPlotButton(QString deviceName)

@@ -38,7 +38,7 @@ private slots:
     void connectButtonPressed();
     void connectButtons();
     void insertGroupOfWidgets(QVector<QString> &nameOfWidgets);
-    void insertNewExpression();
+    void insertNewExpression(QString deviceName, QString expression);
     void widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive);
     void addExpressionButtonIsClicked();
     WidgetButton *createPlotButton(QString deviceName);

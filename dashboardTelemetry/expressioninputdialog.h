@@ -12,6 +12,9 @@ class ExpressionInputDialog : public QDialog
 public:
     ExpressionInputDialog();
 
+signals:
+    void sendDataToExpression(QString name, QString expression);
+
 private slots:
     void okButtonIsClicked();
     void cancelButtonIsClicked();

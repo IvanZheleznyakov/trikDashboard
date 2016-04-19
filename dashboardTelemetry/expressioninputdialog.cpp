@@ -38,7 +38,8 @@ ExpressionInputDialog::ExpressionInputDialog(): QDialog()
 
 void ExpressionInputDialog::okButtonIsClicked()
 {
-
+    emit sendDataToExpression(nameLineEdit->text(), expressionLineEdit->text());
+    this->close();
 }
 
 void ExpressionInputDialog::cancelButtonIsClicked()
