@@ -2,6 +2,7 @@
 #include "elementarydatasource.h"
 #include <QStringList>
 #include <QVector>
+#include <QtScript/QScriptEngine>
 
 Parser::Parser()
 {
@@ -49,6 +50,37 @@ void Parser::parseMessage(QString message)
             emit messageIsParsed(deviceName, values);
         }
     }
+}
+
+void Parser::parseExpression(QString name, QString expression)
+{
+    expression = "";
+    //Подготовка
+        double x=2;//в какой точки ищем значение функции
+        QString CodeFunction="RESULT = Math.sin(x);RESULT = RESULT + 1;";
+
+        //Необходимые переменные
+        double Result;
+        QScriptEngine engine;
+        QScriptValue scriptFun;
+
+        //подготовка движка QtScript
+        engine.evaluate("function fun(x)\n {\n var RESULT=0;\n"+CodeFunction+"\n return RESULT;\n}\n");
+        scriptFun = engine.globalObject().property("fun");
+
+        //Вычисление значения функции в точке
+        Result = scriptFun.call(QScriptValue(), QScriptValueList() << x).toNumber();
+        QVector<float> values;
+        values << Result;
+
+        if (!mMap.contains(name))
+        {
+            ElementaryDataSource *newDataSource = new ElementaryDataSource();
+
+            addDataSource(name, newDataSource);
+        }
+
+        emit messageIsParsed(name, values);
 }
 
 void Parser::sendData(QString deviceName, QVector<float> values)

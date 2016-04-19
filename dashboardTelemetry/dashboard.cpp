@@ -20,6 +20,8 @@ Dashboard::Dashboard(ICommunicator *tcpCommunicator, ICommunicator *udpCommunica
     connect(mFacade, &Facade::subscribeWidgetToDataSource, &mPanel, &ControlPanel::subscribeWidgetToDataSource);
     connect(mFacade, &Facade::unscribeWidgetFromDataSource, &mPanel, &ControlPanel::unscribeWidgetFromDataSource);
 
+    connect(&mPanel, &ControlPanel::expressionIsCreated, mFacade, &Facade::expressionIsCreated);
+
 }
 
 void Dashboard::connectToTRIK(QString ip, int port)

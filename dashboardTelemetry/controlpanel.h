@@ -26,6 +26,7 @@ signals:
     void setConnection(QString ip, int port);
     void requestDataToSubscribe(QString, QString);
     void requestDataToUnscribe(QString, QString);
+    void expressionIsCreated(QString name, QString expression);
 
 public slots:
     void setStatusBarText(const QString text);

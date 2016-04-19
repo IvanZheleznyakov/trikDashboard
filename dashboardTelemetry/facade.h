@@ -17,6 +17,7 @@ public:
 signals:
     void subscribeWidgetToDataSource(IDataSource *, QString, QString);
     void unscribeWidgetFromDataSource(IDataSource *, QString, QString);
+    void expressionIsCreated(QString name, QString expression);
 
 public slots:
     void requestDataToSubscribe(QString widgetName, QString deviceName);

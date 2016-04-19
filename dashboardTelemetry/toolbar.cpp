@@ -170,24 +170,21 @@ void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfSensors)
     }
 }
 
-void ToolBar::insertNewExpression(QString deviceName, QString expression)
+void ToolBar::insertNewExpression(QString name, QString expression)
 {
-//    QVector<QString> nameOfSensor;
-//    nameOfSensor.append(deviceName);
-//    insertGroupOfWidgets(nameOfSensor);
     QToolBox *groupToolBox = new QToolBox();
     QGroupBox *widgetGroupBox = new QGroupBox();
     QVBoxLayout *widgetLayout = new QVBoxLayout;
-    WidgetButton *expressionWidgetButton = createPlotButton(deviceName);
+    WidgetButton *expressionWidgetButton = createPlotButton(name);
     connect(expressionWidgetButton, &WidgetButton::sendDataFromButton,
             this, &ToolBar::widgetButtonIsPressed);
     widgetLayout->addWidget(expressionWidgetButton);
-    widgetLayout->addWidget(createTableButton(deviceName));
+//    widgetLayout->addWidget(createTableButton(deviceName));
     widgetGroupBox->setLayout(widgetLayout);
     groupToolBox->addItem(widgetGroupBox, "");
-    groupToolBox->setItemText(0, deviceName);
+    groupToolBox->setItemText(0, name);
     mTelemetry->widget(7)->layout()->addWidget(groupToolBox);
-
+    emit expressionIsCreated(name, expression);
 }
 
 WidgetButton *ToolBar::createPlotButton(QString deviceName)

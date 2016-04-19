@@ -23,6 +23,7 @@ signals:
     void setConnection(QString ip, int port);
     void requestDataToSubscribe(QString, QString);
     void requestDataToUnscribe(QString, QString);
+    void expressionIsCreated(QString name, QString expression);
 
 protected:
     void enterEvent(QEvent *);
