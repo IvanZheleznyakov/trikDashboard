@@ -13,6 +13,7 @@ ToolBar::ToolBar()
     menuBox = new QToolBox();
     setMovable(false);
     this->setFixedWidth(TOOLBAR_WIDTH);
+    expressionInputDialog = new ExpressionInputDialog();
 
     insertToolBox();
 
@@ -244,7 +245,6 @@ void ToolBar::connectButtonPressed()
 
 void ToolBar::addExpressionButtonIsClicked()
 {
-    expressionInputDialog = new ExpressionInputDialog();
     expressionInputDialog->show();
 }
 
