@@ -15,6 +15,7 @@ public:
 private slots:
     void okButtonIsClicked();
     void cancelButtonIsClicked();
+    void textIsChanged();
 
 private:
     QLabel *nameLabel;

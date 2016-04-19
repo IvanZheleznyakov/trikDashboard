@@ -31,13 +31,14 @@ protected:
 public slots:
     void insertTelemetry();
     void deleteTelemetry();
-    void connectButtons();
 
 private slots:
     void retranslateUi();
     void insertToolBox();
     void connectButtonPressed();
+    void connectButtons();
     void insertGroupOfWidgets(QVector<QString> &nameOfWidgets);
+    void insertNewExpression();
     void widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive);
     void addExpressionButtonIsClicked();
     WidgetButton *createPlotButton(QString deviceName);

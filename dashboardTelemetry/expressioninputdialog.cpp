@@ -12,9 +12,12 @@ ExpressionInputDialog::ExpressionInputDialog(): QDialog()
     expressionLineEdit = new QLineEdit();
     okButton = new QPushButton("OK");
     cancelButton = new QPushButton("Cancel");
+    okButton->setEnabled(false);
 
     connect(okButton, QPushButton::clicked, this, ExpressionInputDialog::okButtonIsClicked);
-    connect(cancelButton, QPushButton::clicked, this, ExpressionInputDialog::cancelButtonIsClicked);
+    connect(cancelButton, QPushButton::clicked, this, ExpressionInputDialog::close);
+    connect(nameLineEdit, QLineEdit::textChanged, this, ExpressionInputDialog::textIsChanged);
+    connect(expressionLineEdit, QLineEdit::textChanged, this, ExpressionInputDialog::textIsChanged);
 
     QHBoxLayout *nameLayout = new QHBoxLayout;
     nameLayout->addWidget(nameLabel);
@@ -40,5 +43,10 @@ void ExpressionInputDialog::okButtonIsClicked()
 
 void ExpressionInputDialog::cancelButtonIsClicked()
 {
+    this->close();
+}
 
+void ExpressionInputDialog::textIsChanged()
+{
+    okButton->setEnabled(!nameLineEdit->text().isEmpty() && !expressionLineEdit->text().isEmpty());
 }
