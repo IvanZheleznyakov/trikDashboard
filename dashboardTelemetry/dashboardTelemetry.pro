@@ -32,7 +32,8 @@ SOURCES += \
     lcdnumberwidget.cpp \
     progressbarwidget.cpp \
     tablewidget.cpp \
-    udpcommunicator.cpp
+    udpcommunicator.cpp \
+    expressioninputdialog.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -53,7 +54,8 @@ HEADERS  += \
     lcdnumberwidget.h \
     progressbarwidget.h \
     tablewidget.h \
-    udpcommunicator.h
+    udpcommunicator.h \
+    expressioninputdialog.h
 
 unix {
     target.path = /usr/lib

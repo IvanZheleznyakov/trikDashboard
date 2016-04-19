@@ -1,6 +1,7 @@
 #pragma once
 #include "telemetry_const.h"
 #include "widgetbutton.h"
+#include "expressioninputdialog.h"
 
 #include <QToolBar>
 #include <QLineEdit>
@@ -38,6 +39,7 @@ private slots:
     void connectButtonPressed();
     void insertGroupOfWidgets(QVector<QString> &nameOfWidgets);
     void widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive);
+    void addExpressionButtonIsClicked();
     WidgetButton *createPlotButton(QString deviceName);
     WidgetButton *createLCDNumberButton(QString deviceName);
     WidgetButton *createProgressBarButton(QString deviceName);
@@ -50,6 +52,7 @@ private:
     QLabel *mIpLabel;
     QLabel *mPortLabel;
     QPushButton *mConnectButton;
+    ExpressionInputDialog *expressionInputDialog;
     QToolBox *mTelemetry;
     QVector<WidgetButton *> mWidgetButtons;
 };

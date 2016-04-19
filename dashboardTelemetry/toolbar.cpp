@@ -201,6 +201,7 @@ QPushButton *ToolBar::createExpressionsButton()
     expressionsButton->setText("Add new expression");
     expressionsButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
                                  "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
+    connect(expressionsButton, QPushButton::clicked, this, ToolBar::addExpressionButtonIsClicked);
     return expressionsButton;
 }
 
@@ -239,6 +240,12 @@ void ToolBar::connectButtonPressed()
 {
     int port = mPortTextEdit->text().trimmed().toInt();
     emit setConnection(mIpTextEdit->text(), port);
+}
+
+void ToolBar::addExpressionButtonIsClicked()
+{
+    expressionInputDialog = new ExpressionInputDialog();
+    expressionInputDialog->show();
 }
 
 void ToolBar::widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive)
