@@ -33,7 +33,8 @@ SOURCES += \
     progressbarwidget.cpp \
     tablewidget.cpp \
     udpcommunicator.cpp \
-    expressioninputdialog.cpp
+    expressioninputdialog.cpp \
+    compositedatasource.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -55,7 +56,8 @@ HEADERS  += \
     progressbarwidget.h \
     tablewidget.h \
     udpcommunicator.h \
-    expressioninputdialog.h
+    expressioninputdialog.h \
+    compositedatasource.h
 
 unix {
     target.path = /usr/lib

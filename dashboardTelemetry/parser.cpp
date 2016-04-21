@@ -71,7 +71,7 @@ void Parser::parseExpression(QString name, QString expression)
         //Вычисление значения функции в точке
         Result = scriptFun.call(QScriptValue(), QScriptValueList() << x).toNumber();
         QVector<float> values;
-        values << Result;
+        values << Result << 0.0 << 0.0;
 
         if (!mMap.contains(name))
         {
