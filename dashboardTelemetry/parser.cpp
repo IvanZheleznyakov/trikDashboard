@@ -1,5 +1,6 @@
 #include "parser.h"
 #include "elementarydatasource.h"
+#include "compositedatasource.h"
 #include <QStringList>
 #include <QVector>
 #include <QtScript/QScriptEngine>
@@ -75,7 +76,10 @@ void Parser::parseExpression(QString name, QString expression)
 
         if (!mMap.contains(name))
         {
-            ElementaryDataSource *newDataSource = new ElementaryDataSource();
+            QVector<IDataSource *> dataSources;
+            dataSources.append(mMap["Gyroscope"]);
+            dataSources.append(mMap["Battery"]);
+            CompositeDataSource *newDataSource = new CompositeDataSource(dataSources);
 
             addDataSource(name, newDataSource);
         }

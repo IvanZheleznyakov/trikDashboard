@@ -13,6 +13,9 @@ public:
 signals:
     void recieveNewData(QVector<float> updates);
 
+public slots:
+    virtual void refreshData(QVector<float> submittedData) = 0;
+
 public:
     QVector<float> getData() const;
 
