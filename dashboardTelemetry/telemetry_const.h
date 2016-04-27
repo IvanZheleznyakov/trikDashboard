@@ -36,7 +36,13 @@ public:
 
 //sensors names
 QString const ACCELEROMETER_NAME = "A";
+QString const ACCELEROMETER_NAME_FIRST = "A1";
+QString const ACCELEROMETER_NAME_SECOND = "A2";
+QString const ACCELEROMETER_NAME_THIRD = "A3";
 QString const GYROSCOPE_NAME = "G";
+QString const GYROSCOPE_NAME_FIRST = "G1";
+QString const GYROSCOPE_NAME_SECOND = "G2";
+QString const GYROSCOPE_NAME_THIRD = "G3";
 QString const BATTERY_NAME = "B";
 QString const POWER_MOTOR1_NAME = "M1";
 QString const POWER_MOTOR2_NAME = "M1";
@@ -66,6 +72,7 @@ QSize const PANEL_MIN_SIZE = QSize(640, 480);
 QString const START_IP_STRING = "192.168.1.34";
 QString const START_PORT_STRING = "1221";
 int const START_PORT_INT = 1221;
+QString const LOCAL_IP_STRING = "127.0.0.1";
 
 //shortcuts
 QKeySequence const SHOW_HIDE_SHORTCUT = Qt::CTRL|Qt::Key_Q;
