@@ -5,11 +5,10 @@
 
 class ElementaryDataSource : public IDataSource
 {
-public:
-    ElementaryDataSource();
+    Q_OBJECT
 
-public slots:
-    void refreshData(QVector<float> submittedData);
+public:
+    ElementaryDataSource(QString name);
 
 public:
     void updateData(QVector<float> submittedData);

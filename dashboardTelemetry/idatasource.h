@@ -13,15 +13,16 @@ public:
 signals:
     void recieveNewData(QVector<float> updates);
 
-public slots:
-    virtual void refreshData(QVector<float> submittedData) = 0;
-
 public:
     QVector<float> getData() const;
+
+    QString getName() const;
+    void setName(const QString &value);
 
 protected:
     void setData(const QVector<float> &value);
 
 private:
     QVector<float> mData;
+    QString name;
 };

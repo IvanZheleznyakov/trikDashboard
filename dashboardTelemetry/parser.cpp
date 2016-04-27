@@ -43,7 +43,7 @@ void Parser::parseMessage(QString message)
             }
 
             if (!mMap.contains(deviceName)) {
-                ElementaryDataSource *newDataSource = new ElementaryDataSource();
+                ElementaryDataSource *newDataSource = new ElementaryDataSource(deviceName);
 
                 addDataSource(deviceName, newDataSource);
             }
@@ -79,7 +79,8 @@ void Parser::parseExpression(QString name, QString expression)
             QVector<IDataSource *> dataSources;
             dataSources.append(mMap["Gyroscope"]);
             dataSources.append(mMap["Battery"]);
-            CompositeDataSource *newDataSource = new CompositeDataSource(dataSources);
+            CompositeDataSource *newDataSource = new CompositeDataSource(name, expression, dataSources);
+            connect(newDataSource, &CompositeDataSource::refreshData, this, &Parser::parseExpression);
 
             addDataSource(name, newDataSource);
         }

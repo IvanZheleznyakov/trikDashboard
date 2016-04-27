@@ -5,12 +5,23 @@
 
 class CompositeDataSource : public IDataSource
 {
+    Q_OBJECT
+
 public:
-    CompositeDataSource(QVector<IDataSource *> dataSources);
+    CompositeDataSource(QString name, QString expression, QVector<IDataSource *> dataSources);
+
+signals:
+    void refreshData(QString name, QString expression);
 
 public slots:
-    void refreshData(QVector<float> submittedData);
+    void requestToRefreshData(QVector<float> submittedData);
 
 public:
     void updateData(QVector<float> submittedData);
+
+    QString expression() const;
+    void setExpression(const QString &expression);
+
+private:
+    QString mExpression;
 };
