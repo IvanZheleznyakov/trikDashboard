@@ -6,6 +6,7 @@ Facade::Facade(ICommunicator *tcpCommunicator, ICommunicator *udpCommunicator) :
 {
     mParser = tcpCommunicator->getParser();
     connect(mParser, &Parser::subscribeWidgetToDataSource, this, &Facade::subscribeWidgetToDataSource);
+    connect(this, &Facade::expressionIsCreated, mParser, &Parser::parseExpression);
 }
 
 bool Facade::connectToTRIK(QString ip, int port)

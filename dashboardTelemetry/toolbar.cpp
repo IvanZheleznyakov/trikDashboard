@@ -13,6 +13,8 @@ ToolBar::ToolBar()
     menuBox = new QToolBox();
     setMovable(false);
     this->setFixedWidth(TOOLBAR_WIDTH);
+    expressionInputDialog = new ExpressionInputDialog();
+    connect(expressionInputDialog, ExpressionInputDialog::sendDataToExpression, this, ToolBar::insertNewExpression);
 
     insertToolBox();
 
@@ -35,6 +37,8 @@ void ToolBar::retranslateUi()
         mTelemetry->setItemText(4, tr("Encoders"));
         mTelemetry->setItemText(5, tr("Battery"));
         mTelemetry->setItemText(6, tr("Camera"));
+        mTelemetry->setItemText(7, tr("Expressions"));
+\
     }
 }
 
@@ -85,71 +89,102 @@ void ToolBar::insertTelemetry()
                              "QToolBox::tab:selected { font: italic; color: black;}");
     menuBox->addItem(mTelemetry, "");
 
-    QVector<QString> nameOfWidgets;
+    QVector<QString> nameOfSensors;
 
     //3D sensors
-    nameOfWidgets.append(TelemetryConst::ACCELEROMETER_TITLE());
-    nameOfWidgets.append(TelemetryConst::GYROSCOPE_TITLE());
-    insertGroupOfWidgets(nameOfWidgets);
+    nameOfSensors.append(TelemetryConst::ACCELEROMETER_TITLE());
+    nameOfSensors.append(TelemetryConst::GYROSCOPE_TITLE());
+    insertGroupOfWidgets(nameOfSensors);
 
     //analog sensors
-    insertGroupOfWidgets(nameOfWidgets);
+    insertGroupOfWidgets(nameOfSensors);
 
     //servomotors
-    insertGroupOfWidgets(nameOfWidgets);
+    insertGroupOfWidgets(nameOfSensors);
 
     //power motors
-    nameOfWidgets.append(TelemetryConst::POWER_MOTOR1_TITLE());
-    nameOfWidgets.append(TelemetryConst::POWER_MOTOR2_TITLE());
-    nameOfWidgets.append(TelemetryConst::POWER_MOTOR3_TITLE());
-    nameOfWidgets.append(TelemetryConst::POWER_MOTOR4_TITLE());
-    insertGroupOfWidgets(nameOfWidgets);
+    nameOfSensors.append(TelemetryConst::POWER_MOTOR1_TITLE());
+    nameOfSensors.append(TelemetryConst::POWER_MOTOR2_TITLE());
+    nameOfSensors.append(TelemetryConst::POWER_MOTOR3_TITLE());
+    nameOfSensors.append(TelemetryConst::POWER_MOTOR4_TITLE());
+    insertGroupOfWidgets(nameOfSensors);
 
     //encoders
-    insertGroupOfWidgets(nameOfWidgets);
+    insertGroupOfWidgets(nameOfSensors);
 
     //batteryGroup
-    nameOfWidgets.append(TelemetryConst::BATTERY_TITLE());
-    insertGroupOfWidgets(nameOfWidgets);
+    nameOfSensors.append(TelemetryConst::BATTERY_TITLE());
+    insertGroupOfWidgets(nameOfSensors);
 
     //camera
-    insertGroupOfWidgets(nameOfWidgets);
+    insertGroupOfWidgets(nameOfSensors);
+
+    //expressions
+    nameOfSensors.append("Expressions");
+    insertGroupOfWidgets(nameOfSensors);
 
     connectButtons();
     retranslateUi();
 }
 
-void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfWidgets)
+void ToolBar::insertGroupOfWidgets(QVector<QString> &nameOfSensors)
 {
     QGroupBox *groupBox = new QGroupBox();
     QVBoxLayout *vBoxLayout = new QVBoxLayout;
     QToolBox *groupToolBox = new QToolBox();
 
-    for (int i = 0; i != nameOfWidgets.count(); ++i) {
-        QGroupBox *widgetGroupBox = new QGroupBox();
-        QVBoxLayout *widgetLayout = new QVBoxLayout;
-        if (nameOfWidgets.at(i) == TelemetryConst::ACCELEROMETER_TITLE() ||
-            nameOfWidgets.at(i) == TelemetryConst::GYROSCOPE_TITLE()) {
-            widgetLayout->addWidget(createPlotButton(nameOfWidgets.at(i)));
-        } else if (nameOfWidgets.at(i) == TelemetryConst::BATTERY_TITLE()) {
-            widgetLayout->addWidget(createLCDNumberButton(nameOfWidgets.at(i)));
-        } else if (nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR1_TITLE() ||
-                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR2_TITLE() ||
-                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR3_TITLE() ||
-                   nameOfWidgets.at(i) == TelemetryConst::POWER_MOTOR4_TITLE()) {
-            widgetLayout->addWidget(createProgressBarButton(nameOfWidgets.at(i)));
+    if (nameOfSensors.count() != 0 && nameOfSensors.at(0) == "Expressions")
+    {
+        vBoxLayout->addWidget(createExpressionsButton());
+        vBoxLayout->addStretch(0);
+        groupBox->setLayout(vBoxLayout);
+        mTelemetry->addItem(groupBox, "");
+        nameOfSensors.clear();
+    } else {
+        for (int i = 0; i != nameOfSensors.count(); ++i) {
+            QGroupBox *widgetGroupBox = new QGroupBox();
+            QVBoxLayout *widgetLayout = new QVBoxLayout;
+            if (nameOfSensors.at(i) == TelemetryConst::ACCELEROMETER_TITLE() ||
+                nameOfSensors.at(i) == TelemetryConst::GYROSCOPE_TITLE()) {
+                widgetLayout->addWidget(createPlotButton(nameOfSensors.at(i)));
+            } else if (nameOfSensors.at(i) == TelemetryConst::BATTERY_TITLE()) {
+                widgetLayout->addWidget(createLCDNumberButton(nameOfSensors.at(i)));
+            } else if (nameOfSensors.at(i) == TelemetryConst::POWER_MOTOR1_TITLE() ||
+                       nameOfSensors.at(i) == TelemetryConst::POWER_MOTOR2_TITLE() ||
+                       nameOfSensors.at(i) == TelemetryConst::POWER_MOTOR3_TITLE() ||
+                       nameOfSensors.at(i) == TelemetryConst::POWER_MOTOR4_TITLE()) {
+                widgetLayout->addWidget(createProgressBarButton(nameOfSensors.at(i)));
+            }
+
+            widgetLayout->addWidget(createTableButton(nameOfSensors.at(i)));
+            widgetGroupBox->setLayout(widgetLayout);
+            groupToolBox->addItem(widgetGroupBox, "");
+            groupToolBox->setItemText(i, nameOfSensors.at(i));
+            vBoxLayout->addWidget(groupToolBox);
         }
 
-        widgetLayout->addWidget(createTableButton(nameOfWidgets.at(i)));
-        widgetGroupBox->setLayout(widgetLayout);
-        groupToolBox->addItem(widgetGroupBox, "");
-        groupToolBox->setItemText(i, nameOfWidgets.at(i));
-        vBoxLayout->addWidget(groupToolBox);
+        vBoxLayout->addStretch(0);
+        groupBox->setLayout(vBoxLayout);
+        mTelemetry->addItem(groupBox, "");
+        nameOfSensors.clear();
     }
-    vBoxLayout->addStretch(0);
-    groupBox->setLayout(vBoxLayout);
-    mTelemetry->addItem(groupBox, "");
-    nameOfWidgets.clear();
+}
+
+void ToolBar::insertNewExpression(QString name, QString expression)
+{
+    QToolBox *groupToolBox = new QToolBox();
+    QGroupBox *widgetGroupBox = new QGroupBox();
+    QVBoxLayout *widgetLayout = new QVBoxLayout;
+    WidgetButton *expressionWidgetButton = createPlotButton(name);
+    connect(expressionWidgetButton, &WidgetButton::sendDataFromButton,
+            this, &ToolBar::widgetButtonIsPressed);
+    widgetLayout->addWidget(expressionWidgetButton);
+//    widgetLayout->addWidget(createTableButton(deviceName));
+    widgetGroupBox->setLayout(widgetLayout);
+    groupToolBox->addItem(widgetGroupBox, "");
+    groupToolBox->setItemText(0, name);
+    mTelemetry->widget(7)->layout()->addWidget(groupToolBox);
+    emit expressionIsCreated(name, expression);
 }
 
 WidgetButton *ToolBar::createPlotButton(QString deviceName)
@@ -178,6 +213,16 @@ WidgetButton *ToolBar::createTableButton(QString deviceName)
     WidgetButton *tableButton = new WidgetButton(TelemetryConst::TABLE_TITLE(), deviceName);
     mWidgetButtons.append(tableButton);
     return tableButton;
+}
+
+QPushButton *ToolBar::createExpressionsButton()
+{
+    QPushButton *expressionsButton = new QPushButton();
+    expressionsButton->setText("Add new expression");
+    expressionsButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
+                                 "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
+    connect(expressionsButton, QPushButton::clicked, this, ToolBar::addExpressionButtonIsClicked);
+    return expressionsButton;
 }
 
 void ToolBar::connectButtons()
@@ -215,6 +260,11 @@ void ToolBar::connectButtonPressed()
 {
     int port = mPortTextEdit->text().trimmed().toInt();
     emit setConnection(mIpTextEdit->text(), port);
+}
+
+void ToolBar::addExpressionButtonIsClicked()
+{
+    expressionInputDialog->show();
 }
 
 void ToolBar::widgetButtonIsPressed(QString widgetName, QString deviceName, bool isActive)

@@ -15,6 +15,7 @@ public:
 
 public slots:
     void parseMessage(QString message);
+    void parseExpression(QString name, QString expression);
     void sendData(QString deviceName, QVector<float> values);
     void requestDataToSubscribe(QString widgetName, QString deviceName);
     void requestDataToUnscribe(QString widgetName, QString deviceName);

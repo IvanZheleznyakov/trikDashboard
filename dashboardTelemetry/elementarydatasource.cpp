@@ -1,8 +1,8 @@
 #include "elementarydatasource.h"
 
-ElementaryDataSource::ElementaryDataSource()
+ElementaryDataSource::ElementaryDataSource(QString name)
 {
-
+    setName(name);
 }
 
 void ElementaryDataSource::updateData(QVector<float> submittedData)

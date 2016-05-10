@@ -28,6 +28,7 @@ ControlPanel::ControlPanel(QWidget *parent, Qt::WindowFlags flags)
     connect(mToolBar, &ToolBar::requestDataToUnscribe, this, &ControlPanel::deleteSensorWidget);
     connect(mToolBar, &ToolBar::requestDataToSubscribe, this, &ControlPanel::requestDataToSubscribe);
     connect(mToolBar, &ToolBar::requestDataToUnscribe, this, &ControlPanel::requestDataToUnscribe);
+    connect(mToolBar, &ToolBar::expressionIsCreated, this, &ControlPanel::expressionIsCreated);
     addToolBar(Qt::LeftToolBarArea, mToolBar);
 
     DockOptions opts;
