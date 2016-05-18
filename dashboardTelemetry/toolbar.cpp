@@ -44,8 +44,8 @@ void ToolBar::retranslateUi()
 
 void ToolBar::insertToolBox()
 {
-    menuBox->setStyleSheet("QToolBox::tab { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3); border-radius: 3px; color: darkgray; }"
-                       "QToolBox::tab:selected { font: italic; color: black;}");
+    menuBox->setStyleSheet("QToolBox::tab { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #201f58, stop: 0.4 #201f54, stop: 0.5 #1e1d4d, stop: 1.0 #1b1a46); padding-left: 5px; border-radius: 9px; color: white; }"
+                       "QToolBox::tab:selected { font: italic; color: white;}");
 
     QGroupBox *connectToTRIK = new QGroupBox();
     QVBoxLayout *connectToTRIKLayout = new QVBoxLayout;
@@ -54,7 +54,7 @@ void ToolBar::insertToolBox()
     mPortLabel = new QLabel();
     mPortTextEdit = new QLineEdit(START_PORT_STRING);
     mConnectButton = new QPushButton();
-    mConnectButton->setStyleSheet("QPushButton { background-color: rgb(170, 170, 170); border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
+    mConnectButton->setStyleSheet("QPushButton { background-color: #74afb0; border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
                                  "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
     mIpTextEdit->setFixedHeight(IPTEXT_HEIGHT);
     mPortTextEdit->setFixedHeight(PORTTEXT_HEIGHT);
@@ -85,8 +85,8 @@ void ToolBar::insertToolBox()
 void ToolBar::insertTelemetry()
 {
     mTelemetry = new QToolBox();
-    mTelemetry->setStyleSheet("QToolBox::tab { background: gray; border-radius: 3px; color: darkgray; }"
-                             "QToolBox::tab:selected { font: italic; color: black;}");
+    mTelemetry->setStyleSheet("QToolBox::tab { background: #254871; border-radius: 9px; color: white; }"
+                             "QToolBox::tab:selected { background: #4f89a3; font: italic; color: white;}");
     menuBox->addItem(mTelemetry, "");
 
     QVector<QString> nameOfSensors;
