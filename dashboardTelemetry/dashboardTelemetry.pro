@@ -34,7 +34,8 @@ SOURCES += \
     tablewidget.cpp \
     udpcommunicator.cpp \
     expressioninputdialog.cpp \
-    compositedatasource.cpp
+    compositedatasource.cpp \
+    expressionparser.cpp
 
 HEADERS  += \
     controlpanel.h \
@@ -57,7 +58,8 @@ HEADERS  += \
     tablewidget.h \
     udpcommunicator.h \
     expressioninputdialog.h \
-    compositedatasource.h
+    compositedatasource.h \
+    expressionparser.h
 
 unix {
     target.path = /usr/lib

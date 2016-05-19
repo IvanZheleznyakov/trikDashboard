@@ -54,7 +54,7 @@ void ToolBar::insertToolBox()
     mPortLabel = new QLabel();
     mPortTextEdit = new QLineEdit(START_PORT_STRING);
     mConnectButton = new QPushButton();
-    mConnectButton->setStyleSheet("QPushButton { background-color: #74afb0; border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px;}"
+    mConnectButton->setStyleSheet("QPushButton { background-color: #74afb0; border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px; color: white;}"
                                  "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
     mIpTextEdit->setFixedHeight(IPTEXT_HEIGHT);
     mPortTextEdit->setFixedHeight(PORTTEXT_HEIGHT);
@@ -175,7 +175,7 @@ void ToolBar::insertNewExpression(QString name, QString expression)
     QToolBox *groupToolBox = new QToolBox();
     QGroupBox *widgetGroupBox = new QGroupBox();
     QVBoxLayout *widgetLayout = new QVBoxLayout;
-    WidgetButton *expressionWidgetButton = createPlotButton(name);
+    WidgetButton *expressionWidgetButton = createLCDNumberButton(name);
     connect(expressionWidgetButton, &WidgetButton::sendDataFromButton,
             this, &ToolBar::widgetButtonIsPressed);
     widgetLayout->addWidget(expressionWidgetButton);

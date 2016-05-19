@@ -4,6 +4,7 @@
 #include <QMap>
 #include <QVector>
 #include "idatasource.h"
+#include "expressionparser.h"
 #include "telemetry_const.h"
 
 class Parser : public QObject
@@ -30,5 +31,6 @@ private slots:
 
 private:
     QMap<QString, IDataSource *> mMap;
+    ExpressionParser expressionParser;
 };
 

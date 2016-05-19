@@ -100,6 +100,9 @@ void ControlPanel::createSensorWidget(QString widgetName, QString sensorName)
 void ControlPanel::createDockWidget(QDockWidget* dw)
 {
     addDockWidget(Qt::LeftDockWidgetArea, dw);
+    QDockWidget *test = new QDockWidget();
+    test->setWidget(new QPushButton("test"));
+    addDockWidget(Qt::TopDockWidgetArea, test);
 }
 
 void ControlPanel::deleteSensorWidget(QString widgetName, QString sensorName)
