@@ -3,6 +3,8 @@
 #include "compositedatasource.h"
 #include <QStringList>
 #include <QVector>
+#include <QFile>
+#include <QTime>
 
 #include <QDebug>
 
@@ -48,6 +50,24 @@ void Parser::parseMessage(QString message)
 
                 addDataSource(deviceName, newDataSource);
             }
+
+            QFile file("./testqt.csv");
+            file.open(QFile::Append);
+
+            QTextStream stream(&file);
+      //      while (!file.atEnd())
+      //      {
+        //        QString test;
+      //          stream >> test;
+      //      }
+            stream << deviceName << "," << QTime::currentTime().toString();
+            for (int i = 0; i != values.count(); ++i)
+            {
+                stream << "," << values.at(i);
+            }
+            stream << "\n";
+            file.close();
+
 
             emit messageIsParsed(deviceName, values);
         }

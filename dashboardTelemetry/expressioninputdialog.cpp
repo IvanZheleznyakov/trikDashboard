@@ -12,6 +12,10 @@ ExpressionInputDialog::ExpressionInputDialog(): QDialog()
     expressionLineEdit = new QLineEdit();
     okButton = new QPushButton("OK");
     cancelButton = new QPushButton("Cancel");
+    okButton->setStyleSheet("QPushButton { background-color: #74afb0; border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px; color: white;}"
+                            "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
+    cancelButton->setStyleSheet("QPushButton { background-color: #74afb0; border-style: outset; border-width: 0.5px; border-radius: 5px; border-color: beige; padding: 4px; color: white;}"
+                                "QPushButton:pressed { background-color: rgb(200, 200, 200); border-style: inset; }");
     okButton->setEnabled(false);
 
     connect(okButton, QPushButton::clicked, this, ExpressionInputDialog::okButtonIsClicked);

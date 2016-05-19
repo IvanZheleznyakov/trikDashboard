@@ -1,4 +1,5 @@
 #include "lcdnumberwidget.h"
+//#include <QPushButton>
 
 LCDNumberWidget::LCDNumberWidget(QString title, int timerInterval) :
     ISensorWidget(1, title, timerInterval)
@@ -9,6 +10,7 @@ LCDNumberWidget::LCDNumberWidget(QString title, int timerInterval) :
     init();
 
     getLayout()->addWidget(LCDNumbers);
+//    getLayout()->addWidget(new QPushButton("test"));
     setLayout(getLayout());
 }
 
